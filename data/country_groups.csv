@@ -1,0 +1,278 @@
+iso_code,country,region,income_group,is_aggregate
+ABW,Aruba,Latin America & Caribbean,High income,FALSE
+AFG,Afghanistan,Middle East & North Africa,Low income,FALSE
+AGO,Angola,Sub-Saharan Africa,Lower middle income,FALSE
+AIA,Anguilla,Latin America & Caribbean,NA,FALSE
+ALB,Albania,Europe & Central Asia,Upper middle income,FALSE
+AND,Andorra,Europe & Central Asia,High income,FALSE
+ARE,United Arab Emirates,Middle East & North Africa,High income,FALSE
+ARG,Argentina,Latin America & Caribbean,Upper middle income,FALSE
+ARM,Armenia,Europe & Central Asia,Upper middle income,FALSE
+ASM,American Samoa,East Asia & Pacific,High income,FALSE
+ATG,Antigua and Barbuda,Latin America & Caribbean,High income,FALSE
+AUS,Australia,East Asia & Pacific,High income,FALSE
+AUT,Austria,Europe & Central Asia,High income,FALSE
+AZE,Azerbaijan,Europe & Central Asia,Upper middle income,FALSE
+BDI,Burundi,Sub-Saharan Africa,Low income,FALSE
+BEL,Belgium,Europe & Central Asia,High income,FALSE
+BEN,Benin,Sub-Saharan Africa,Lower middle income,FALSE
+BFA,Burkina Faso,Sub-Saharan Africa,Low income,FALSE
+BGD,Bangladesh,South Asia,Lower middle income,FALSE
+BGR,Bulgaria,Europe & Central Asia,High income,FALSE
+BHR,Bahrain,Middle East & North Africa,High income,FALSE
+BHS,"Bahamas, The",Latin America & Caribbean,High income,FALSE
+BIH,Bosnia and Herzegovina,Europe & Central Asia,Upper middle income,FALSE
+BLR,Belarus,Europe & Central Asia,Upper middle income,FALSE
+BLZ,Belize,Latin America & Caribbean,Upper middle income,FALSE
+BMU,Bermuda,North America,High income,FALSE
+BOL,Bolivia,Latin America & Caribbean,Lower middle income,FALSE
+BRA,Brazil,Latin America & Caribbean,Upper middle income,FALSE
+BRB,Barbados,Latin America & Caribbean,High income,FALSE
+BRN,Brunei Darussalam,East Asia & Pacific,High income,FALSE
+BTN,Bhutan,South Asia,Lower middle income,FALSE
+BWA,Botswana,Sub-Saharan Africa,Upper middle income,FALSE
+CAF,Central African Republic,Sub-Saharan Africa,Low income,FALSE
+CAN,Canada,North America,High income,FALSE
+CHE,Switzerland,Europe & Central Asia,High income,FALSE
+CHI,Channel Islands,Europe & Central Asia,High income,FALSE
+CHL,Chile,Latin America & Caribbean,High income,FALSE
+CHN,China,East Asia & Pacific,Upper middle income,FALSE
+CIV,Côte d'Ivoire,Sub-Saharan Africa,Lower middle income,FALSE
+CMR,Cameroon,Sub-Saharan Africa,Lower middle income,FALSE
+COD,"Congo, Dem. Rep.",Sub-Saharan Africa,Low income,FALSE
+COG,"Congo, Rep.",Sub-Saharan Africa,Lower middle income,FALSE
+COK,Cook Islands,East Asia & Pacific,NA,FALSE
+COL,Colombia,Latin America & Caribbean,Upper middle income,FALSE
+COM,Comoros,Sub-Saharan Africa,Lower middle income,FALSE
+CPV,Cabo Verde,Sub-Saharan Africa,Upper middle income,FALSE
+CRI,Costa Rica,Latin America & Caribbean,High income,FALSE
+CUB,Cuba,Latin America & Caribbean,Upper middle income,FALSE
+CUW,Curaçao,Latin America & Caribbean,High income,FALSE
+CYM,Cayman Islands,Latin America & Caribbean,High income,FALSE
+CYP,Cyprus,Europe & Central Asia,High income,FALSE
+CZE,Czechia,Europe & Central Asia,High income,FALSE
+DEU,Germany,Europe & Central Asia,High income,FALSE
+DJI,Djibouti,Middle East & North Africa,Lower middle income,FALSE
+DMA,Dominica,Latin America & Caribbean,Upper middle income,FALSE
+DNK,Denmark,Europe & Central Asia,High income,FALSE
+DOM,Dominican Republic,Latin America & Caribbean,Upper middle income,FALSE
+DZA,Algeria,Middle East & North Africa,Upper middle income,FALSE
+ECU,Ecuador,Latin America & Caribbean,Upper middle income,FALSE
+EGY,"Egypt, Arab Rep.",Middle East & North Africa,Lower middle income,FALSE
+ERI,Eritrea,Sub-Saharan Africa,Low income,FALSE
+ESP,Spain,Europe & Central Asia,High income,FALSE
+EST,Estonia,Europe & Central Asia,High income,FALSE
+ETH,Ethiopia,Sub-Saharan Africa,Low income,FALSE
+FIN,Finland,Europe & Central Asia,High income,FALSE
+FJI,Fiji,East Asia & Pacific,Upper middle income,FALSE
+FRA,France,Europe & Central Asia,High income,FALSE
+FRO,Faroe Islands,Europe & Central Asia,High income,FALSE
+FSM,"Micronesia, Fed. Sts.",East Asia & Pacific,Upper middle income,FALSE
+GAB,Gabon,Sub-Saharan Africa,Upper middle income,FALSE
+GBR,United Kingdom,Europe & Central Asia,High income,FALSE
+GEO,Georgia,Europe & Central Asia,Upper middle income,FALSE
+GHA,Ghana,Sub-Saharan Africa,Lower middle income,FALSE
+GIB,Gibraltar,Europe & Central Asia,High income,FALSE
+GIN,Guinea,Sub-Saharan Africa,Lower middle income,FALSE
+GMB,"Gambia, The",Sub-Saharan Africa,Low income,FALSE
+GNB,Guinea-Bissau,Sub-Saharan Africa,Low income,FALSE
+GNQ,Equatorial Guinea,Sub-Saharan Africa,Upper middle income,FALSE
+GRC,Greece,Europe & Central Asia,High income,FALSE
+GRD,Grenada,Latin America & Caribbean,Upper middle income,FALSE
+GRL,Greenland,Europe & Central Asia,High income,FALSE
+GTM,Guatemala,Latin America & Caribbean,Upper middle income,FALSE
+GUM,Guam,East Asia & Pacific,High income,FALSE
+GUY,Guyana,Latin America & Caribbean,High income,FALSE
+HKG,"Hong Kong SAR, China",East Asia & Pacific,High income,FALSE
+HND,Honduras,Latin America & Caribbean,Lower middle income,FALSE
+HRV,Croatia,Europe & Central Asia,High income,FALSE
+HTI,Haiti,Latin America & Caribbean,Lower middle income,FALSE
+HUN,Hungary,Europe & Central Asia,High income,FALSE
+IDN,Indonesia,East Asia & Pacific,Upper middle income,FALSE
+IMN,Isle of Man,Europe & Central Asia,High income,FALSE
+IND,India,South Asia,Lower middle income,FALSE
+IRL,Ireland,Europe & Central Asia,High income,FALSE
+IRN,"Iran, Islamic Rep.",Middle East & North Africa,Upper middle income,FALSE
+IRQ,Iraq,Middle East & North Africa,Upper middle income,FALSE
+ISL,Iceland,Europe & Central Asia,High income,FALSE
+ISR,Israel,Middle East & North Africa,High income,FALSE
+ITA,Italy,Europe & Central Asia,High income,FALSE
+JAM,Jamaica,Latin America & Caribbean,Upper middle income,FALSE
+JOR,Jordan,Middle East & North Africa,Upper middle income,FALSE
+JPN,Japan,East Asia & Pacific,High income,FALSE
+KAZ,Kazakhstan,Europe & Central Asia,Upper middle income,FALSE
+KEN,Kenya,Sub-Saharan Africa,Lower middle income,FALSE
+KGZ,Kyrgyz Republic,Europe & Central Asia,Lower middle income,FALSE
+KHM,Cambodia,East Asia & Pacific,Lower middle income,FALSE
+KIR,Kiribati,East Asia & Pacific,Lower middle income,FALSE
+KNA,St. Kitts and Nevis,Latin America & Caribbean,High income,FALSE
+KOR,"Korea, Rep.",East Asia & Pacific,High income,FALSE
+KWT,Kuwait,Middle East & North Africa,High income,FALSE
+LAO,Lao PDR,East Asia & Pacific,Lower middle income,FALSE
+LBN,Lebanon,Middle East & North Africa,Lower middle income,FALSE
+LBR,Liberia,Sub-Saharan Africa,Low income,FALSE
+LBY,Libya,Middle East & North Africa,Upper middle income,FALSE
+LCA,St. Lucia,Latin America & Caribbean,Upper middle income,FALSE
+LIE,Liechtenstein,Europe & Central Asia,High income,FALSE
+LKA,Sri Lanka,South Asia,Upper middle income,FALSE
+LSO,Lesotho,Sub-Saharan Africa,Lower middle income,FALSE
+LTU,Lithuania,Europe & Central Asia,High income,FALSE
+LUX,Luxembourg,Europe & Central Asia,High income,FALSE
+LVA,Latvia,Europe & Central Asia,High income,FALSE
+MAC,"Macao SAR, China",East Asia & Pacific,High income,FALSE
+MAF,St. Martin (French part),Latin America & Caribbean,High income,FALSE
+MAR,Morocco,Middle East & North Africa,Lower middle income,FALSE
+MCO,Monaco,Europe & Central Asia,High income,FALSE
+MDA,Moldova,Europe & Central Asia,Upper middle income,FALSE
+MDG,Madagascar,Sub-Saharan Africa,Low income,FALSE
+MDV,Maldives,South Asia,Upper middle income,FALSE
+MEX,Mexico,Latin America & Caribbean,Upper middle income,FALSE
+MHL,Marshall Islands,East Asia & Pacific,Upper middle income,FALSE
+MKD,North Macedonia,Europe & Central Asia,Upper middle income,FALSE
+MLI,Mali,Sub-Saharan Africa,Low income,FALSE
+MLT,Malta,Middle East & North Africa,High income,FALSE
+MMR,Myanmar,East Asia & Pacific,Lower middle income,FALSE
+MNE,Montenegro,Europe & Central Asia,Upper middle income,FALSE
+MNG,Mongolia,East Asia & Pacific,Upper middle income,FALSE
+MNP,Northern Mariana Islands,East Asia & Pacific,High income,FALSE
+MOZ,Mozambique,Sub-Saharan Africa,Low income,FALSE
+MRT,Mauritania,Sub-Saharan Africa,Lower middle income,FALSE
+MUS,Mauritius,Sub-Saharan Africa,Upper middle income,FALSE
+MWI,Malawi,Sub-Saharan Africa,Low income,FALSE
+MYS,Malaysia,East Asia & Pacific,Upper middle income,FALSE
+NAM,Namibia,Sub-Saharan Africa,Lower middle income,FALSE
+NCL,New Caledonia,East Asia & Pacific,High income,FALSE
+NER,Niger,Sub-Saharan Africa,Low income,FALSE
+NGA,Nigeria,Sub-Saharan Africa,Lower middle income,FALSE
+NIC,Nicaragua,Latin America & Caribbean,Lower middle income,FALSE
+NIU,Niue,East Asia & Pacific,NA,FALSE
+NLD,Netherlands,Europe & Central Asia,High income,FALSE
+NOR,Norway,Europe & Central Asia,High income,FALSE
+NPL,Nepal,South Asia,Lower middle income,FALSE
+NRU,Naoero,East Asia & Pacific,High income,FALSE
+NZL,New Zealand,East Asia & Pacific,High income,FALSE
+OMN,Oman,Middle East & North Africa,High income,FALSE
+PAK,Pakistan,Middle East & North Africa,Lower middle income,FALSE
+PAN,Panama,Latin America & Caribbean,High income,FALSE
+PER,Peru,Latin America & Caribbean,Upper middle income,FALSE
+PHL,Philippines,East Asia & Pacific,Upper middle income,FALSE
+PLW,Palau,East Asia & Pacific,High income,FALSE
+PNG,Papua New Guinea,East Asia & Pacific,Lower middle income,FALSE
+POL,Poland,Europe & Central Asia,High income,FALSE
+PRI,Puerto Rico (US),Latin America & Caribbean,High income,FALSE
+PRK,"Korea, Dem. People's Rep.",East Asia & Pacific,Low income,FALSE
+PRT,Portugal,Europe & Central Asia,High income,FALSE
+PRY,Paraguay,Latin America & Caribbean,Upper middle income,FALSE
+PSE,West Bank and Gaza,Middle East & North Africa,Lower middle income,FALSE
+PYF,French Polynesia,East Asia & Pacific,High income,FALSE
+QAT,Qatar,Middle East & North Africa,High income,FALSE
+ROU,Romania,Europe & Central Asia,High income,FALSE
+RUS,Russian Federation,Europe & Central Asia,High income,FALSE
+RWA,Rwanda,Sub-Saharan Africa,Low income,FALSE
+SAU,Saudi Arabia,Middle East & North Africa,High income,FALSE
+SDN,Sudan,Sub-Saharan Africa,Low income,FALSE
+SEN,Senegal,Sub-Saharan Africa,Lower middle income,FALSE
+SGP,Singapore,East Asia & Pacific,High income,FALSE
+SHN,Saint Helena,Sub-Saharan Africa,NA,FALSE
+SLB,Solomon Islands,East Asia & Pacific,Lower middle income,FALSE
+SLE,Sierra Leone,Sub-Saharan Africa,Low income,FALSE
+SLV,El Salvador,Latin America & Caribbean,Upper middle income,FALSE
+SMR,San Marino,Europe & Central Asia,High income,FALSE
+SOM,"Somalia, Fed. Rep.",Sub-Saharan Africa,Low income,FALSE
+SRB,Serbia,Europe & Central Asia,Upper middle income,FALSE
+SSD,South Sudan,Sub-Saharan Africa,Low income,FALSE
+STP,São Tomé and Principe,Sub-Saharan Africa,Lower middle income,FALSE
+SUR,Suriname,Latin America & Caribbean,Upper middle income,FALSE
+SVK,Slovak Republic,Europe & Central Asia,High income,FALSE
+SVN,Slovenia,Europe & Central Asia,High income,FALSE
+SWE,Sweden,Europe & Central Asia,High income,FALSE
+SWZ,Eswatini,Sub-Saharan Africa,Lower middle income,FALSE
+SXM,Sint Maarten (Dutch part),Latin America & Caribbean,High income,FALSE
+SYC,Seychelles,Sub-Saharan Africa,High income,FALSE
+SYR,Syrian Arab Republic,Middle East & North Africa,Low income,FALSE
+TCA,Turks and Caicos Islands,Latin America & Caribbean,High income,FALSE
+TCD,Chad,Sub-Saharan Africa,Low income,FALSE
+TGO,Togo,Sub-Saharan Africa,Lower middle income,FALSE
+THA,Thailand,East Asia & Pacific,Upper middle income,FALSE
+TJK,Tajikistan,Europe & Central Asia,Lower middle income,FALSE
+TKM,Turkmenistan,Europe & Central Asia,Upper middle income,FALSE
+TLS,Timor-Leste,East Asia & Pacific,Lower middle income,FALSE
+TON,Tonga,East Asia & Pacific,Upper middle income,FALSE
+TTO,Trinidad and Tobago,Latin America & Caribbean,High income,FALSE
+TUN,Tunisia,Middle East & North Africa,Lower middle income,FALSE
+TUR,Türkiye,Europe & Central Asia,Upper middle income,FALSE
+TUV,Tuvalu,East Asia & Pacific,Upper middle income,FALSE
+TWN,Taiwan,East Asia & Pacific,NA,FALSE
+TZA,Tanzania,Sub-Saharan Africa,Lower middle income,FALSE
+UGA,Uganda,Sub-Saharan Africa,Low income,FALSE
+UKR,Ukraine,Europe & Central Asia,Upper middle income,FALSE
+URY,Uruguay,Latin America & Caribbean,High income,FALSE
+USA,United States,North America,High income,FALSE
+UZB,Uzbekistan,Europe & Central Asia,Lower middle income,FALSE
+VCT,St. Vincent and the Grenadines,Latin America & Caribbean,Upper middle income,FALSE
+VEN,"Venezuela, RB",Latin America & Caribbean,Lower middle income,FALSE
+VGB,British Virgin Islands,Latin America & Caribbean,High income,FALSE
+VIR,Virgin Islands (US),Latin America & Caribbean,High income,FALSE
+VNM,Viet Nam,East Asia & Pacific,Upper middle income,FALSE
+VUT,Vanuatu,East Asia & Pacific,Lower middle income,FALSE
+WSM,Samoa,East Asia & Pacific,Upper middle income,FALSE
+XKX,Kosovo,Europe & Central Asia,Upper middle income,FALSE
+YEM,"Yemen, Rep.",Middle East & North Africa,Low income,FALSE
+ZAF,South Africa,Sub-Saharan Africa,Upper middle income,FALSE
+ZMB,Zambia,Sub-Saharan Africa,Lower middle income,FALSE
+ZWE,Zimbabwe,Sub-Saharan Africa,Lower middle income,FALSE
+AFE,Africa Eastern and Southern,NA,NA,TRUE
+AFW,Africa Western and Central,NA,NA,TRUE
+ANNEXI,Annex I Parties,NA,NA,TRUE
+AOSIS,Alliance of Small Island States,NA,NA,TRUE
+ARB,Arab World,NA,NA,TRUE
+BASIC,BASIC countries,NA,NA,TRUE
+CEB,Central Europe and the Baltics,NA,NA,TRUE
+CSS,Caribbean small states,NA,NA,TRUE
+EAP,East Asia & Pacific (excluding high income),NA,NA,TRUE
+EAR,Early-demographic dividend,NA,NA,TRUE
+EARTH,World,NA,NA,TRUE
+EAS,East Asia & Pacific,NA,NA,TRUE
+ECA,Europe & Central Asia (excluding high income),NA,NA,TRUE
+ECS,Europe & Central Asia,NA,NA,TRUE
+EMU,Euro area,NA,NA,TRUE
+EU28,European Union (28),NA,NA,TRUE
+EUU,European Union,NA,NA,TRUE
+FCV,"Fragility, Conflict, and Violence (FCV) situations",NA,NA,TRUE
+HIC,High income,NA,NA,TRUE
+HPC,Heavily indebted poor countries (HIPC),NA,NA,TRUE
+IBD,IBRD only,NA,NA,TRUE
+IBT,IDA & IBRD total,NA,NA,TRUE
+IDA,IDA total,NA,NA,TRUE
+IDB,IDA blend,NA,NA,TRUE
+IDX,IDA only,NA,NA,TRUE
+LAC,Latin America & Caribbean (excluding high income),NA,NA,TRUE
+LCN,Latin America & Caribbean,NA,NA,TRUE
+LDC,Least developed countries: UN classification,NA,NA,TRUE
+LIC,Low income,NA,NA,TRUE
+LMC,Lower middle income,NA,NA,TRUE
+LMY,Low & middle income,NA,NA,TRUE
+LTE,Late-demographic dividend,NA,NA,TRUE
+MEA,"Middle East, North Africa, Afghanistan & Pakistan",NA,NA,TRUE
+MIC,Middle income,NA,NA,TRUE
+MNA,"Middle East, North Africa, Afghanistan & Pakistan (excluding high income)",NA,NA,TRUE
+NAC,North America,NA,NA,TRUE
+NONANNEXI,Non-Annex I Parties,NA,NA,TRUE
+OED,OECD members,NA,NA,TRUE
+OSS,Other small states,NA,NA,TRUE
+PRE,Pre-demographic dividend,NA,NA,TRUE
+PSS,Pacific island small states,NA,NA,TRUE
+PST,Post-demographic dividend,NA,NA,TRUE
+SAS,South Asia,NA,NA,TRUE
+SSA,Sub-Saharan Africa (excluding high income),NA,NA,TRUE
+SSF,Sub-Saharan Africa,NA,NA,TRUE
+SST,Small states,NA,NA,TRUE
+TEA,East Asia & Pacific (IDA & IBRD),NA,NA,TRUE
+TEC,Europe & Central Asia (IDA & IBRD),NA,NA,TRUE
+TLA,Latin America & Caribbean (IDA & IBRD),NA,NA,TRUE
+TMN,"Middle East, North Africa, Afghanistan & Pakistan (IDA & IBRD)",NA,NA,TRUE
+TSA,South Asia (IDA & IBRD),NA,NA,TRUE
+TSS,Sub-Saharan Africa (IDA & IBRD),NA,NA,TRUE
+UMBRELLA,Umbrella Group,NA,NA,TRUE
+UMC,Upper middle income,NA,NA,TRUE
+WLD,World,NA,NA,TRUE

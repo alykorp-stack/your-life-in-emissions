@@ -1,0 +1,116 @@
+TO DO
+
+final goals:
+
+UNTIL 2023 FOR NOW -> POPULATION ONLY 2023 DATA
+
+Anticipated results
+Landing page:
+About the project, the different page options that exist and that they’ll be able to see
+In the introduction, explain the impact of gasses
+Normalize with two gasses. CO2 and __
+Start with static charts, then make them interactive
+
+Which generations have lived through the greatest cumulative emissions, which historical events drove those emissions, and which countries led global emissions during each generation’s lifetime? 
+
+Scrolly telling input year of birth and seeing which generation they are
+Scrollytelling intro: birth year input that places the user in a generation.
+Cumulative area or line chart of global emissions across their lifetime, with historical events annotated (oil crises, fall of the USSR, China’s rise, 2008, 2020).
+Leader strip or timeline under the chart showing which country was the top emitter in each period.
+
+
+Which countries emit the most right now, and how does that change when we look at cumulative emissions?
+
+Select gasses they want
+
+Choropleth map with year slider and a toggle for annual, cumulative, and per capita.
+Top X vs. rest of the world bar chart, with a selector for X.
+“Pick your countries vs. the rest of the world” chart, a second bar chart where the user chooses the countries.
+
+How have different countries taken the lead in emissions over time, and do the rankings flip when we adjust for population?
+
+Also with two diff gasses
+
+Cumulative over time with a year slider for China, USA, India, UK, Russia.
+Per capita comparison for Qatar, Australia, Germany, Brazil, Indonesia, Canada, Nigeria.
+Parallel coordinates as the final exploratory chart, comparing all of these countries across axes like total, cumulative, per capita, and emissions per GDP.
+
+
+
+ - Multi-gas breakdown tab: A separate section showing global (and eventually national) trends for individual greenhouse gases beyond CO2 such as methane, nitrous oxide, etc. With a slider or dropdown to move through time and compare gases side by side. Or clicking boxes for each gas and superimposing charts? This could be done similar to https://jhelvy.github.io/potus-econ-scorecard/. 
+
+
+What's next: carbon budget, what countries are doing to move forward
+
+
+ About/methodology page: Full documentation of data sources, an explanation of how emissions are attributed to countries that didn't historically exist, a description of the process used to build the website, and a discussion of the dataset's limitations and gaps.
+
+
+
+## Breakdown of things to do
+
+ONE TIDY YEAR-COUNTRY-EMISIONS TABLE WITH CO2, CH4
+
+make emissions_country_year.csv (master table)
+
+columns:
+
+- iso_code, country, year
+- gasses anually all with SAME UNITS
+- gasses cumulative since set year (1900?)
+- population (for per capita)
+- gas per capita (compute with prior col)
+- share of global gas anually
+- share of global gas cumulative
+
+other:
+- rank annual
+- rank cumulative
+- rank per capita
+
+### Breakdown of smaller tables for graphs
+
+- emissions_global_per_year.csv
+- generations.csv (year and name)
+- events.csv - per generations (num of years) (oil crisis 1973/1979, USSR fall 1991, China WTO 2001, 2008 crash, 2020 COVID)
+- top_emitter_by_year.csv
+
+
+### Page organization
+
+**Landing page**
+- Data: emissions_global_year.csv, plus warming potential (GWP) values per gas in a tiny gases.csv
+- Needs: global annual emissions per gas plus a short “impact of gases” text, explaining the warming potential, different impacts/history.
+
+**Page A: Which generations lived through the greatest cumulative emissions?**
+
+Scrollytelling input: birth year → generation via generations.csv.
+Cumulative chart: from emissions_global_year.csv, filter to years ≥ birth year and compute the running sum from their birth year (this differs from the dataset’s cumulative-since-1750 column, so compute it in code).
+Annotations: events.csv.
+Leader strip: top_emitter_by_year.csv, grouped into periods (e.g. UK → USA → China).
+Watch out for: historical entities (USSR, Czechoslovakia, Yugoslavia, Germany pre-1990). Decide how to treat them (this is your methodology page content).
+
+**Page B: ho emits the most now, and how does that change cumulatively?**
+
+Choropleth: master table filtered by year, with a metric toggle (annual / cumulative / per capita) and a gas selector. Needs ISO codes to join to map geometry (a GeoJSON/TopoJSON world file, the one non-CSV you’ll need).
+Top X vs rest: compute from the master table: sort by metric, sum top X, rest = world − top X.
+Pick your countries: same logic, user-selected subset.
+
+**Page C: How have leaders changed, and do rankings flip per capita?**
+
+mulative over time (China, USA, India, UK, Russia): just a filtered slice of the master table.
+Per capita comparison (Qatar, Australia, Germany, Brazil, Indonesia, Canada, Nigeria): same, using the per capita columns.
+Parallel coordinates: one row per country for a chosen year, with columns: total, cumulative, per capita, per GDP. A small derived file, parallel_coords_latest.csv, makes this easy. Normalize each axis to 0-1 or keep raw with independent scales.
+Rank flips: the rank columns in the master table cover this.
+
+Multi-gas tab
+Same master table, just more gas columns (CH4, N2O, and optionally F-gases). Convert everything to CO2-equivalent with a stated GWP, otherwise the gases can’t be compared side by side. Superimposed charts work well with a long-format version of the table, so also export emissions_long.csv: iso_code, year, gas, value. This is easier for checkbox toggles.
+
+**Whats next**
+
+What’s next
+Carbon budget: remaining budget (from IPCC/Global Carbon Budget) in a small carbon_budget.csv: temperature target, probability, remaining GtCO2, year of estimate. Compare it to current annual emissions to compute “years left.”
+Country pledges: ndc_targets.csv: country, target year, target type, % reduction vs baseline, net-zero year, source. This is hand-curated, so scope it to your featured countries.
+About/methodology
+Keep a sources.csv (dataset, publisher, version, URL, access date, license, which charts use it). It doubles as documentation and keeps you honest later.
+Log the limitations as you clean (missing years, territorial vs consumption-based accounting, defunct states).
