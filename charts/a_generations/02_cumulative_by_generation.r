@@ -1,6 +1,6 @@
 # Emissions lived through by a typical member of each generation (Silent to Gen Alpha).
 #
-# Vertical bar chart, one bar group per generation in generation order. A "typical member" is born in the
+# Horizontal bar chart, one bar group per generation in generation order. A "typical member" is born in the
 # midpoint of the generation's birth years. Two panels: the share of all emissions since 1850 that were
 # emitted from that birth year to 2024, and the average emissions per year lived. The first favors older
 # generations (more years); the second favors younger ones (all their years are high-emission years).
@@ -55,11 +55,13 @@ panel <- function(metric_name, y_labels, title) {
   by_generation |>
     filter(metric == metric_name) |>
     ggplot(aes(label, value, fill = gas)) +
-    geom_col(position = position_dodge(width = 0.8), width = 0.75) +
+    geom_col(position = position_dodge2(width = 0.8, reverse = TRUE), width = 0.75) +
     scale_fill_manual(values = gasColors) +
+    scale_x_discrete(limits = rev) +   # first generation at the top
     scale_y_continuous(expand = expansion(mult = c(0, 0.05)), labels = y_labels) +
+    coord_flip() +
     labs(x = NULL, y = NULL, fill = NULL, title = title) +
-    theme_minimal_hgrid(font_family = font, font_size = 12) +
+    theme_minimal_vgrid(font_family = font, font_size = 12) +
     theme(legend.position = "none",
           plot.title.position = "plot",
           panel.background = element_rect(fill = "white", color = NA),
@@ -109,10 +111,11 @@ p <- wide |>
   e_bar_(rate_cols[2], name = "CH4", x_index = 1, y_index = 1) |>
   e_grid(left = "6%", right = "54%", top = 120, bottom = 70) |>
   e_grid(left = "56%", right = "3%", top = 120, bottom = 70) |>
-  e_x_axis(index = 0, gridIndex = 0, axisLabel = list(interval = 0)) |>
-  e_x_axis(index = 1, gridIndex = 1, axisLabel = list(interval = 0)) |>
-  e_y_axis(index = 0, gridIndex = 0, formatter = e_axis_formatter("percent", digits = 0)) |>
-  e_y_axis(index = 1, gridIndex = 1) |>
+  e_flip_coords() |>   # generations on the y axis, values on the x axis
+  e_y_axis(index = 0, gridIndex = 0, inverse = TRUE, axisLabel = list(interval = 0)) |>   # first generation at the top
+  e_y_axis(index = 1, gridIndex = 1, inverse = TRUE, axisLabel = list(interval = 0)) |>
+  e_x_axis(index = 0, gridIndex = 0, formatter = e_axis_formatter("percent", digits = 0)) |>
+  e_x_axis(index = 1, gridIndex = 1) |>
   e_color(rep(unname(gasColors), 2)) |>
   e_tooltip(trigger = "item", formatter = bar_tooltip) |>
   e_legend(top = 40, left = 0, selectedMode = FALSE) |>

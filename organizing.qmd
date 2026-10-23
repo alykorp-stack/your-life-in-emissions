@@ -82,13 +82,19 @@ other:
 - Data: emissions_global_year.csv, plus warming potential (GWP) values per gas in a tiny gases.csv
 - Needs: global annual emissions per gas plus a short “impact of gases” text, explaining the warming potential, different impacts/history.
 
-**Page A: Which generations lived through the greatest cumulative emissions?**
+**Page A: Your life in emissions (personal scrollytelling, built)**
 
-Scrollytelling input: birth year → generation via generations.csv.
-Cumulative chart: from emissions_global_year.csv, filter to years ≥ birth year and compute the running sum from their birth year (this differs from the dataset’s cumulative-since-1750 column, so compute it in code).
-Annotations: events.csv.
-Leader strip: top_emitter_by_year.csv, grouped into periods (e.g. UK → USA → China).
-Watch out for: historical entities (USSR, Czechoslovakia, Yugoslavia, Germany pre-1990). Decide how to treat them (this is your methodology page content).
+The visitor enters a birth year once (a box that stays fixed while scrolling) and every step redraws for their lifetime. Built with Quarto, OJS and the closeread extension in `scrolly/index.qmd`; each sticky chart is a standalone echarts4r page in `charts/d_scrollytelling/` shown in an iframe and given the birth year in its address (`?embed=1&birth=1988`). Preview with `quarto preview scrolly/index.qmd`.
+
+1. **The whole record** (`01_lifetime_share`): share of all emissions since 1850 released in the person's lifetime, the halfway year for each gas with their age then, age ticks.
+2. **What the world was going through** (`02_events_impact`): world events as shaded windows, each with emissions against the trend of the 10 years before it (`R/event_impacts.r`). Worded as "coincided with", never "caused".
+3. **Who emitted it** (`03_countries_lifetime`): top 5 emitters of the lifetime, add or remove any country, switch total vs per person (default per person ranking only covers countries with at least 1 million people), gas, running total vs per year.
+4. **Who led, and who was close behind** (`04_leaders_lifetime`): the 1st, 2nd and 3rd largest emitter in every year of the lifetime.
+5. **What if emissions had stopped growing?** (`05_counterfactual`): emissions held at the birth-year level (or changing by a chosen % per year) against the real curve, with the gap in Gt and in years of today's emissions.
+6. **Then and now** (`06_year_vs_today`): emissions in the birth year vs 2024.
+7. **The generational ladder** (`07_generational_ladder`): share of emissions since a parent (30 years earlier) and a grandparent (60 years earlier) were born.
+
+Left out for now: comparing two birth years, a page-wide gas switch (each chart has its own), carbon budget and country pledges ("What's next").
 
 **Page B: ho emits the most now, and how does that change cumulatively?**
 
@@ -114,3 +120,27 @@ Country pledges: ndc_targets.csv: country, target year, target type, % reduction
 About/methodology
 Keep a sources.csv (dataset, publisher, version, URL, access date, license, which charts use it). It doubles as documentation and keeps you honest later.
 Log the limitations as you clean (missing years, territorial vs consumption-based accounting, defunct states).
+
+## Charts built so far and what they use
+
+Every chart has a static PNG (ggplot2) and an interactive HTML. New interactive charts use echarts4r from now on; the plotly ones already built (b_countries_now) stay as they are.
+
+| Chart | Static | Interactive |
+|---|---|---|
+| a_generations/01_annual_since_birth | ggplot2 | echarts4r |
+| a_generations/02_cumulative_by_generation (horizontal bars) | ggplot2 | echarts4r |
+| a_generations/03_leader_strip | ggplot2 | echarts4r |
+| a_generations/04_annual_per_generation (one per generation) | ggplot2 | echarts4r |
+| b_countries_now/01_top_x_vs_rest (horizontal bars) | ggplot2 | plotly |
+| b_countries_now/02_choropleth | ggplot2 | plotly |
+| c_leaders_over_time/01_cumulative_featured | ggplot2 | echarts4r |
+| c_leaders_over_time/02_per_capita_featured | ggplot2 | echarts4r |
+| c_leaders_over_time/03_rank_flip | ggplot2 | echarts4r |
+| c_leaders_over_time/04_parallel_coordinates | ggplot2 | echarts4r |
+| d_scrollytelling/01_lifetime_share (birth year, prototype) | ggplot2 | echarts4r |
+| d_scrollytelling/02_events_impact (birth year, prototype) | ggplot2 | echarts4r |
+| d_scrollytelling/03_countries_lifetime (birth year, any country, prototype) | ggplot2 | echarts4r |
+| d_scrollytelling/04_leaders_lifetime (birth year, gas, prototype) | ggplot2 | echarts4r |
+| d_scrollytelling/05_counterfactual (birth year, rate slider, prototype) | ggplot2 | echarts4r |
+| d_scrollytelling/06_year_vs_today (birth year, prototype) | ggplot2 | echarts4r |
+| d_scrollytelling/07_generational_ladder (birth year, prototype) | ggplot2 | echarts4r |

@@ -1,0 +1,25 @@
+event,start,end,kind,category,gas,baseline_mt,actual_mt,pct_vs_trend,trend_growth_pct,fit_years,description
+World War I,1914,1918,event,geopolitics,CO2,21782.2,19112.2,-12.3,3.79,10,The First World War diverts industry and trade to the war effort and disrupts coal and shipping.
+World War I,1914,1918,event,geopolitics,CH4,11737.9,11776.7,0.3,1.69,10,The First World War diverts industry and trade to the war effort and disrupts coal and shipping.
+Great Depression,1929,1933,event,economy,CO2,24660.4,21027.5,-14.7,2.63,10,A worldwide slump in industrial output and trade cuts energy demand.
+Great Depression,1929,1933,event,economy,CH4,14075.9,13946.5,-0.9,1.09,10,A worldwide slump in industrial output and trade cuts energy demand.
+World War II,1939,1945,event,geopolitics,CO2,34169.7,38449.7,12.5,1.24,10,Total war reshapes industry and energy use across most of the major economies.
+World War II,1939,1945,event,geopolitics,CH4,21366.5,21864.1,2.3,0.82,10,Total war reshapes industry and energy use across most of the major economies.
+1973 oil crisis,1973,1975,event,energy,CO2,56647.2,53907,-4.8,4.76,10,OPEC oil embargo sharply raises oil prices and cuts energy demand in many importing countries.
+1973 oil crisis,1973,1975,event,energy,CH4,21573.2,21420.4,-0.7,3.16,10,OPEC oil embargo sharply raises oil prices and cuts energy demand in many importing countries.
+1979 oil crisis,1979,1983,event,energy,CO2,108928.8,99830.9,-8.4,2.88,10,The Iranian Revolution disrupts oil supply and prices roughly double; a deep recession follows.
+1979 oil crisis,1979,1983,event,energy,CH4,40934.8,36240,-11.5,2.22,10,The Iranian Revolution disrupts oil supply and prices roughly double; a deep recession follows.
+Fall of the USSR,1991,1995,event,geopolitics,CO2,123302.6,114016.5,-7.5,2.06,10,The Soviet Union dissolves; industrial output and emissions in its successor states fall sharply.
+Fall of the USSR,1991,1995,event,geopolitics,CH4,37182.5,37297.6,0.3,0.61,10,The Soviet Union dissolves; industrial output and emissions in its successor states fall sharply.
+Asian financial crisis,1997,1999,event,economy,CO2,70665,72235.2,2.2,0.48,10,Currency and banking crises hit East and Southeast Asia and slow industrial growth.
+Asian financial crisis,1997,1999,event,economy,CH4,23071.3,22349.8,-3.1,0.61,10,Currency and banking crises hit East and Southeast Asia and slow industrial growth.
+Kyoto Protocol,1997,1997,policy,policy,NA,NA,NA,NA,NA,NA,The first international treaty with binding emissions targets for rich countries is adopted.
+China joins the WTO,2001,2007,event,economy,CO2,179634.8,195831.9,9,1.05,10,China's entry into the World Trade Organization accelerates export-led growth and coal use.
+China joins the WTO,2001,2007,event,economy,CH4,52454,54550.8,4,0.03,10,China's entry into the World Trade Organization accelerates export-led growth and coal use.
+Global financial crisis,2008,2010,event,economy,CO2,97769.7,95362.3,-2.5,3.06,10,A worldwide recession cuts industrial activity; emissions dip in 2009 before rebounding.
+Global financial crisis,2008,2010,event,economy,CH4,24805.7,24780.5,-0.1,1.13,10,A worldwide recession cuts industrial activity; emissions dip in 2009 before rebounding.
+Paris Agreement,2015,2015,policy,policy,NA,NA,NA,NA,NA,NA,Nearly every country commits to national climate targets under the Paris Agreement.
+COVID-19 pandemic,2020,2020,event,health,CO2,37131.2,35205.4,-5.2,1.09,10,Lockdowns cut transport and industry; global emissions fall sharply for one year.
+COVID-19 pandemic,2020,2020,event,health,CH4,9082.4,8936.9,-1.6,0.85,10,Lockdowns cut transport and industry; global emissions fall sharply for one year.
+Energy crisis after Ukraine,2022,2023,event,energy,CO2,73907.1,75451.7,2.1,0.65,10,Russia's invasion of Ukraine disrupts gas and oil markets and raises energy prices.
+Energy crisis after Ukraine,2022,2023,event,energy,CH4,18417.4,18531.4,0.6,0.78,10,Russia's invasion of Ukraine disrupts gas and oil markets and raises energy prices.

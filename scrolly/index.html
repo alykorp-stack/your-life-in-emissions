@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Your life in emissions</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="index_files/libs/clipboard/clipboard.min.js"></script>
+<script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/popper.min.js"></script>
+<script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="index_files/libs/quarto-html/anchor.min.js"></script>
+<link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="index_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="index_files/libs/quarto-contrib/intersection-observer-polyfill-1.0.0/intersection-observer.js"></script>
+<script src="index_files/libs/quarto-contrib/scrollama-3.2.0/scrollama.min.js"></script>
+<script src="index_files/libs/quarto-contrib/closeread-0.1.0/closeread.js"></script>
+<script type="module" src="index_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="index_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<script type="ojs-define">
+
+{"contents":[{"name":"world","value":{"year":[1850,1851,1852,1853,1854,1855,1856,1857,1858,1859,1860,1861,1862,1863,1864,1865,1866,1867,1868,1869,1870,1871,1872,1873,1874,1875,1876,1877,1878,1879,1880,1881,1882,1883,1884,1885,1886,1887,1888,1889,1890,1891,1892,1893,1894,1895,1896,1897,1898,1899,1900,1901,1902,1903,1904,1905,1906,1907,1908,1909,1910,1911,1912,1913,1914,1915,1916,1917,1918,1919,1920,1921,1922,1923,1924,1925,1926,1927,1928,1929,1930,1931,1932,1933,1934,1935,1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],"co2":[223.69813346,231.90353096,244.1122354,257.73499981,299.93373045,310.6206363,330.9902914,335.1195652,340.35492575,362.41243967,394.19306779,410.43635241,418.84012104,451.52258678,486.00239453,512.0763309,526.87366667,574.38667346,598.33415306,641.93471528,659.4217427,699.35964235,784.99694401,839.2224442,791.99034721,848.02125454,854.91586938,883.68925464,883.9864206,969.5683121,1093.1991212,1136.2590146,1214.5914899,1295.0767225,1323.9403082,1336.1885649,1369.709302,1443.1404983,1632.8746308,1593.1050361,1715.5130986,1775.8693715,1787.7949155,1770.8449969,1818.7434733,1904.3742367,1952.4950353,2025.5474051,2114.266785,2267.7627211,2372.3500054,2437.0484013815,2495.382165613,2685.062553581,2713.44124836,2866.39914016,2989.53834723,3333.22882267,3214.73764027,3333.3700101,3478.28500416,3534.61300138,3687.4925205,3949.9986361,3644.3711975,3608.3272214,3855.5059984,4021.0111488,3982.999637,3521.7055088,4013.4474887,3574.9478731,3731.3576676,4194.5658993,4202.5879657,4239.9982347,4178.591731,4541.5339673,4521.5726149,4826.5904175,4500.0645593,4077.5137292,3725.6203353,3897.735537,4183.4818531,4371.5834063,4749.3619298,5044.983206,4780.995517,5037.484141,5463.373129,5596.063624,5656.008702,5837.860018,5830.210536,5028.687748,5433.488685,5976.337762,6296.968979,6172.670231,6629.987765,7103.772641,7246.288411,7479.127511,7660.050468,8373.45895,8932.220715,9241.18838,9515.68041,10001.0984,10516.90761,10537.91304,10854.49935,11409.87493,11929.1465,12429.73298,12972.38542,13363.83794,14039.04634,14921.76905,16008.42363,16456.39177,17189.22941,18085.77266,17969.36245,17851.91202,18787.28337,19238.82669,19995.91716,20521.73499,20312.37151,19783.99431,19524.68407,19688.13839,20315.17065,20955.79378,21194.94261,21927.73715,22799.96882,23116.01322,22628.03106,23098.96476,22371.12966,22530.61083,22748.01523,23267.8197,23895.59567,24037.32834,23974.33051,24223.58568,24845.53275,25077.5395,25666.85901,26937.83835,28106.1741,29091.66264,30035.06443,30916.72,31543.12314,31093.88795,32725.25268,33774.07183,34362.9718,34742.4413,35176.6905,35142.7159,35270.0559,35671.9043,36372.4077,36737.8406600668,35205.4200037826,36899.8255681105,37498.647283154,37953.0400890805,38350.7634416754],"ch4":[669.2367523509,686.7413900181,704.3537811402,722.4793297083,741.1307450373,759.3817769523,778.7998435473,798.1379498862,817.202192922,837.4455203409,857.3623740126,876.9387893454,897.6262691961,917.7990509628,938.1322209015,959.0313878451,980.0152262667,1001.0887905582,1021.8013372197,1043.2040185881,1064.2622752935,1085.8388635278,1107.2459040201,1128.9641271903,1150.6774449546,1172.5147249857,1194.3980905158,1215.9386292438,1237.7171443698,1259.1819519237,1281.5872517655,1302.0849764901,1323.7259383665,1344.493884105,1365.54816015,1386.7722621,1406.828552913,1427.497304526,1448.062801587,1467.730687851,1490.665404645,1519.955988912,1548.949655799,1581.4694268,1610.695185696,1641.3385581,1670.704989912,1702.250075808,1730.20167072,1758.092430798,1784.732948352,1810.941807987,1842.421065228,1874.84193882,1910.827157103,1947.388996125,1987.367862816,2023.911053757,2059.033398138,2093.656731489,2122.80785091,2153.644420491,2189.891729142,2228.980441032,2272.318303392,2314.254523041,2356.666050159,2396.638087767,2436.820405443,2469.069416709,2500.209205164,2525.207066136,2551.766351166,2579.018106942,2610.675091926,2638.363879998,2667.437861778,2695.158487656,2722.625254503,2746.325091969,2768.813441964,2788.003353798,2810.414904858,2832.905662065,2856.57119397,2881.206218511,2903.76300888,2932.297296966,2956.108065669,2984.26316346,3012.75223569,3050.07842088,3100.30655373,3161.87076348,3237.79474332,3317.07623427,3395.73152646,3479.05130805,3559.01326326,3629.24367615,3693.74981535,3763.07610084,3853.06071813,3958.64512101,4076.99598357,4203.52430823,4332.78833949,4460.26276989,4585.3987032,4699.73524959,4800.61532187,4895.78354154,5020.98513192,5129.39433726,5279.88957381,5420.80872126,5586.36713712,5767.3672767,5952.71131515,6129.43896312,6384.60183924,6540.62479956,6774.93483624,7179.46210053,7191.81821538,7049.098215,7361.99452764,7336.388142,7603.52450958,7657.85236608,7485.02516601,7045.97349033,7049.35043937,7001.81970921,6919.08652512,6970.22660016,7045.4745909,7050.16696077,7222.38414129,7347.84283017,7435.23121017,7443.39991725,7450.39355166,7452.38276586,7435.18937412,7516.22331708,7584.31578924,7496.811468,7429.80659085,7423.14575322,7494.40230021,7465.03825608,7450.0765407,7673.04835497,7809.80479452,7959.22944948,8062.43725503,8131.17475845,8232.35118732,8188.73410455,8359.38052902,8481.17737359,8545.40890146,8547.17007222,8535.71704968,8565.36220305,8781.08570613,8890.2581913,8987.30522208,9039.99627789695,8936.93658207228,9066.64151508673,9203.88022388102,9327.47675500995,9382.94294477063]}},{"name":"ev","value":{"event":["World War I","World War I","Great Depression","Great Depression","World War II","World War II","1973 oil crisis","1973 oil crisis","1979 oil crisis","1979 oil crisis","Fall of the USSR","Fall of the USSR","Asian financial crisis","Asian financial crisis","Kyoto Protocol","China joins the WTO","China joins the WTO","Global financial crisis","Global financial crisis","Paris Agreement","COVID-19 pandemic","COVID-19 pandemic","Energy crisis after Ukraine","Energy crisis after Ukraine"],"start":[1914,1914,1929,1929,1939,1939,1973,1973,1979,1979,1991,1991,1997,1997,1997,2001,2001,2008,2008,2015,2020,2020,2022,2022],"end":[1918,1918,1933,1933,1945,1945,1975,1975,1983,1983,1995,1995,1999,1999,1997,2007,2007,2010,2010,2015,2020,2020,2023,2023],"kind":["event","event","event","event","event","event","event","event","event","event","event","event","event","event","policy","event","event","event","event","policy","event","event","event","event"],"gas":["CO2","CH4","CO2","CH4","CO2","CH4","CO2","CH4","CO2","CH4","CO2","CH4","CO2","CH4",null,"CO2","CH4","CO2","CH4",null,"CO2","CH4","CO2","CH4"],"pct_vs_trend":[-12.3,0.3,-14.7,-0.9,12.5,2.3,-4.8,-0.7,-8.4,-11.5,-7.5,0.3,2.2,-3.1,null,9,4,-2.5,-0.1,null,-5.2,-1.6,2.1,0.6],"baseline_mt":[21782.2,11737.9,24660.4,14075.9,34169.7,21366.5,56647.2,21573.2,108928.8,40934.8,123302.6,37182.5,70665,23071.3,null,179634.8,52454,97769.7,24805.7,null,37131.2,9082.4,73907.1,18417.4],"actual_mt":[19112.2,11776.7,21027.5,13946.5,38449.7,21864.1,53907,21420.4,99830.9,36240,114016.5,37297.6,72235.2,22349.8,null,195831.9,54550.8,95362.3,24780.5,null,35205.4,8936.9,75451.7,18531.4],"trend_growth_pct":[3.79,1.69,2.63,1.09,1.24,0.82,4.76,3.16,2.88,2.22,2.06,0.61,0.48,0.61,null,1.05,0.03,3.06,1.13,null,1.09,0.85,0.65,0.78]}},{"name":"lead","value":{"year":[1850,1851,1852,1853,1854,1855,1856,1857,1858,1859,1860,1861,1862,1863,1864,1865,1866,1867,1868,1869,1870,1871,1872,1873,1874,1875,1876,1877,1878,1879,1880,1881,1882,1883,1884,1885,1886,1887,1888,1889,1890,1891,1892,1893,1894,1895,1896,1897,1898,1899,1900,1901,1902,1903,1904,1905,1906,1907,1908,1909,1910,1911,1912,1913,1914,1915,1916,1917,1918,1919,1920,1921,1922,1923,1924,1925,1926,1927,1928,1929,1930,1931,1932,1933,1934,1935,1936,1937,1938,1939,1940,1941,1942,1943,1944,1945,1946,1947,1948,1949,1950,1951,1952,1953,1954,1955,1956,1957,1958,1959,1960,1961,1962,1963,1964,1965,1966,1967,1968,1969,1970,1971,1972,1973,1974,1975,1976,1977,1978,1979,1980,1981,1982,1983,1984,1985,1986,1987,1988,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024],"country":["United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United Kingdom","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","United States","China","China","China","China","China","China","China","China","China","China","China","China","China","China","China","China","China","China","China"]}},{"name":"gens","value":{"generation":["Silent","Boomer","Gen X","Millennial","Gen Z","Gen Alpha"],"start_birth_year":[1928,1946,1965,1981,1997,2013],"end_birth_year":[1945,1964,1980,1996,2012,2024]}}]}
+
+</script>
+
+<meta cr-debug-mode="false">
+<meta cr-remove-header-space="false">
+
+
+<link rel="stylesheet" href="../_extensions/qmd-lab/closeread/closeread.css">
+</head>
+
+<body class="quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-full">
+
+<main class="content column-page" id="quarto-document-content">
+      <!-- user-provided yaml closeread style options -->
+      <style>
+        :root {
+          --cr-section-background-color: #ffffff;
+--cr-narrative-text-color-sidebar: #1e3a5f;
+--cr-narrative-border-radius: 10px;
+--cr-narrative-font-size: 1.15rem;
+--cr-narrative-background-color-sidebar: #f2f7fd;
+        }
+      </style>
+    
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Your life in emissions</h1>
+<p class="subtitle lead">What the world emitted while you were alive</p>
+</div>
+
+
+
+<div class="quarto-title-meta column-page">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<style>
+  .birth-box { position: sticky; top: 10px; width: fit-content; margin: 0.5rem auto 1.2rem; z-index: 1000; background: #fff; border: 2px solid #2b6cb0; border-radius: 12px;
+               padding: 6px 12px; box-shadow: 0 2px 8px rgba(43, 108, 176, 0.25); font-family: system-ui, sans-serif; }
+  .birth-box label { font-weight: 700; color: #1e3a5f; margin-right: 8px; }
+  .birth-box input { width: 80px; font-size: 16px; font-weight: 700; color: #1e3a5f; }
+  .chart-frame { width: 100%; height: 78vh; border: 0; background: #fff; }
+  .cr-section .sticky-col .sticky-col-stack .sticky { width: 100%; pointer-events: none; }
+  .cr-section .sticky-col .sticky-col-stack .sticky.cr-active { pointer-events: auto; }
+  .method { max-width: 780px; margin: 3rem auto; padding: 0 1rem; font-size: 1.05rem; }
+</style>
+<script>
+  // Charts 1 and 2 let the visitor click a year on the chart; the chart tells this page, which updates the birth year box.
+  window.addEventListener('message', function(ev) {
+    if (!ev.data || !ev.data.birth) return;
+    var box = document.querySelector('.birth-box input[type=number]');
+    if (box) { box.value = ev.data.birth; box.dispatchEvent(new Event('input', {bubbles: true})); }
+  });
+</script>
+<div class="birth-box">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="54" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 53;"><span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>viewof birthInput <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">1850</span><span class="op">,</span> <span class="dv">2024</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">1988</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Birth year"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="61" data-source-offset="-74"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 60;"><span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>birth <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="dv">2024</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">1850</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(birthInput <span class="op">||</span> <span class="dv">1988</span>)))</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> <span class="fu">transpose</span>(world)</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>events <span class="op">=</span> <span class="fu">transpose</span>(ev)</span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>leaders <span class="op">=</span> <span class="fu">transpose</span>(lead)</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>generations <span class="op">=</span> <span class="fu">transpose</span>(gens)</span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>last <span class="op">=</span> <span class="dv">2024</span></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>sum <span class="op">=</span> (rows<span class="op">,</span> key<span class="op">,</span> <span class="im">from</span>) <span class="kw">=&gt;</span> d3<span class="op">.</span><span class="fu">sum</span>(rows<span class="op">.</span><span class="fu">filter</span>(r <span class="kw">=&gt;</span> r<span class="op">.</span><span class="at">year</span> <span class="op">&gt;=</span> <span class="im">from</span>)<span class="op">,</span> r <span class="kw">=&gt;</span> r[key])</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>pct <span class="op">=</span> x <span class="kw">=&gt;</span> (<span class="dv">100</span> <span class="op">*</span> x)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>) <span class="op">+</span> <span class="st">"%"</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>lifeShare <span class="op">=</span> ({<span class="dt">co2</span><span class="op">:</span> <span class="fu">sum</span>(w<span class="op">,</span> <span class="st">"co2"</span><span class="op">,</span> birth) <span class="op">/</span> <span class="fu">sum</span>(w<span class="op">,</span> <span class="st">"co2"</span><span class="op">,</span> <span class="dv">0</span>)<span class="op">,</span> <span class="dt">ch4</span><span class="op">:</span> <span class="fu">sum</span>(w<span class="op">,</span> <span class="st">"ch4"</span><span class="op">,</span> birth) <span class="op">/</span> <span class="fu">sum</span>(w<span class="op">,</span> <span class="st">"ch4"</span><span class="op">,</span> <span class="dv">0</span>)})</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>halfYear <span class="op">=</span> key <span class="kw">=&gt;</span> { <span class="kw">let</span> run <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> total <span class="op">=</span> <span class="fu">sum</span>(w<span class="op">,</span> key<span class="op">,</span> <span class="dv">0</span>)<span class="op">;</span> <span class="cf">for</span> (<span class="kw">const</span> r <span class="kw">of</span> w) { run <span class="op">+=</span> r[key]<span class="op">;</span> <span class="cf">if</span> (run <span class="op">&gt;=</span> total <span class="op">/</span> <span class="dv">2</span>) <span class="cf">return</span> r<span class="op">.</span><span class="at">year</span><span class="op">;</span> } }</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>half <span class="op">=</span> ({<span class="dt">co2</span><span class="op">:</span> <span class="fu">halfYear</span>(<span class="st">"co2"</span>)<span class="op">,</span> <span class="dt">ch4</span><span class="op">:</span> <span class="fu">halfYear</span>(<span class="st">"ch4"</span>)})</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>agePhrase <span class="op">=</span> year <span class="kw">=&gt;</span> year <span class="op">&lt;</span> birth <span class="op">?</span> <span class="st">"before you were born"</span> <span class="op">:</span> year <span class="op">===</span> birth <span class="op">?</span> <span class="st">"the year you were born"</span> <span class="op">:</span> <span class="vs">`when you were </span><span class="sc">${</span>year <span class="op">-</span> birth<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>generation <span class="op">=</span> { <span class="kw">const</span> g <span class="op">=</span> generations<span class="op">.</span><span class="fu">find</span>(g <span class="kw">=&gt;</span> g<span class="op">.</span><span class="at">start_birth_year</span> <span class="op">&lt;=</span> birth <span class="op">&amp;&amp;</span> birth <span class="op">&lt;=</span> g<span class="op">.</span><span class="at">end_birth_year</span>)<span class="op">;</span> <span class="cf">return</span> g <span class="op">?</span> g<span class="op">.</span><span class="at">generation</span> <span class="op">:</span> (birth <span class="op">&lt;</span> <span class="dv">1928</span> <span class="op">?</span> <span class="st">"before the Silent generation"</span> <span class="op">:</span> <span class="st">"Gen Alpha or later"</span>)<span class="op">;</span> }</span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>sliderRate <span class="op">=</span> Generators<span class="op">.</span><span class="fu">observe</span>(notify <span class="kw">=&gt;</span> { <span class="kw">const</span> f <span class="op">=</span> e <span class="kw">=&gt;</span> { <span class="cf">if</span> (e<span class="op">.</span><span class="at">data</span> <span class="op">&amp;&amp;</span> e<span class="op">.</span><span class="at">data</span><span class="op">.</span><span class="at">rate</span> <span class="op">!==</span> <span class="kw">undefined</span>) <span class="fu">notify</span>(e<span class="op">.</span><span class="at">data</span><span class="op">.</span><span class="at">rate</span>)<span class="op">;</span> }<span class="op">;</span> <span class="fu">notify</span>(<span class="dv">0</span>)<span class="op">;</span> <span class="bu">window</span><span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">'message'</span><span class="op">,</span> f)<span class="op">;</span> <span class="cf">return</span> () <span class="kw">=&gt;</span> <span class="bu">window</span><span class="op">.</span><span class="fu">removeEventListener</span>(<span class="st">'message'</span><span class="op">,</span> f)<span class="op">;</span> })</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>buildStamp <span class="op">=</span> <span class="bu">Date</span><span class="op">.</span><span class="fu">now</span>()</span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>frame <span class="op">=</span> name <span class="kw">=&gt;</span> <span class="fu">html</span><span class="vs">`&lt;iframe class="chart-frame" src="../charts/d_scrollytelling/</span><span class="sc">${</span>name<span class="sc">}</span><span class="vs">.html?embed=1&amp;birth=</span><span class="sc">${</span>birth<span class="sc">}</span><span class="vs">&amp;v=</span><span class="sc">${</span>buildStamp<span class="sc">}</span><span class="vs">"&gt;&lt;/iframe&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-9" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-11" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-12" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-13" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-14" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-15" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-16" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<p>Type the year you were born in the box above. It stays at the top as you scroll, and every chart below redraws for your lifetime.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="81" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 80;"><span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`You were born in **</span><span class="sc">${</span>birth<span class="sc">}</span><span class="vs">**, which makes you part of **</span><span class="sc">${</span>generation<span class="sc">}</span><span class="vs">**. Scroll down.`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="cr-section cr-column-screen sidebar-left">
+<div class="narrative-col">
+<section id="the-whole-record" class="level2 narrative trigger">
+<h2 class="narrative anchored" data-anchor-id="the-whole-record">The whole record</h2>
+</section>
+<div class="trigger new-trigger" data-focus-on="cr-share">
+<div class="narrative">
+<p>We have yearly global emissions of carbon dioxide (CO2) and methane (CH4) back to 1850. The lines show how much of everything emitted since 1850 had been released by each year. The shaded band is your lifetime.</p>
+</div>
+</div>
+<div class="trigger">
+<div class="cell narrative">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="91" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 90;"><span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`**</span><span class="sc">${</span><span class="fu">pct</span>(lifeShare<span class="op">.</span><span class="at">co2</span>)<span class="sc">}</span><span class="vs">** of all CO2 and **</span><span class="sc">${</span><span class="fu">pct</span>(lifeShare<span class="op">.</span><span class="at">ch4</span>)<span class="sc">}</span><span class="vs">** of all CH4 recorded since 1850 was released while you have been alive. Half of all CO2 had been emitted by **</span><span class="sc">${</span>half<span class="op">.</span><span class="at">co2</span><span class="sc">}</span><span class="vs">** (</span><span class="sc">${</span><span class="fu">agePhrase</span>(half<span class="op">.</span><span class="at">co2</span>)<span class="sc">}</span><span class="vs">), half of all CH4 by **</span><span class="sc">${</span>half<span class="op">.</span><span class="at">ch4</span><span class="sc">}</span><span class="vs">** (</span><span class="sc">${</span><span class="fu">agePhrase</span>(half<span class="op">.</span><span class="at">ch4</span>)<span class="sc">}</span><span class="vs">).`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div class="trigger">
+<div class="narrative">
+<p>The steep part of the curve is recent. Dots mark the halfway years, and the ticks inside your band are your ages. Click the chart to try another birth year.</p>
+</div>
+</div>
+<section id="what-the-world-was-going-through" class="level2 narrative trigger">
+<h2 class="narrative anchored" data-anchor-id="what-the-world-was-going-through">What the world was going through</h2>
+</section>
+<div class="trigger new-trigger" data-focus-on="cr-events">
+<div class="narrative">
+<p>Emissions are not a smooth climb. Wars, recessions, oil shocks and the pandemic bent the curve. For each event we compare emissions with the trend of the ten years before it (the dashed line) and show the three that moved CO2 furthest from that trend.</p>
+</div>
+</div>
+<div class="trigger">
+<div class="cell narrative">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="102" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 101;"><span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>measured <span class="op">=</span> events<span class="op">.</span><span class="fu">filter</span>(e <span class="kw">=&gt;</span> e<span class="op">.</span><span class="at">kind</span> <span class="op">===</span> <span class="st">"event"</span> <span class="op">&amp;&amp;</span> e<span class="op">.</span><span class="at">gas</span> <span class="op">===</span> <span class="st">"CO2"</span> <span class="op">&amp;&amp;</span> e<span class="op">.</span><span class="at">start</span> <span class="op">&gt;</span> birth)</span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>bigThree <span class="op">=</span> measured<span class="op">.</span><span class="fu">slice</span>()<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(b<span class="op">.</span><span class="at">pct_vs_trend</span>) <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(a<span class="op">.</span><span class="at">pct_vs_trend</span>))<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">3</span>)<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a<span class="op">.</span><span class="at">start</span> <span class="op">-</span> b<span class="op">.</span><span class="at">start</span>)</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a>signedPct <span class="op">=</span> v <span class="kw">=&gt;</span> (v <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">?</span> <span class="st">"+"</span> <span class="op">:</span> <span class="st">"</span><span class="sc">\u2212</span><span class="st">"</span>) <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(v) <span class="op">+</span> <span class="st">"%"</span></span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`</span><span class="sc">${</span>measured<span class="op">.</span><span class="at">length</span> <span class="op">===</span> <span class="dv">0</span> <span class="op">?</span> <span class="st">"None of the events in our list fall inside your lifetime."</span> <span class="op">:</span> <span class="vs">`**</span><span class="sc">${</span>measured<span class="op">.</span><span class="at">length</span><span class="sc">}</span><span class="vs">** events in our list fall inside your lifetime. The </span><span class="sc">${</span>bigThree<span class="op">.</span><span class="at">length</span> <span class="op">===</span> <span class="dv">3</span> <span class="op">?</span> <span class="st">"three"</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}</span><span class="vs"> that moved CO2 furthest from its trend: </span><span class="sc">${</span>bigThree<span class="op">.</span><span class="fu">map</span>(e <span class="kw">=&gt;</span> <span class="vs">`**</span><span class="sc">${</span>e<span class="op">.</span><span class="at">event</span><span class="sc">}</span><span class="vs">** (</span><span class="sc">${</span><span class="fu">signedPct</span>(e<span class="op">.</span><span class="at">pct_vs_trend</span>)<span class="sc">}</span><span class="vs">)`</span>)<span class="op">.</span><span class="fu">join</span>(<span class="st">", "</span>)<span class="sc">}</span><span class="vs">.`</span><span class="sc">}</span><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-5-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="trigger">
+<div class="narrative">
+<p><strong>What is the dashed line?</strong> It is where emissions were heading <em>before</em> the event. We take the ten years just before it, measure how fast CO2 was growing in a typical year in that stretch, and keep that same pace going through the event’s years. Think of it as “business as usual”: a reference line, not a forecast.</p>
+</div>
+</div>
+<div class="trigger">
+<div class="narrative">
+<p><strong>How to read the percentage.</strong> Add up all the CO2 emitted during the event and compare it with what the dashed line would have given over the same years. A minus means emissions came in <em>below</em> the earlier pace; a plus means <em>above</em> it.</p>
+</div>
+</div>
+<div class="trigger">
+<div class="cell narrative">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="113" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 112;"><span id="cb6-113"><a href="#cb6-113" aria-hidden="true" tabindex="-1"></a>example <span class="op">=</span> bigThree<span class="op">.</span><span class="at">length</span> <span class="op">?</span> bigThree<span class="op">.</span><span class="fu">slice</span>()<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(b<span class="op">.</span><span class="at">pct_vs_trend</span>) <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(a<span class="op">.</span><span class="at">pct_vs_trend</span>))[<span class="dv">0</span>] <span class="op">:</span> <span class="kw">null</span></span>
+<span id="cb6-114"><a href="#cb6-114" aria-hidden="true" tabindex="-1"></a>exYears <span class="op">=</span> example <span class="op">?</span> example<span class="op">.</span><span class="at">end</span> <span class="op">-</span> example<span class="op">.</span><span class="at">start</span> <span class="op">+</span> <span class="dv">1</span> <span class="op">:</span> <span class="dv">0</span></span>
+<span id="cb6-115"><a href="#cb6-115" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`</span><span class="sc">${</span>example <span class="op">?</span> <span class="vs">`**An example from your lifetime: </span><span class="sc">${</span>example<span class="op">.</span><span class="at">event</span><span class="sc">}</span><span class="vs">** (</span><span class="sc">${</span>example<span class="op">.</span><span class="at">start</span> <span class="op">===</span> example<span class="op">.</span><span class="at">end</span> <span class="op">?</span> example<span class="op">.</span><span class="at">start</span> <span class="op">:</span> example<span class="op">.</span><span class="at">start</span> <span class="op">+</span> <span class="st">" to "</span> <span class="op">+</span> example<span class="op">.</span><span class="at">end</span><span class="sc">}</span><span class="vs">). In the ten years before it, CO2 grew by about **</span><span class="sc">${</span>example<span class="op">.</span><span class="at">trend_growth_pct</span><span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs">% a year**. Keeping that pace, the world would have emitted about **</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(example<span class="op">.</span><span class="at">baseline_mt</span> <span class="op">/</span> <span class="dv">1000</span>)<span class="sc">}</span><span class="vs"> Gt** over </span><span class="sc">${</span>exYears <span class="op">===</span> <span class="dv">1</span> <span class="op">?</span> <span class="st">"that year"</span> <span class="op">:</span> <span class="st">"those "</span> <span class="op">+</span> exYears <span class="op">+</span> <span class="st">" years"</span><span class="sc">}</span><span class="vs">. It actually emitted **</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(example<span class="op">.</span><span class="at">actual_mt</span> <span class="op">/</span> <span class="dv">1000</span>)<span class="sc">}</span><span class="vs"> Gt**, which is **</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(example<span class="op">.</span><span class="at">pct_vs_trend</span>)<span class="sc">}</span><span class="vs">% </span><span class="sc">${</span>example<span class="op">.</span><span class="at">pct_vs_trend</span> <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">?</span> <span class="st">"more"</span> <span class="op">:</span> <span class="st">"less"</span><span class="sc">}</span><span class="vs">** than the dashed line.`</span> <span class="op">:</span> <span class="st">""</span><span class="sc">}</span><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-6-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="trigger">
+<div class="narrative">
+<p>This shows how emissions moved while an event was going on. It does not prove the event caused it. Hover a year on the chart for the numbers behind it.</p>
+</div>
+</div>
+<section id="who-emitted-it" class="level2 narrative trigger">
+<h2 class="narrative anchored" data-anchor-id="who-emitted-it">Who emitted it</h2>
+</section>
+<div class="trigger new-trigger" data-focus-on="cr-countries">
+<div class="narrative">
+<p>Which countries emitted the most during your lifetime? The five biggest appear first. The list on the left ranks every country, and a click on a name shows or hides its line, so you can add your own country or clear the chart.</p>
+</div>
+</div>
+<div class="trigger">
+<div class="narrative">
+<p>Then switch <strong>Measure</strong> to <em>Emissions per person</em>. The ranking changes completely: the countries that emit the most in total are not the ones that emit the most per resident. The choice of measure changes the story.</p>
+</div>
+</div>
+<section id="who-led-and-who-was-close-behind" class="level2 narrative trigger">
+<h2 class="narrative anchored" data-anchor-id="who-led-and-who-was-close-behind">Who led, and who was close behind</h2>
+</section>
+<div class="trigger new-trigger" data-focus-on="cr-leaders">
+<div class="narrative">
+<p>A strip shows the three largest CO2 emitters in each year of your life.</p>
+</div>
+</div>
+<div class="trigger">
+<div class="cell narrative">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="131" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 130;"><span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a>runs <span class="op">=</span> { <span class="kw">const</span> out <span class="op">=</span> []<span class="op">;</span> <span class="cf">for</span> (<span class="kw">const</span> r <span class="kw">of</span> leaders<span class="op">.</span><span class="fu">filter</span>(r <span class="kw">=&gt;</span> r<span class="op">.</span><span class="at">year</span> <span class="op">&gt;=</span> birth)<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a<span class="op">.</span><span class="at">year</span> <span class="op">-</span> b<span class="op">.</span><span class="at">year</span>)) { <span class="kw">const</span> l <span class="op">=</span> out[out<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">1</span>]<span class="op">;</span> <span class="cf">if</span> (l <span class="op">&amp;&amp;</span> l<span class="op">.</span><span class="at">country</span> <span class="op">===</span> r<span class="op">.</span><span class="at">country</span>) l<span class="op">.</span><span class="at">years</span><span class="op">++;</span> <span class="cf">else</span> out<span class="op">.</span><span class="fu">push</span>({<span class="dt">country</span><span class="op">:</span> r<span class="op">.</span><span class="at">country</span><span class="op">,</span> <span class="dt">years</span><span class="op">:</span> <span class="dv">1</span>})<span class="op">;</span> } <span class="cf">return</span> out<span class="op">;</span> }</span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`The largest CO2 emitter of your lifetime was </span><span class="sc">${</span>runs<span class="op">.</span><span class="fu">map</span>(r <span class="kw">=&gt;</span> <span class="vs">`**</span><span class="sc">${</span>r<span class="op">.</span><span class="at">country</span><span class="sc">}</span><span class="vs">** (</span><span class="sc">${</span>r<span class="op">.</span><span class="at">years</span><span class="sc">}</span><span class="vs"> </span><span class="sc">${</span>r<span class="op">.</span><span class="at">years</span> <span class="op">===</span> <span class="dv">1</span> <span class="op">?</span> <span class="st">"year"</span> <span class="op">:</span> <span class="st">"years"</span><span class="sc">}</span><span class="vs">)`</span>)<span class="op">.</span><span class="fu">join</span>(<span class="st">", then "</span>)<span class="sc">}</span><span class="vs">.`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="trigger">
+<div class="narrative">
+<p>The second and third rows show who was behind in each year. Past states are assigned to today’s borders, so the Soviet Union appears as Russia.</p>
+</div>
+</div>
+<section id="what-if-emissions-had-stopped-growing" class="level2 narrative trigger">
+<h2 class="narrative anchored" data-anchor-id="what-if-emissions-had-stopped-growing">What if emissions had stopped growing?</h2>
+</section>
+<div class="trigger new-trigger" data-focus-on="cr-whatif">
+<div class="narrative">
+<p>So far we have described what happened. Now a thought experiment: hold emissions at the level of your birth year, and compare. The shaded gap is how much more the world emitted than it would have.</p>
+</div>
+</div>
+<div class="trigger">
+<div class="cell narrative">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb8" data-startfrom="142" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 141;"><span id="cb8-142"><a href="#cb8-142" aria-hidden="true" tabindex="-1"></a>flat <span class="op">=</span> w<span class="op">.</span><span class="fu">filter</span>(r <span class="kw">=&gt;</span> r<span class="op">.</span><span class="at">year</span> <span class="op">&gt;=</span> birth)</span>
+<span id="cb8-143"><a href="#cb8-143" aria-hidden="true" tabindex="-1"></a>gapGt <span class="op">=</span> rate <span class="kw">=&gt;</span> d3<span class="op">.</span><span class="fu">sum</span>(flat<span class="op">,</span> r <span class="kw">=&gt;</span> r<span class="op">.</span><span class="at">co2</span> <span class="op">-</span> flat[<span class="dv">0</span>]<span class="op">.</span><span class="at">co2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>(<span class="dv">1</span> <span class="op">+</span> rate <span class="op">/</span> <span class="dv">100</span><span class="op">,</span> r<span class="op">.</span><span class="at">year</span> <span class="op">-</span> birth)) <span class="op">/</span> <span class="dv">1000</span></span>
+<span id="cb8-144"><a href="#cb8-144" aria-hidden="true" tabindex="-1"></a>nowGt <span class="op">=</span> flat[flat<span class="op">.</span><span class="at">length</span> <span class="op">-</span> <span class="dv">1</span>]<span class="op">.</span><span class="at">co2</span> <span class="op">/</span> <span class="dv">1000</span></span>
+<span id="cb8-145"><a href="#cb8-145" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> rate <span class="kw">=&gt;</span> rate <span class="op">===</span> <span class="dv">0</span> <span class="op">?</span> <span class="vs">`stayed at its </span><span class="sc">${</span>birth<span class="sc">}</span><span class="vs"> level`</span> <span class="op">:</span> <span class="vs">`</span><span class="sc">${</span>rate <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">?</span> <span class="st">"fallen"</span> <span class="op">:</span> <span class="st">"grown"</span><span class="sc">}</span><span class="vs"> </span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(rate)<span class="sc">}</span><span class="vs">% a year from </span><span class="sc">${</span>birth<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb8-146"><a href="#cb8-146" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`If CO2 had </span><span class="sc">${</span><span class="fu">path</span>(sliderRate)<span class="sc">}</span><span class="vs">, the world would have emitted **</span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(<span class="fu">gapGt</span>(sliderRate)))<span class="sc">}</span><span class="vs"> Gt** </span><span class="sc">${</span><span class="fu">gapGt</span>(sliderRate) <span class="op">&gt;=</span> <span class="dv">0</span> <span class="op">?</span> <span class="st">"less"</span> <span class="op">:</span> <span class="st">"more"</span><span class="sc">}</span><span class="vs"> CO2 during your lifetime.`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-8-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-8-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-8-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-8-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-8-5" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="trigger">
+<div class="cell narrative">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb9" data-startfrom="149" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 148;"><span id="cb9-149"><a href="#cb9-149" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`**What does that mean in everyday terms?** Right now the world emits about **</span><span class="sc">${</span>nowGt<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">0</span>)<span class="sc">}</span><span class="vs"> Gt** of CO2 every year. A gap of </span><span class="sc">${</span><span class="bu">Math</span><span class="op">.</span><span class="fu">round</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(<span class="fu">gapGt</span>(sliderRate)))<span class="sc">}</span><span class="vs"> Gt is the amount the world emits in about **</span><span class="sc">${</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(<span class="fu">gapGt</span>(sliderRate)) <span class="op">/</span> nowGt)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs"> years** at today's rate. It is only a way to feel how big the number is.`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-9" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div class="trigger">
+<div class="narrative">
+<p>Use the slider to test other paths, from emissions falling 5% a year to rising 3%; the numbers above follow it. This is an illustration of scale, not a forecast: real emissions move with population and the economy.</p>
+</div>
+</div>
+<section id="then-and-now" class="level2 narrative trigger">
+<h2 class="narrative anchored" data-anchor-id="then-and-now">Then and now</h2>
+</section>
+<div class="trigger new-trigger" data-focus-on="cr-thennow">
+<div class="narrative">
+<p>How does today compare with the year you were born?</p>
+</div>
+</div>
+<div class="trigger">
+<div class="cell narrative">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb10" data-startfrom="160" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 159;"><span id="cb10-160"><a href="#cb10-160" aria-hidden="true" tabindex="-1"></a>atBirth <span class="op">=</span> w<span class="op">.</span><span class="fu">find</span>(r <span class="kw">=&gt;</span> r<span class="op">.</span><span class="at">year</span> <span class="op">===</span> birth)</span>
+<span id="cb10-161"><a href="#cb10-161" aria-hidden="true" tabindex="-1"></a>today <span class="op">=</span> w<span class="op">.</span><span class="fu">find</span>(r <span class="kw">=&gt;</span> r<span class="op">.</span><span class="at">year</span> <span class="op">===</span> last)</span>
+<span id="cb10-162"><a href="#cb10-162" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`Emissions of CO2 are **</span><span class="sc">${</span>(today<span class="op">.</span><span class="at">co2</span> <span class="op">/</span> atBirth<span class="op">.</span><span class="at">co2</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs"> times** what they were in the year you were born, and methane **</span><span class="sc">${</span>(today<span class="op">.</span><span class="at">ch4</span> <span class="op">/</span> atBirth<span class="op">.</span><span class="at">ch4</span>)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="sc">}</span><span class="vs"> times**.`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-10-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-10-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-10-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="your-familys-ladder" class="level2 narrative trigger">
+<h2 class="narrative anchored" data-anchor-id="your-familys-ladder">Your family’s ladder</h2>
+</section>
+<div class="trigger new-trigger" data-focus-on="cr-ladder">
+<div class="narrative">
+<p>Now step back through your family: a parent born 30 years before you, a grandparent 60 years before.</p>
+</div>
+</div>
+<div class="trigger">
+<div class="cell narrative">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb11" data-startfrom="170" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 169;"><span id="cb11-170"><a href="#cb11-170" aria-hidden="true" tabindex="-1"></a>shareFrom <span class="op">=</span> (key<span class="op">,</span> y) <span class="kw">=&gt;</span> <span class="fu">sum</span>(w<span class="op">,</span> key<span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">1850</span><span class="op">,</span> y)) <span class="op">/</span> <span class="fu">sum</span>(w<span class="op">,</span> key<span class="op">,</span> <span class="dv">0</span>)</span>
+<span id="cb11-171"><a href="#cb11-171" aria-hidden="true" tabindex="-1"></a>s0 <span class="op">=</span> <span class="fu">shareFrom</span>(<span class="st">"co2"</span><span class="op">,</span> birth)</span>
+<span id="cb11-172"><a href="#cb11-172" aria-hidden="true" tabindex="-1"></a>s1 <span class="op">=</span> <span class="fu">shareFrom</span>(<span class="st">"co2"</span><span class="op">,</span> birth <span class="op">-</span> <span class="dv">30</span>)</span>
+<span id="cb11-173"><a href="#cb11-173" aria-hidden="true" tabindex="-1"></a>s2 <span class="op">=</span> <span class="fu">shareFrom</span>(<span class="st">"co2"</span><span class="op">,</span> birth <span class="op">-</span> <span class="dv">60</span>)</span>
+<span id="cb11-174"><a href="#cb11-174" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`Go back one generation, 30 years before you were born: the share of CO2 rises from </span><span class="sc">${</span><span class="fu">pct</span>(s0)<span class="sc">}</span><span class="vs"> to **</span><span class="sc">${</span><span class="fu">pct</span>(s1)<span class="sc">}</span><span class="vs">**. Two generations back, it is **</span><span class="sc">${</span><span class="fu">pct</span>(s2)<span class="sc">}</span><span class="vs">**. Most of the story is recent.`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-11-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-11-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-11-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-11-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-11-5" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sticky-col">
+<div class="sticky-col-stack">
+<div id="cr-share" class="sticky">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb12" data-startfrom="178" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 177;"><span id="cb12-178"><a href="#cb12-178" aria-hidden="true" tabindex="-1"></a><span class="fu">frame</span>(<span class="st">"01_lifetime_share"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-12" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div id="cr-events" class="sticky">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb13" data-startfrom="184" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 183;"><span id="cb13-184"><a href="#cb13-184" aria-hidden="true" tabindex="-1"></a><span class="fu">frame</span>(<span class="st">"02_events_impact"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-13" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div id="cr-countries" class="sticky">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb14" data-startfrom="190" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 189;"><span id="cb14-190"><a href="#cb14-190" aria-hidden="true" tabindex="-1"></a><span class="fu">frame</span>(<span class="st">"03_countries_lifetime"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-14" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div id="cr-leaders" class="sticky">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb15" data-startfrom="196" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 195;"><span id="cb15-196"><a href="#cb15-196" aria-hidden="true" tabindex="-1"></a><span class="fu">frame</span>(<span class="st">"04_leaders_lifetime"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-15" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div id="cr-whatif" class="sticky">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb16" data-startfrom="202" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 201;"><span id="cb16-202"><a href="#cb16-202" aria-hidden="true" tabindex="-1"></a><span class="fu">frame</span>(<span class="st">"05_counterfactual"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-16" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div id="cr-thennow" class="sticky">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb17" data-startfrom="208" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 207;"><span id="cb17-208"><a href="#cb17-208" aria-hidden="true" tabindex="-1"></a><span class="fu">frame</span>(<span class="st">"06_year_vs_today"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-17" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div id="cr-ladder" class="sticky">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb18" data-startfrom="214" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 213;"><span id="cb18-214"><a href="#cb18-214" aria-hidden="true" tabindex="-1"></a><span class="fu">frame</span>(<span class="st">"07_generational_ladder"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-18" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section id="how-this-was-made-and-what-to-be-careful-about" class="level2 method">
+<h2 class="anchored" data-anchor-id="how-this-was-made-and-what-to-be-careful-about">How this was made, and what to be careful about</h2>
+<ul>
+<li><strong>Data.</strong> Annual CO2 and CH4 emissions by country, 1850 to 2024, excluding land use: PRIMAP-hist v2.2 (to 2018), Global Carbon Budget and EDGAR (later years). CH4 is converted to CO2 equivalent at GWP100 = 27.9. World totals are the sum of countries.</li>
+<li><strong>Borders.</strong> History is assigned to today’s borders, so emissions of the Soviet Union appear under Russia and its other successor states.</li>
+<li><strong>Events.</strong> “Above or below trend” compares an event’s years with a constant-growth trend fitted to the ten years before it. A baseline can contain an earlier shock (the trend used for 2022 includes the pandemic), and policy milestones such as Kyoto and Paris get no number because a trend cannot measure their effect.</li>
+<li><strong>Per person.</strong> The default per person ranking leaves out countries with under one million people, which would otherwise top any list. You can add any country yourself. Kuwait’s 1991 spike is the Gulf War oil-well fires.</li>
+<li><strong>The thought experiment</strong> is a simple calculation, not a model of what was possible.</li>
+<li><strong>Gaps.</strong> A few small territories lack some years; countries missing a value count as zero in the totals.</li>
+</ul>
+</section>
+
+</main>
+<!-- /main column -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBiaXJ0aElucHV0ID0gSW5wdXRzLm51bWJlcihbMTg1MCwgMjAyNF0sIHt2YWx1ZTogMTk4OCwgc3RlcDogMSwgbGFiZWw6IFwiQmlydGggeWVhclwifSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIEV2ZXJ5dGhpbmcgYmVsb3cgcmVhZHMgdGhpcyBvbmUgYmlydGggeWVhciwga2VwdCBpbnNpZGUgdGhlIGRhdGEgcmFuZ2VcbmJpcnRoID0gTWF0aC5taW4oMjAyNCwgTWF0aC5tYXgoMTg1MCwgTWF0aC5yb3VuZChiaXJ0aElucHV0IHx8IDE5ODgpKSlcbncgPSB0cmFuc3Bvc2Uod29ybGQpXG5ldmVudHMgPSB0cmFuc3Bvc2UoZXYpXG5sZWFkZXJzID0gdHJhbnNwb3NlKGxlYWQpXG5nZW5lcmF0aW9ucyA9IHRyYW5zcG9zZShnZW5zKVxubGFzdCA9IDIwMjRcbnN1bSA9IChyb3dzLCBrZXksIGZyb20pID0+IGQzLnN1bShyb3dzLmZpbHRlcihyID0+IHIueWVhciA+PSBmcm9tKSwgciA9PiByW2tleV0pXG5wY3QgPSB4ID0+ICgxMDAgKiB4KS50b0ZpeGVkKDEpICsgXCIlXCJcbmxpZmVTaGFyZSA9ICh7Y28yOiBzdW0odywgXCJjbzJcIiwgYmlydGgpIC8gc3VtKHcsIFwiY28yXCIsIDApLCBjaDQ6IHN1bSh3LCBcImNoNFwiLCBiaXJ0aCkgLyBzdW0odywgXCJjaDRcIiwgMCl9KVxuaGFsZlllYXIgPSBrZXkgPT4geyBsZXQgcnVuID0gMCwgdG90YWwgPSBzdW0odywga2V5LCAwKTsgZm9yIChjb25zdCByIG9mIHcpIHsgcnVuICs9IHJba2V5XTsgaWYgKHJ1biA+PSB0b3RhbCAvIDIpIHJldHVybiByLnllYXI7IH0gfVxuaGFsZiA9ICh7Y28yOiBoYWxmWWVhcihcImNvMlwiKSwgY2g0OiBoYWxmWWVhcihcImNoNFwiKX0pXG5hZ2VQaHJhc2UgPSB5ZWFyID0+IHllYXIgPCBiaXJ0aCA/IFwiYmVmb3JlIHlvdSB3ZXJlIGJvcm5cIiA6IHllYXIgPT09IGJpcnRoID8gXCJ0aGUgeWVhciB5b3Ugd2VyZSBib3JuXCIgOiBgd2hlbiB5b3Ugd2VyZSAke3llYXIgLSBiaXJ0aH1gXG5nZW5lcmF0aW9uID0geyBjb25zdCBnID0gZ2VuZXJhdGlvbnMuZmluZChnID0+IGcuc3RhcnRfYmlydGhfeWVhciA8PSBiaXJ0aCAmJiBiaXJ0aCA8PSBnLmVuZF9iaXJ0aF95ZWFyKTsgcmV0dXJuIGcgPyBnLmdlbmVyYXRpb24gOiAoYmlydGggPCAxOTI4ID8gXCJiZWZvcmUgdGhlIFNpbGVudCBnZW5lcmF0aW9uXCIgOiBcIkdlbiBBbHBoYSBvciBsYXRlclwiKTsgfVxuc2xpZGVyUmF0ZSA9IEdlbmVyYXRvcnMub2JzZXJ2ZShub3RpZnkgPT4geyBjb25zdCBmID0gZSA9PiB7IGlmIChlLmRhdGEgJiYgZS5kYXRhLnJhdGUgIT09IHVuZGVmaW5lZCkgbm90aWZ5KGUuZGF0YS5yYXRlKTsgfTsgbm90aWZ5KDApOyB3aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcignbWVzc2FnZScsIGYpOyByZXR1cm4gKCkgPT4gd2luZG93LnJlbW92ZUV2ZW50TGlzdGVuZXIoJ21lc3NhZ2UnLCBmKTsgfSlcbmJ1aWxkU3RhbXAgPSBEYXRlLm5vdygpXG5mcmFtZSA9IG5hbWUgPT4gaHRtbGA8aWZyYW1lIGNsYXNzPVwiY2hhcnQtZnJhbWVcIiBzcmM9XCIuLi9jaGFydHMvZF9zY3JvbGx5dGVsbGluZy8ke25hbWV9Lmh0bWw/ZW1iZWQ9MSZiaXJ0aD0ke2JpcnRofSZ2PSR7YnVpbGRTdGFtcH1cIj48L2lmcmFtZT5gXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJtZGBZb3Ugd2VyZSBib3JuIGluICoqJHtiaXJ0aH0qKiwgd2hpY2ggbWFrZXMgeW91IHBhcnQgb2YgKioke2dlbmVyYXRpb259KiouIFNjcm9sbCBkb3duLmBcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Im1kYCoqJHtwY3QobGlmZVNoYXJlLmNvMil9Kiogb2YgYWxsIENPMiBhbmQgKioke3BjdChsaWZlU2hhcmUuY2g0KX0qKiBvZiBhbGwgQ0g0IHJlY29yZGVkIHNpbmNlIDE4NTAgd2FzIHJlbGVhc2VkIHdoaWxlIHlvdSBoYXZlIGJlZW4gYWxpdmUuIEhhbGYgb2YgYWxsIENPMiBoYWQgYmVlbiBlbWl0dGVkIGJ5ICoqJHtoYWxmLmNvMn0qKiAoJHthZ2VQaHJhc2UoaGFsZi5jbzIpfSksIGhhbGYgb2YgYWxsIENINCBieSAqKiR7aGFsZi5jaDR9KiogKCR7YWdlUGhyYXNlKGhhbGYuY2g0KX0pLmBcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Im1lYXN1cmVkID0gZXZlbnRzLmZpbHRlcihlID0+IGUua2luZCA9PT0gXCJldmVudFwiICYmIGUuZ2FzID09PSBcIkNPMlwiICYmIGUuc3RhcnQgPiBiaXJ0aClcbmJpZ1RocmVlID0gbWVhc3VyZWQuc2xpY2UoKS5zb3J0KChhLCBiKSA9PiBNYXRoLmFicyhiLnBjdF92c190cmVuZCkgLSBNYXRoLmFicyhhLnBjdF92c190cmVuZCkpLnNsaWNlKDAsIDMpLnNvcnQoKGEsIGIpID0+IGEuc3RhcnQgLSBiLnN0YXJ0KVxuc2lnbmVkUGN0ID0gdiA9PiAodiA+IDAgPyBcIitcIiA6IFwiXFx1MjIxMlwiKSArIE1hdGguYWJzKHYpICsgXCIlXCJcbm1kYCR7bWVhc3VyZWQubGVuZ3RoID09PSAwID8gXCJOb25lIG9mIHRoZSBldmVudHMgaW4gb3VyIGxpc3QgZmFsbCBpbnNpZGUgeW91ciBsaWZldGltZS5cIiA6IGAqKiR7bWVhc3VyZWQubGVuZ3RofSoqIGV2ZW50cyBpbiBvdXIgbGlzdCBmYWxsIGluc2lkZSB5b3VyIGxpZmV0aW1lLiBUaGUgJHtiaWdUaHJlZS5sZW5ndGggPT09IDMgPyBcInRocmVlXCIgOiBcIlwifSB0aGF0IG1vdmVkIENPMiBmdXJ0aGVzdCBmcm9tIGl0cyB0cmVuZDogJHtiaWdUaHJlZS5tYXAoZSA9PiBgKioke2UuZXZlbnR9KiogKCR7c2lnbmVkUGN0KGUucGN0X3ZzX3RyZW5kKX0pYCkuam9pbihcIiwgXCIpfS5gfWBcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImV4YW1wbGUgPSBiaWdUaHJlZS5sZW5ndGggPyBiaWdUaHJlZS5zbGljZSgpLnNvcnQoKGEsIGIpID0+IE1hdGguYWJzKGIucGN0X3ZzX3RyZW5kKSAtIE1hdGguYWJzKGEucGN0X3ZzX3RyZW5kKSlbMF0gOiBudWxsXG5leFllYXJzID0gZXhhbXBsZSA/IGV4YW1wbGUuZW5kIC0gZXhhbXBsZS5zdGFydCArIDEgOiAwXG5tZGAke2V4YW1wbGUgPyBgKipBbiBleGFtcGxlIGZyb20geW91ciBsaWZldGltZTogJHtleGFtcGxlLmV2ZW50fSoqICgke2V4YW1wbGUuc3RhcnQgPT09IGV4YW1wbGUuZW5kID8gZXhhbXBsZS5zdGFydCA6IGV4YW1wbGUuc3RhcnQgKyBcIiB0byBcIiArIGV4YW1wbGUuZW5kfSkuIEluIHRoZSB0ZW4geWVhcnMgYmVmb3JlIGl0LCBDTzIgZ3JldyBieSBhYm91dCAqKiR7ZXhhbXBsZS50cmVuZF9ncm93dGhfcGN0LnRvRml4ZWQoMSl9JSBhIHllYXIqKi4gS2VlcGluZyB0aGF0IHBhY2UsIHRoZSB3b3JsZCB3b3VsZCBoYXZlIGVtaXR0ZWQgYWJvdXQgKioke01hdGgucm91bmQoZXhhbXBsZS5iYXNlbGluZV9tdCAvIDEwMDApfSBHdCoqIG92ZXIgJHtleFllYXJzID09PSAxID8gXCJ0aGF0IHllYXJcIiA6IFwidGhvc2UgXCIgKyBleFllYXJzICsgXCIgeWVhcnNcIn0uIEl0IGFjdHVhbGx5IGVtaXR0ZWQgKioke01hdGgucm91bmQoZXhhbXBsZS5hY3R1YWxfbXQgLyAxMDAwKX0gR3QqKiwgd2hpY2ggaXMgKioke01hdGguYWJzKGV4YW1wbGUucGN0X3ZzX3RyZW5kKX0lICR7ZXhhbXBsZS5wY3RfdnNfdHJlbmQgPiAwID8gXCJtb3JlXCIgOiBcImxlc3NcIn0qKiB0aGFuIHRoZSBkYXNoZWQgbGluZS5gIDogXCJcIn1gXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTciLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJydW5zID0geyBjb25zdCBvdXQgPSBbXTsgZm9yIChjb25zdCByIG9mIGxlYWRlcnMuZmlsdGVyKHIgPT4gci55ZWFyID49IGJpcnRoKS5zb3J0KChhLCBiKSA9PiBhLnllYXIgLSBiLnllYXIpKSB7IGNvbnN0IGwgPSBvdXRbb3V0Lmxlbmd0aCAtIDFdOyBpZiAobCAmJiBsLmNvdW50cnkgPT09IHIuY291bnRyeSkgbC55ZWFycysrOyBlbHNlIG91dC5wdXNoKHtjb3VudHJ5OiByLmNvdW50cnksIHllYXJzOiAxfSk7IH0gcmV0dXJuIG91dDsgfVxubWRgVGhlIGxhcmdlc3QgQ08yIGVtaXR0ZXIgb2YgeW91ciBsaWZldGltZSB3YXMgJHtydW5zLm1hcChyID0+IGAqKiR7ci5jb3VudHJ5fSoqICgke3IueWVhcnN9ICR7ci55ZWFycyA9PT0gMSA/IFwieWVhclwiIDogXCJ5ZWFyc1wifSlgKS5qb2luKFwiLCB0aGVuIFwiKX0uYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC04IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiZmxhdCA9IHcuZmlsdGVyKHIgPT4gci55ZWFyID49IGJpcnRoKVxuZ2FwR3QgPSByYXRlID0+IGQzLnN1bShmbGF0LCByID0+IHIuY28yIC0gZmxhdFswXS5jbzIgKiBNYXRoLnBvdygxICsgcmF0ZSAvIDEwMCwgci55ZWFyIC0gYmlydGgpKSAvIDEwMDBcbm5vd0d0ID0gZmxhdFtmbGF0Lmxlbmd0aCAtIDFdLmNvMiAvIDEwMDBcbnBhdGggPSByYXRlID0+IHJhdGUgPT09IDAgPyBgc3RheWVkIGF0IGl0cyAke2JpcnRofSBsZXZlbGAgOiBgJHtyYXRlIDwgMCA/IFwiZmFsbGVuXCIgOiBcImdyb3duXCJ9ICR7TWF0aC5hYnMocmF0ZSl9JSBhIHllYXIgZnJvbSAke2JpcnRofWBcbm1kYElmIENPMiBoYWQgJHtwYXRoKHNsaWRlclJhdGUpfSwgdGhlIHdvcmxkIHdvdWxkIGhhdmUgZW1pdHRlZCAqKiR7TWF0aC5yb3VuZChNYXRoLmFicyhnYXBHdChzbGlkZXJSYXRlKSkpfSBHdCoqICR7Z2FwR3Qoc2xpZGVyUmF0ZSkgPj0gMCA/IFwibGVzc1wiIDogXCJtb3JlXCJ9IENPMiBkdXJpbmcgeW91ciBsaWZldGltZS5gXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTkiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJtZGAqKldoYXQgZG9lcyB0aGF0IG1lYW4gaW4gZXZlcnlkYXkgdGVybXM/KiogUmlnaHQgbm93IHRoZSB3b3JsZCBlbWl0cyBhYm91dCAqKiR7bm93R3QudG9GaXhlZCgwKX0gR3QqKiBvZiBDTzIgZXZlcnkgeWVhci4gQSBnYXAgb2YgJHtNYXRoLnJvdW5kKE1hdGguYWJzKGdhcEd0KHNsaWRlclJhdGUpKSl9IEd0IGlzIHRoZSBhbW91bnQgdGhlIHdvcmxkIGVtaXRzIGluIGFib3V0ICoqJHsoTWF0aC5hYnMoZ2FwR3Qoc2xpZGVyUmF0ZSkpIC8gbm93R3QpLnRvRml4ZWQoMSl9IHllYXJzKiogYXQgdG9kYXkncyByYXRlLiBJdCBpcyBvbmx5IGEgd2F5IHRvIGZlZWwgaG93IGJpZyB0aGUgbnVtYmVyIGlzLmBcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTAiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJhdEJpcnRoID0gdy5maW5kKHIgPT4gci55ZWFyID09PSBiaXJ0aClcbnRvZGF5ID0gdy5maW5kKHIgPT4gci55ZWFyID09PSBsYXN0KVxubWRgRW1pc3Npb25zIG9mIENPMiBhcmUgKiokeyh0b2RheS5jbzIgLyBhdEJpcnRoLmNvMikudG9GaXhlZCgxKX0gdGltZXMqKiB3aGF0IHRoZXkgd2VyZSBpbiB0aGUgeWVhciB5b3Ugd2VyZSBib3JuLCBhbmQgbWV0aGFuZSAqKiR7KHRvZGF5LmNoNCAvIGF0QmlydGguY2g0KS50b0ZpeGVkKDEpfSB0aW1lcyoqLmBcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTEiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJzaGFyZUZyb20gPSAoa2V5LCB5KSA9PiBzdW0odywga2V5LCBNYXRoLm1heCgxODUwLCB5KSkgLyBzdW0odywga2V5LCAwKVxuczAgPSBzaGFyZUZyb20oXCJjbzJcIiwgYmlydGgpXG5zMSA9IHNoYXJlRnJvbShcImNvMlwiLCBiaXJ0aCAtIDMwKVxuczIgPSBzaGFyZUZyb20oXCJjbzJcIiwgYmlydGggLSA2MClcbm1kYEdvIGJhY2sgb25lIGdlbmVyYXRpb24sIDMwIHllYXJzIGJlZm9yZSB5b3Ugd2VyZSBib3JuOiB0aGUgc2hhcmUgb2YgQ08yIHJpc2VzIGZyb20gJHtwY3QoczApfSB0byAqKiR7cGN0KHMxKX0qKi4gVHdvIGdlbmVyYXRpb25zIGJhY2ssIGl0IGlzICoqJHtwY3QoczIpfSoqLiBNb3N0IG9mIHRoZSBzdG9yeSBpcyByZWNlbnQuYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImZyYW1lKFwiMDFfbGlmZXRpbWVfc2hhcmVcIilcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJmcmFtZShcIjAyX2V2ZW50c19pbXBhY3RcIilcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJmcmFtZShcIjAzX2NvdW50cmllc19saWZldGltZVwiKVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImZyYW1lKFwiMDRfbGVhZGVyc19saWZldGltZVwiKVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xNiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImZyYW1lKFwiMDVfY291bnRlcmZhY3R1YWxcIilcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTciLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJmcmFtZShcIjA2X3llYXJfdnNfdG9kYXlcIilcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTgiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJmcmFtZShcIjA3X2dlbmVyYXRpb25hbF9sYWRkZXJcIilcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnYmlydGhJbnB1dCcpIn1dfQ==
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../..";
+window._ojs.paths.runtimeToRoot = "../../../..";
+window._ojs.paths.docToRoot = "..";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

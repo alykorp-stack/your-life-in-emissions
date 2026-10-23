@@ -1,0 +1,93 @@
+event,gas,year,baseline_mt
+World War I,CO2,1914,4038.2
+World War I,CO2,1915,4191.4
+World War I,CO2,1916,4350.4
+World War I,CO2,1917,4515.4
+World War I,CO2,1918,4686.8
+World War I,CH4,1914,2269.4
+World War I,CH4,1915,2307.9
+World War I,CH4,1916,2346.9
+World War I,CH4,1917,2386.6
+World War I,CH4,1918,2427
+Great Depression,CO2,1929,4679.6
+Great Depression,CO2,1930,4802.6
+Great Depression,CO2,1931,4928.8
+Great Depression,CO2,1932,5058.3
+Great Depression,CO2,1933,5191.2
+Great Depression,CH4,1929,2754.4
+Great Depression,CH4,1930,2784.4
+Great Depression,CH4,1931,2814.8
+Great Depression,CH4,1932,2845.6
+Great Depression,CH4,1933,2876.6
+World War II,CO2,1939,4703.3
+World War II,CO2,1940,4761.4
+World War II,CO2,1941,4820.3
+World War II,CO2,1942,4879.9
+World War II,CO2,1943,4940.2
+World War II,CO2,1944,5001.3
+World War II,CO2,1945,5063.2
+World War II,CH4,1939,2977.9
+World War II,CH4,1940,3002.4
+World War II,CH4,1941,3027.1
+World War II,CH4,1942,3052
+World War II,CH4,1943,3077
+World War II,CH4,1944,3102.3
+World War II,CH4,1945,3127.8
+1973 oil crisis,CO2,1973,18011.2
+1973 oil crisis,CO2,1974,18868.8
+1973 oil crisis,CO2,1975,19767.2
+1973 oil crisis,CH4,1973,6968.6
+1973 oil crisis,CH4,1974,7188.8
+1973 oil crisis,CH4,1975,7415.8
+1979 oil crisis,CO2,1979,20565.1
+1979 oil crisis,CO2,1980,21158.1
+1979 oil crisis,CO2,1981,21768.2
+1979 oil crisis,CO2,1982,22395.9
+1979 oil crisis,CO2,1983,23041.6
+1979 oil crisis,CH4,1979,7831.3
+1979 oil crisis,CH4,1980,8005.2
+1979 oil crisis,CH4,1981,8183
+1979 oil crisis,CH4,1982,8364.8
+1979 oil crisis,CH4,1983,8550.5
+Fall of the USSR,CO2,1991,23665.1
+Fall of the USSR,CO2,1992,24152.6
+Fall of the USSR,CO2,1993,24650.3
+Fall of the USSR,CO2,1994,25158.1
+Fall of the USSR,CO2,1995,25676.5
+Fall of the USSR,CH4,1991,7347
+Fall of the USSR,CH4,1992,7391.5
+Fall of the USSR,CH4,1993,7436.2
+Fall of the USSR,CH4,1994,7481.3
+Fall of the USSR,CH4,1995,7526.6
+Asian financial crisis,CO2,1997,23442.2
+Asian financial crisis,CO2,1998,23554.8
+Asian financial crisis,CO2,1999,23667.9
+Asian financial crisis,CH4,1997,7643.7
+Asian financial crisis,CH4,1998,7690.3
+Asian financial crisis,CH4,1999,7737.2
+China joins the WTO,CO2,2001,24868.7
+China joins the WTO,CO2,2002,25128.6
+China joins the WTO,CO2,2003,25391.2
+China joins the WTO,CO2,2004,25656.6
+China joins the WTO,CO2,2005,25924.7
+China joins the WTO,CO2,2006,26195.6
+China joins the WTO,CO2,2007,26469.4
+China joins the WTO,CH4,2001,7486
+China joins the WTO,CH4,2002,7488.5
+China joins the WTO,CH4,2003,7491
+China joins the WTO,CH4,2004,7493.4
+China joins the WTO,CH4,2005,7495.9
+China joins the WTO,CH4,2006,7498.4
+China joins the WTO,CH4,2007,7500.9
+Global financial crisis,CO2,2008,31612.7
+Global financial crisis,CO2,2009,32580
+Global financial crisis,CO2,2010,33577
+Global financial crisis,CH4,2008,8175.7
+Global financial crisis,CH4,2009,8268.2
+Global financial crisis,CH4,2010,8361.8
+COVID-19 pandemic,CO2,2020,37131.2
+COVID-19 pandemic,CH4,2020,9082.4
+Energy crisis after Ukraine,CO2,2022,36834.2
+Energy crisis after Ukraine,CO2,2023,37072.8
+Energy crisis after Ukraine,CH4,2022,9172.7
+Energy crisis after Ukraine,CH4,2023,9244.6

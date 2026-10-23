@@ -1,0 +1,6 @@
+project:
+  type: default
+  render:
+    - scrolly/index.qmd
+  resources:
+    - charts/d_scrollytelling/*.html

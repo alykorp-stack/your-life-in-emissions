@@ -14,6 +14,8 @@ data/
   country_groups.csv
   generations.csv
   events.csv
+  events_impact.csv
+  events_baseline_year.csv
   raw/
     primap/                       PRIMAP-hist v2.2 (1850-2018), the historical backbone
     owid_co2/                     Annual CO2 by country, 2018-2024 (OWID / Global Carbon Budget)
@@ -35,6 +37,8 @@ Each one has its own script in `R/`. Run `R/emissions_country_year.r` first for 
 | `country_groups.csv` | `iso_code, country, region, income_group, is_aggregate`: use to keep aggregates (World, EU, income groups) out of country lists | World Bank metadata, plus a few territories and PRIMAP groupings added by hand |
 | `generations.csv` | `generation, start_birth_year, end_birth_year`: Silent to Gen Alpha (Pew definitions; Gen Alpha ends at 2024, the last data year) | typed in |
 | `events.csv` | `year, label, description, category`: annotations for the charts | typed in |
+| `events_impact.csv` | `event, start, end, kind, category, gas, baseline_mt, actual_mt, pct_vs_trend, trend_growth_pct, fit_years, description`: world events (and policy milestones) and how global emissions moved against the trend of the 10 years before each one. `pct_vs_trend` is not a causal effect | `R/event_impacts.r`, global table |
+| `events_baseline_year.csv` | `event, gas, year, baseline_mt`: the projected trend for each event window, for drawing the dashed lines | `R/event_impacts.r` |
 
 ## Columns in `emissions_country_year.csv`
 

@@ -1,6 +1,6 @@
 # Top X emitters vs the rest of the world.
 #
-# Vertical bar chart of share of the world total, with annual and cumulative versions. Rest = world minus the top X. X is fixed at 10 for the static version.
+# Horizontal bar chart of share of the world total, with annual and cumulative versions. Rest = world minus the top X. X is fixed at 10 for the static version.
 # Data: data/emissions_country_year.csv, data/country_groups.csv (drop aggregates)
 # Run from the project root:  Rscript charts/b_countries_now/01_top_x_vs_rest.r
 # Saves: charts/b_countries_now/01_top_x_vs_rest.png (static) and charts/b_countries_now/01_top_x_vs_rest.html (interactive)
@@ -77,15 +77,14 @@ make_chart <- function(df, title, subtitle) {
     mutate(group = if_else(country == "Rest of World", "rest", "top")) |>
     ggplot(aes(x = country, y = share, fill = group)) +
     geom_col(width = 0.75, show.legend = FALSE) +
-    geom_text(aes(label = sprintf("%.1f%%", share)), vjust = -0.4, size = 3) +
+    geom_text(aes(label = sprintf("%.1f%%", share)), hjust = -0.2, size = 3) +
     scale_fill_manual(values = c(top = bar_colors[1], rest = bar_colors[2])) +
-    scale_y_continuous(expand = expansion(mult = c(0, 0.15))) +
+    scale_x_discrete(limits = rev) +   # biggest at the top, Rest of World last
+    scale_y_continuous(expand = expansion(mult = c(0, 0.2))) +
+    coord_flip() +
     labs(title = title, subtitle = subtitle, x = NULL, y = "Share of world CO\u2082 (%)") +
-    theme_minimal_hgrid(font_size = 10) +
-    theme(
-      axis.text.x = element_text(angle = 45, hjust = 1),
-      plot.title.position = "plot"
-    )
+    theme_minimal_vgrid(font_size = 10) +
+    theme(plot.title.position = "plot")
 }
 
 p_annual <- make_chart(annual,
@@ -108,10 +107,10 @@ ggsave("charts/b_countries_now/01_top_x_vs_rest.png", final, width = 8, height =
 # One bar trace per chart. Bar colours match the static chart: teal for countries, grey for Rest of World.
 add_bars <- function(p, df, visible) {
   p |> add_trace(
-    type = "bar", x = as.character(df$country), y = df$share, customdata = df$value,
+    type = "bar", orientation = "h", y = as.character(df$country), x = df$share, customdata = df$value,
     text = sprintf("%.1f%%", df$share), textposition = "outside", cliponaxis = FALSE,
     marker = list(color = if_else(df$country == "Rest of World", bar_colors[2], bar_colors[1])),
-    hovertemplate = "<b>%{x}</b><br>%{y:.1f}% of world CO\u2082<br>%{customdata:,.0f} Mt CO\u2082<extra></extra>",
+    hovertemplate = "<b>%{y}</b><br>%{x:.1f}% of world CO\u2082<br>%{customdata:,.0f} Mt CO\u2082<extra></extra>",
     visible = visible, showlegend = FALSE
   )
 }
@@ -128,16 +127,15 @@ p_int <- plot_ly() |>
   add_bars(annual, TRUE) |>
   add_bars(cumulative, FALSE) |>
   layout(
-    title = list(text = paste0("<b>", payload$titles[1], "</b>"), x = 0.5, y = 1, xref = "paper", yref = "paper",
+    title = list(text = paste0("<b>", payload$titles[1], "</b>"), x = 0.5, y = 1.04, xref = "paper", yref = "paper",
                  xanchor = "center", yanchor = "bottom", font = list(size = 22, color = "#1f2a37")),
-    margin = list(t = 150, b = 130, l = 70, r = 30),
-    # The source note is the x-axis title, so plotly places it below the country labels.
-    xaxis = list(title = list(text = "Top 10 emitters vs the rest of the world. Source: PRIMAP-hist v2.2 (to 2018), OWID / Global Carbon Budget (2019\u20132024).",
-                              font = list(size = 11, color = "#666666"), standoff = 10),
-                 categoryorder = "array", categoryarray = payload$cats[[1]], tickangle = -35,
+    margin = list(t = 150, b = 100, l = 130, r = 60),
+    # Countries on the y axis, biggest at the top. The source note is the x-axis title, below the bars.
+    yaxis = list(categoryorder = "array", categoryarray = payload$cats[[1]], autorange = "reversed",
                  tickfont = list(size = 13)),
-    yaxis = list(title = "Share of world CO\u2082 (%)", range = c(0, payload$ymax[1]), gridcolor = "#e5e7eb",
-                 zeroline = FALSE, ticksuffix = "%"),
+    xaxis = list(title = list(text = "Share of world CO\u2082 (%). Top 10 emitters vs the rest of the world. Source: PRIMAP-hist v2.2 (to 2018), OWID / Global Carbon Budget (2019\u20132024).",
+                              font = list(size = 11, color = "#666666"), standoff = 10),
+                 range = c(0, payload$ymax[1]), gridcolor = "#e5e7eb", zeroline = FALSE, ticksuffix = "%"),
     plot_bgcolor = "white", paper_bgcolor = "white", hoverlabel = list(font = list(size = 14))
   ) |>
   config(displayModeBar = FALSE) |>
@@ -191,8 +189,8 @@ p_int <- plot_ly() |>
       sel.addEventListener('change', function() {
         var i = +sel.value;
         Plotly.restyle(el, {visible: [i === 0, i === 1]});
-        Plotly.relayout(el, {'title.text': '<b>' + d.titles[i] + '</b>', 'xaxis.categoryarray': d.cats[i],
-                             'yaxis.range': [0, d.ymax[i]]});
+        Plotly.relayout(el, {'title.text': '<b>' + d.titles[i] + '</b>', 'yaxis.categoryarray': d.cats[i],
+                             'xaxis.range': [0, d.ymax[i]]});
       });
 
       dl.addEventListener('click', function() {

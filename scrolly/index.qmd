@@ -1,0 +1,230 @@
+---
+title: "Your life in emissions"
+subtitle: "What the world emitted while you were alive"
+format:
+  closeread-html:
+    code-tools: false
+    toc: false
+    cr-style:
+      section-background-color: "#ffffff"
+      narrative-background-color-sidebar: "#f2f7fd"
+      narrative-text-color-sidebar: "#1e3a5f"
+      narrative-font-size: 1.15rem
+      narrative-border-radius: 10px
+execute:
+  echo: false
+  warning: false
+---
+
+```{r}
+#| include: false
+# Small tables for the live numbers in the text. Charts load their own data (charts/d_scrollytelling/*.html).
+library(readr)
+world <- read_csv("../data/emissions_global_year.csv", show_col_types = FALSE)[, c("year", "co2_mt", "ch4_mtco2e")]
+names(world) <- c("year", "co2", "ch4")
+ev <- read_csv("../data/events_impact.csv", show_col_types = FALSE)[, c("event", "start", "end", "kind", "gas", "pct_vs_trend", "baseline_mt", "actual_mt", "trend_growth_pct")]
+lead <- read_csv("../data/top_emitter_by_year.csv", show_col_types = FALSE)
+lead <- lead[lead$gas == "co2", c("year", "country")]
+gens <- read_csv("../data/generations.csv", show_col_types = FALSE)
+ojs_define(world = world, ev = ev, lead = lead, gens = gens)
+```
+
+```{=html}
+<style>
+  .birth-box { position: sticky; top: 10px; width: fit-content; margin: 0.5rem auto 1.2rem; z-index: 1000; background: #fff; border: 2px solid #2b6cb0; border-radius: 12px;
+               padding: 6px 12px; box-shadow: 0 2px 8px rgba(43, 108, 176, 0.25); font-family: system-ui, sans-serif; }
+  .birth-box label { font-weight: 700; color: #1e3a5f; margin-right: 8px; }
+  .birth-box input { width: 80px; font-size: 16px; font-weight: 700; color: #1e3a5f; }
+  .chart-frame { width: 100%; height: 78vh; border: 0; background: #fff; }
+  .cr-section .sticky-col .sticky-col-stack .sticky { width: 100%; pointer-events: none; }
+  .cr-section .sticky-col .sticky-col-stack .sticky.cr-active { pointer-events: auto; }
+  .method { max-width: 780px; margin: 3rem auto; padding: 0 1rem; font-size: 1.05rem; }
+</style>
+<script>
+  // Charts 1 and 2 let the visitor click a year on the chart; the chart tells this page, which updates the birth year box.
+  window.addEventListener('message', function(ev) {
+    if (!ev.data || !ev.data.birth) return;
+    var box = document.querySelector('.birth-box input[type=number]');
+    if (box) { box.value = ev.data.birth; box.dispatchEvent(new Event('input', {bubbles: true})); }
+  });
+</script>
+```
+
+::: {.birth-box}
+```{ojs}
+viewof birthInput = Inputs.number([1850, 2024], {value: 1988, step: 1, label: "Birth year"})
+```
+:::
+
+```{ojs}
+// Everything below reads this one birth year, kept inside the data range
+birth = Math.min(2024, Math.max(1850, Math.round(birthInput || 1988)))
+w = transpose(world)
+events = transpose(ev)
+leaders = transpose(lead)
+generations = transpose(gens)
+last = 2024
+sum = (rows, key, from) => d3.sum(rows.filter(r => r.year >= from), r => r[key])
+pct = x => (100 * x).toFixed(1) + "%"
+lifeShare = ({co2: sum(w, "co2", birth) / sum(w, "co2", 0), ch4: sum(w, "ch4", birth) / sum(w, "ch4", 0)})
+halfYear = key => { let run = 0, total = sum(w, key, 0); for (const r of w) { run += r[key]; if (run >= total / 2) return r.year; } }
+half = ({co2: halfYear("co2"), ch4: halfYear("ch4")})
+agePhrase = year => year < birth ? "before you were born" : year === birth ? "the year you were born" : `when you were ${year - birth}`
+generation = { const g = generations.find(g => g.start_birth_year <= birth && birth <= g.end_birth_year); return g ? g.generation : (birth < 1928 ? "before the Silent generation" : "Gen Alpha or later"); }
+sliderRate = Generators.observe(notify => { const f = e => { if (e.data && e.data.rate !== undefined) notify(e.data.rate); }; notify(0); window.addEventListener('message', f); return () => window.removeEventListener('message', f); })
+buildStamp = Date.now()
+frame = name => html`<iframe class="chart-frame" src="../charts/d_scrollytelling/${name}.html?embed=1&birth=${birth}&v=${buildStamp}"></iframe>`
+```
+
+Type the year you were born in the box above. It stays at the top as you scroll, and every chart below redraws for your lifetime.
+
+```{ojs}
+md`You were born in **${birth}**, which makes you part of **${generation}**. Scroll down.`
+```
+
+::::::: {.cr-section layout="sidebar-left"}
+
+## The whole record
+
+We have yearly global emissions of carbon dioxide (CO2) and methane (CH4) back to 1850. The lines show how much of everything emitted since 1850 had been released by each year. The shaded band is your lifetime. @cr-share
+
+```{ojs}
+md`**${pct(lifeShare.co2)}** of all CO2 and **${pct(lifeShare.ch4)}** of all CH4 recorded since 1850 was released while you have been alive. Half of all CO2 had been emitted by **${half.co2}** (${agePhrase(half.co2)}), half of all CH4 by **${half.ch4}** (${agePhrase(half.ch4)}).`
+```
+
+The steep part of the curve is recent. Dots mark the halfway years, and the ticks inside your band are your ages. Click the chart to try another birth year.
+
+## What the world was going through
+
+Emissions are not a smooth climb. Wars, recessions, oil shocks and the pandemic bent the curve. For each event we compare emissions with the trend of the ten years before it (the dashed line) and show the three that moved CO2 furthest from that trend. @cr-events
+
+```{ojs}
+measured = events.filter(e => e.kind === "event" && e.gas === "CO2" && e.start > birth)
+bigThree = measured.slice().sort((a, b) => Math.abs(b.pct_vs_trend) - Math.abs(a.pct_vs_trend)).slice(0, 3).sort((a, b) => a.start - b.start)
+signedPct = v => (v > 0 ? "+" : "\u2212") + Math.abs(v) + "%"
+md`${measured.length === 0 ? "None of the events in our list fall inside your lifetime." : `**${measured.length}** events in our list fall inside your lifetime. The ${bigThree.length === 3 ? "three" : ""} that moved CO2 furthest from its trend: ${bigThree.map(e => `**${e.event}** (${signedPct(e.pct_vs_trend)})`).join(", ")}.`}`
+```
+
+**What is the dashed line?** It is where emissions were heading *before* the event. We take the ten years just before it, measure how fast CO2 was growing in a typical year in that stretch, and keep that same pace going through the event's years. Think of it as "business as usual": a reference line, not a forecast.
+
+**How to read the percentage.** Add up all the CO2 emitted during the event and compare it with what the dashed line would have given over the same years. A minus means emissions came in *below* the earlier pace; a plus means *above* it.
+
+```{ojs}
+example = bigThree.length ? bigThree.slice().sort((a, b) => Math.abs(b.pct_vs_trend) - Math.abs(a.pct_vs_trend))[0] : null
+exYears = example ? example.end - example.start + 1 : 0
+md`${example ? `**An example from your lifetime: ${example.event}** (${example.start === example.end ? example.start : example.start + " to " + example.end}). In the ten years before it, CO2 grew by about **${example.trend_growth_pct.toFixed(1)}% a year**. Keeping that pace, the world would have emitted about **${Math.round(example.baseline_mt / 1000)} Gt** over ${exYears === 1 ? "that year" : "those " + exYears + " years"}. It actually emitted **${Math.round(example.actual_mt / 1000)} Gt**, which is **${Math.abs(example.pct_vs_trend)}% ${example.pct_vs_trend > 0 ? "more" : "less"}** than the dashed line.` : ""}`
+```
+
+This shows how emissions moved while an event was going on. It does not prove the event caused it. Hover a year on the chart for the numbers behind it.
+
+## Who emitted it
+
+Which countries emitted the most during your lifetime? The five biggest appear first. The list on the left ranks every country, and a click on a name shows or hides its line, so you can add your own country or clear the chart. @cr-countries
+
+Then switch **Measure** to *Emissions per person*. The ranking changes completely: the countries that emit the most in total are not the ones that emit the most per resident. The choice of measure changes the story.
+
+## Who led, and who was close behind
+
+A strip shows the three largest CO2 emitters in each year of your life. @cr-leaders
+
+```{ojs}
+runs = { const out = []; for (const r of leaders.filter(r => r.year >= birth).sort((a, b) => a.year - b.year)) { const l = out[out.length - 1]; if (l && l.country === r.country) l.years++; else out.push({country: r.country, years: 1}); } return out; }
+md`The largest CO2 emitter of your lifetime was ${runs.map(r => `**${r.country}** (${r.years} ${r.years === 1 ? "year" : "years"})`).join(", then ")}.`
+```
+
+The second and third rows show who was behind in each year. Past states are assigned to today's borders, so the Soviet Union appears as Russia.
+
+## What if emissions had stopped growing?
+
+So far we have described what happened. Now a thought experiment: hold emissions at the level of your birth year, and compare. The shaded gap is how much more the world emitted than it would have. @cr-whatif
+
+```{ojs}
+flat = w.filter(r => r.year >= birth)
+gapGt = rate => d3.sum(flat, r => r.co2 - flat[0].co2 * Math.pow(1 + rate / 100, r.year - birth)) / 1000
+nowGt = flat[flat.length - 1].co2 / 1000
+path = rate => rate === 0 ? `stayed at its ${birth} level` : `${rate < 0 ? "fallen" : "grown"} ${Math.abs(rate)}% a year from ${birth}`
+md`If CO2 had ${path(sliderRate)}, the world would have emitted **${Math.round(Math.abs(gapGt(sliderRate)))} Gt** ${gapGt(sliderRate) >= 0 ? "less" : "more"} CO2 during your lifetime.`
+```
+
+```{ojs}
+md`**What does that mean in everyday terms?** Right now the world emits about **${nowGt.toFixed(0)} Gt** of CO2 every year. A gap of ${Math.round(Math.abs(gapGt(sliderRate)))} Gt is the amount the world emits in about **${(Math.abs(gapGt(sliderRate)) / nowGt).toFixed(1)} years** at today's rate. It is only a way to feel how big the number is.`
+```
+
+Use the slider to test other paths, from emissions falling 5% a year to rising 3%; the numbers above follow it. This is an illustration of scale, not a forecast: real emissions move with population and the economy.
+
+## Then and now
+
+How does today compare with the year you were born? @cr-thennow
+
+```{ojs}
+atBirth = w.find(r => r.year === birth)
+today = w.find(r => r.year === last)
+md`Emissions of CO2 are **${(today.co2 / atBirth.co2).toFixed(1)} times** what they were in the year you were born, and methane **${(today.ch4 / atBirth.ch4).toFixed(1)} times**.`
+```
+
+## Your family's ladder
+
+Now step back through your family: a parent born 30 years before you, a grandparent 60 years before. @cr-ladder
+
+```{ojs}
+shareFrom = (key, y) => sum(w, key, Math.max(1850, y)) / sum(w, key, 0)
+s0 = shareFrom("co2", birth)
+s1 = shareFrom("co2", birth - 30)
+s2 = shareFrom("co2", birth - 60)
+md`Go back one generation, 30 years before you were born: the share of CO2 rises from ${pct(s0)} to **${pct(s1)}**. Two generations back, it is **${pct(s2)}**. Most of the story is recent.`
+```
+
+::: {#cr-share}
+```{ojs}
+frame("01_lifetime_share")
+```
+:::
+
+::: {#cr-events}
+```{ojs}
+frame("02_events_impact")
+```
+:::
+
+::: {#cr-countries}
+```{ojs}
+frame("03_countries_lifetime")
+```
+:::
+
+::: {#cr-leaders}
+```{ojs}
+frame("04_leaders_lifetime")
+```
+:::
+
+::: {#cr-whatif}
+```{ojs}
+frame("05_counterfactual")
+```
+:::
+
+::: {#cr-thennow}
+```{ojs}
+frame("06_year_vs_today")
+```
+:::
+
+::: {#cr-ladder}
+```{ojs}
+frame("07_generational_ladder")
+```
+:::
+
+:::::::
+
+::: {.method}
+## How this was made, and what to be careful about
+
+- **Data.** Annual CO2 and CH4 emissions by country, 1850 to 2024, excluding land use: PRIMAP-hist v2.2 (to 2018), Global Carbon Budget and EDGAR (later years). CH4 is converted to CO2 equivalent at GWP100 = 27.9. World totals are the sum of countries.
+- **Borders.** History is assigned to today's borders, so emissions of the Soviet Union appear under Russia and its other successor states.
+- **Events.** "Above or below trend" compares an event's years with a constant-growth trend fitted to the ten years before it. A baseline can contain an earlier shock (the trend used for 2022 includes the pandemic), and policy milestones such as Kyoto and Paris get no number because a trend cannot measure their effect.
+- **Per person.** The default per person ranking leaves out countries with under one million people, which would otherwise top any list. You can add any country yourself. Kuwait's 1991 spike is the Gulf War oil-well fires.
+- **The thought experiment** is a simple calculation, not a model of what was possible.
+- **Gaps.** A few small territories lack some years; countries missing a value count as zero in the totals.
+:::
