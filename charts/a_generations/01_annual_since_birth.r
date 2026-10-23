@@ -6,15 +6,14 @@
 # Saves: charts/a_generations/01_annual_since_birth.png (static) and charts/a_generations/01_annual_since_birth.html (interactive)
 #
 # Step 1: static ggplot (my-dataviz house style), saved as a PNG.
-# Step 2: interactive plotly version of the same chart, saved as standalone HTML.
-#         Hover tooltips and event descriptions; lines are labeled directly (no legend toggling). The birth-year input that picks the generation needs Quarto OJS (plotly cannot take it).
+# Step 2: interactive echarts4r version of the same chart, saved as standalone HTML.
+#         Hover tooltips and event descriptions; lines are labeled directly (no legend toggling). The birth-year input that picks the generation needs Quarto OJS (echarts4r cannot take it).
 
 library(tidyverse)
 library(cowplot)
 library(ltc)
 library(ggrepel)
-library(plotly)
-library(htmlwidgets)
+source("charts/a_generations/echarts_helpers.r")   # loads echarts4r and htmlwidgets
 
 font       <- "sans"
 hat        <- as.vector(ltc("hat"))
@@ -67,42 +66,12 @@ p_static <- ggplot(since_birth, aes(year, gt_year, color = gas)) +
 
 ggsave(OUT_PNG, p_static, width = 8, height = 5, dpi = 300)
 
-# ---- Step 2: interactive plotly ----
-# Hover shows exact values; hovering an event label shows its description.
-# Lines are labeled at their ends, with no legend (clicking to hide a line is not needed here).
-event_lines <- map(events$year, \(x) list(
-  type = "line", x0 = x, x1 = x, y0 = 0, y1 = 1, yref = "paper",
-  line = list(color = "grey", dash = "dash", width = 1)))
+# ---- Step 2: interactive echarts4r ----
+# Hover shows exact values; hovering an event line shows its description. Lines are labeled at their ends, with no legend.
+# Zoom and download buttons come from echarts_helpers.r (same look as the choropleth's).
+p <- since_birth |>
+  pivot_wider(names_from = gas, values_from = gt_year) |>
+  lifetime_chart(events, paste0("Annual global emissions since ", BIRTH_YEAR), gasColors, caption) |>
+  add_buttons("annual_emissions_since_birth")
 
-gas_labels <- pmap(ends, \(year, gas, gt_year, ...) list(
-  x = year, y = gt_year, text = gas, xanchor = "left", xshift = 6, showarrow = FALSE,
-  font = list(size = 14, color = gasColors[[gas]])))
-
-event_labels <- pmap(events, \(year, label, description, ...) list(
-  x = year, y = 1, yref = "paper", text = label, hovertext = description,
-  textangle = -90, xanchor = "right", yanchor = "top", showarrow = FALSE,
-  font = list(size = 11, color = "grey40")))
-
-p <- plot_ly(since_birth, x = ~year, y = ~gt_year, color = ~gas, colors = gasColors,
-             type = "scatter", mode = "lines", line = list(width = 3),
-             hovertemplate = "%{x}: %{y:,.1f} Gt CO2e per year<extra>%{fullData.name}</extra>") |>
-  layout(title = list(text = paste0("Annual global emissions since ", BIRTH_YEAR), x = 0),
-         xaxis = list(title = "", showgrid = FALSE),
-         yaxis = list(title = "Annual emissions (Gt CO2e per year)", rangemode = "tozero",
-                      tickformat = ","),
-         shapes = event_lines,
-         annotations = c(event_labels, gas_labels,
-                         list(list(text = caption, x = 0, y = -0.15, xref = "paper",
-                                   yref = "paper", showarrow = FALSE, xanchor = "left",
-                                   font = list(size = 10, color = "grey40")))),
-         showlegend = FALSE,
-         margin = list(b = 80),
-         hovermode = "x unified",
-         paper_bgcolor = "white", plot_bgcolor = "white")
-
-# saveWidget(selfcontained = TRUE) needs pandoc; use the copy bundled with Quarto if none is on the PATH
-if (!rmarkdown::pandoc_available()) {
-  Sys.setenv(RSTUDIO_PANDOC = file.path(dirname(Sys.which("quarto")), "tools"))
-}
-saveWidget(p, file.path(getwd(), OUT_HTML), selfcontained = TRUE)
-unlink(sub("[.]html$", "_files", OUT_HTML), recursive = TRUE)   # saveWidget leaves this behind on Windows
+save_echart(p, OUT_HTML)

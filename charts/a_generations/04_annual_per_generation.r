@@ -11,17 +11,16 @@
 # gen-alpha. The page can build the path from the generation name, e.g. by_generation/gen-x.png.
 # Data: data/emissions_global_year.csv, data/generations.csv, data/events.csv
 # Run from the project root:  Rscript charts/a_generations/04_annual_per_generation.r
-# Saves: charts/a_generations/by_generation/<generation>.png (static) and .html (interactive, not built yet)
+# Saves: charts/a_generations/by_generation/<generation>.png (static) and .html (interactive)
 #
 # Step 1: static ggplot (my-dataviz house style), saved as one PNG per generation.
-# Step 2: interactive plotly version of each chart, saved as standalone HTML in the same folder.
+# Step 2: interactive echarts4r version of each chart, saved as standalone HTML in the same folder.
 
 library(tidyverse)
 library(cowplot)
 library(ltc)
 library(ggrepel)
-library(plotly)
-library(htmlwidgets)
+source("charts/a_generations/echarts_helpers.r")   # loads echarts4r and htmlwidgets
 
 font      <- "sans"
 hat       <- as.vector(ltc("hat"))
@@ -104,6 +103,24 @@ generations |>
            width = 8, height = 5, dpi = 300)
   })
 
-# ---- Step 2: interactive plotly ----
-# TODO: rebuild each chart with plot_ly() (hover-only, as in chart 02), then
-#       saveWidget(p, file.path(OUT_DIR, paste0(file, ".html")), selfcontained = TRUE)
+# ---- Step 2: interactive echarts4r ----
+# Same chart as the PNG, one HTML per generation, with the same y axis (ytop * 1.5, rounded up to a multiple of 10) so they stay comparable.
+# Hover shows exact values and event descriptions; zoom and download buttons come from echarts_helpers.r.
+event_info <- read_csv("data/events.csv", show_col_types = FALSE) |>
+  select(year, label, description)
+
+chart_interactive <- function(gen, file) {
+  d  <- lifetimes |> filter(generation == gen) |> select(year, gas, gt_year) |>
+    pivot_wider(names_from = gas, values_from = gt_year)
+  ev <- events |> filter(generation == gen) |>
+    select(year, gt_year) |> left_join(event_info, by = "year")
+  title <- paste0("Annual global emissions since birth, ", distinct(filter(lifetimes, generation == gen), label)$label)
+
+  lifetime_chart(d, ev, title, gasColors, caption, ytop = ceiling(ytop * 1.5 / 10) * 10, dots = TRUE) |>
+    add_buttons(paste0("annual_emissions_", file)) |>
+    save_echart(file.path(OUT_DIR, paste0(file, ".html")))
+}
+
+generations |>
+  distinct(generation, file) |>
+  pwalk(\(generation, file) chart_interactive(generation, file))

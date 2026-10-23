@@ -9,14 +9,13 @@
 # Saves: charts/a_generations/02_cumulative_by_generation.png (static) and charts/a_generations/02_cumulative_by_generation.html (interactive)
 #
 # Step 1: static ggplot (my-dataviz house style), saved as a PNG.
-# Step 2: interactive plotly version of the same chart, saved as standalone HTML.
+# Step 2: interactive echarts4r version of the same chart, saved as standalone HTML.
 #         Hover-only: a tooltip with the exact value on each bar (no legend toggling, zoom or pan).
 
 library(tidyverse)
 library(cowplot)
 library(ltc)
-library(plotly)
-library(htmlwidgets)
+source("charts/a_generations/echarts_helpers.r")   # loads echarts4r and htmlwidgets
 
 font      <- "sans"
 hat       <- as.vector(ltc("hat"))
@@ -86,44 +85,45 @@ p_static <- plot_grid(title, sub, legend, plot_grid(p_share, p_rate, nrow = 1), 
 
 ggsave(OUT_PNG, p_static, width = 11, height = 5.5, dpi = 300)
 
-# ---- Step 2: interactive plotly ----
+# ---- Step 2: interactive echarts4r ----
 # Hover-only: a tooltip with the exact value on each bar. No legend toggling, zoom or pan.
-panel_ly <- function(metric_name, tick_format, hover_value, show_legend) {
-  by_generation |>
-    filter(metric == metric_name) |>
-    mutate(label = str_replace(label, "\n", "<br>"),
-           label = fct_inorder(label),
-           who = paste0(generation, " (born ", birth_year, ")")) |>
-    plot_ly(x = ~label, y = ~value, color = ~gas, colors = gasColors, type = "bar",
-            customdata = ~who, showlegend = show_legend,
-            hovertemplate = paste0("<b>%{customdata}</b><br>", hover_value, "<extra>%{fullData.name}</extra>")) |>
-    layout(xaxis = list(title = "", fixedrange = TRUE),
-           yaxis = list(title = "", tickformat = tick_format, rangemode = "tozero", fixedrange = TRUE))
-}
+# One chart with two side-by-side grids (one per metric), so there is a single title, legend and caption.
+wide <- by_generation |>
+  select(label, gas, metric, value) |>
+  pivot_wider(names_from = c(gas, metric), values_from = value)
+share_cols <- names(wide)[str_detect(names(wide), "Share")]   # CO2_..., CH4_...
+rate_cols  <- names(wide)[str_detect(names(wide), "Average")]
 
-p_share_ly <- panel_ly("Share of all emissions since 1850", ".0%",
-                       "%{y:.1%} of all emissions since 1850", TRUE)
-p_rate_ly  <- panel_ly("Average emissions per year lived (Gt CO2e)", ",",
-                       "%{y:.1f} Gt CO2e per year lived", FALSE)
+bar_tooltip <- JS("function(p) {
+  var v = Array.isArray(p.value) ? p.value[1] : p.value;
+  var txt = p.seriesIndex < 2 ? (v * 100).toFixed(1) + '% of all emissions since 1850'
+                              : v.toFixed(1) + ' Gt CO2e per year lived';
+  return '<b>' + p.name.replace('\\n', ' ') + '</b><br>' + p.seriesName + ': ' + txt;
+}")
 
-p <- subplot(p_share_ly, p_rate_ly, nrows = 1, margin = 0.06) |>
-  layout(barmode = "group",
-         title = list(text = "Emissions lived through by a typical member of each generation", x = 0),
-         legend = list(orientation = "h", x = 0, y = 1.12, itemclick = FALSE, itemdoubleclick = FALSE),
-         annotations = list(
-           list(text = "Share of all emissions since 1850", x = 0, y = 1.05, xref = "paper",
-                yref = "paper", xanchor = "left", showarrow = FALSE, font = list(size = 14)),
-           list(text = "Average emissions per year lived (Gt CO2e)", x = 0.56, y = 1.05, xref = "paper",
-                yref = "paper", xanchor = "left", showarrow = FALSE, font = list(size = 14)),
-           list(text = caption, x = 0, y = -0.2, xref = "paper", yref = "paper",
-                xanchor = "left", showarrow = FALSE, font = list(size = 10, color = "grey40"))),
-         margin = list(t = 90, b = 100),
-         paper_bgcolor = "white", plot_bgcolor = "white") |>
-  config(displayModeBar = FALSE)
+p <- wide |>
+  e_charts(label) |>
+  e_bar_(share_cols[1], name = "CO2", barGap = "10%") |>
+  e_bar_(share_cols[2], name = "CH4") |>
+  e_bar_(rate_cols[1], name = "CO2", x_index = 1, y_index = 1, barGap = "10%") |>
+  e_bar_(rate_cols[2], name = "CH4", x_index = 1, y_index = 1) |>
+  e_grid(left = "6%", right = "54%", top = 120, bottom = 70) |>
+  e_grid(left = "56%", right = "3%", top = 120, bottom = 70) |>
+  e_x_axis(index = 0, gridIndex = 0, axisLabel = list(interval = 0)) |>
+  e_x_axis(index = 1, gridIndex = 1, axisLabel = list(interval = 0)) |>
+  e_y_axis(index = 0, gridIndex = 0, formatter = e_axis_formatter("percent", digits = 0)) |>
+  e_y_axis(index = 1, gridIndex = 1) |>
+  e_color(rep(unname(gasColors), 2)) |>
+  e_tooltip(trigger = "item", formatter = bar_tooltip) |>
+  e_legend(top = 40, left = 0, selectedMode = FALSE) |>
+  e_toolbox(show = FALSE) |>
+  e_title("Emissions lived through by a typical member of each generation", left = 0)
 
-# saveWidget(selfcontained = TRUE) needs pandoc; use the copy bundled with Quarto if none is on the PATH
-if (!rmarkdown::pandoc_available()) {
-  Sys.setenv(RSTUDIO_PANDOC = file.path(dirname(Sys.which("quarto")), "tools"))
-}
-saveWidget(p, file.path(getwd(), OUT_HTML), selfcontained = TRUE)
-unlink(sub("[.]html$", "_files", OUT_HTML), recursive = TRUE)   # saveWidget leaves this behind on Windows
+p$x$opts$title <- list(
+  p$x$opts$title[[1]],
+  list(text = "Share of all emissions since 1850", left = "6%", top = 85, textStyle = list(fontSize = 14)),
+  list(text = "Average emissions per year lived (Gt CO2e)", left = "56%", top = 85, textStyle = list(fontSize = 14)))
+p$x$opts$graphic <- list(type = "text", left = 0, bottom = 6,
+                         style = list(text = caption, fill = "#888", fontSize = 11))
+
+save_echart(p, OUT_HTML)
