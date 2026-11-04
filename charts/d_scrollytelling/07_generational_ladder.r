@@ -100,10 +100,10 @@ e <- e |> htmlwidgets::onRender("
       var title = 'Born in ' + state.birth + ': ' + Math.round(100 * vals[0][0]) + '% of all CO2 came in your lifetime. Going back ' + d.gap +
                   ' years adds ' + d1 + ' points, another ' + d.gap + ' adds ' + d2;
       chart.setOption({
-        title: {text: title, left: 0, top: embed ? 8 : 56, textStyle: {fontSize: 16, width: Math.max(300, el.clientWidth - 40), overflow: 'break'}},
+        title: {text: title, left: 0, top: embed ? 8 : 72, textStyle: {fontSize: 16, width: Math.max(300, el.clientWidth - 40), overflow: 'break'}},
         color: [d.colors.CO2, d.colors.CH4],
-        grid: {top: embed ? 120 : 170, right: 30, bottom: 80, left: 70},
-        legend: {top: embed ? 84 : 134, left: 0, selectedMode: false},
+        grid: {top: embed ? 120 : 186, right: 30, bottom: 80, left: 70},
+        legend: {top: embed ? 84 : 150, left: 0, selectedMode: false},
         tooltip: {trigger: 'item', formatter: function(p) { return p.name.replace('\\n', ' ') + '<br>' + p.seriesName + ': ' + (100 * p.value).toFixed(1) + '% of all emissions since 1850'; }},
         graphic: {type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11}},
         xAxis: {type: 'category', data: cats, axisLabel: {fontSize: 12, interval: 0}},

@@ -118,7 +118,7 @@ e <- e |> htmlwidgets::onRender("
     var q = new URLSearchParams(location.search); if (q.get('birth')) d.birth = +q.get('birth');
     var embed = q.get('embed') === '1';
     el.style.position = 'relative';
-    var state = {birth: d.birth}, T = embed ? 0 : 52, ROW = 24, LEFT = 70, RIGHT = 70, picked = [], lanes = [];
+    var state = {birth: d.birth}, T = embed ? 0 : 68, ROW = 24, LEFT = 70, RIGHT = 70, picked = [], lanes = [];
     function fmt(v) { return v == null ? '' : (v > 0 ? '+' : '\\u2212') + Math.abs(v) + '%'; }
 
     if (!embed) {

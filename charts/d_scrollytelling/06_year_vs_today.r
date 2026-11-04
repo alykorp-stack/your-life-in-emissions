@@ -94,8 +94,8 @@ e <- e |> htmlwidgets::onRender("
                 label: {show: true, position: 'top', formatter: function(p) { return p.value.toFixed(1); }}};
       };
       chart.setOption({
-        title: {text: title, subtext: sub, left: 0, top: embed ? 8 : 56, textStyle: {fontSize: 16}, subtextStyle: {fontSize: 12}},
-        grid: {top: embed ? 100 : 150, right: 30, bottom: 70, left: 70},
+        title: {text: title, subtext: sub, left: 0, top: embed ? 8 : 72, textStyle: {fontSize: 16}, subtextStyle: {fontSize: 12}},
+        grid: {top: embed ? 100 : 166, right: 30, bottom: 70, left: 70},
         legend: {show: false},
         tooltip: {trigger: 'item', formatter: function(p) { return p.seriesName + '<br>' + gases[p.dataIndex] + ': ' + p.value.toFixed(1) + ' Gt CO2e'; }},
         graphic: {type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11}},

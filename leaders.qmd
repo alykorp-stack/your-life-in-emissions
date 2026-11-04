@@ -1,0 +1,35 @@
+---
+title: "Leaders over time"
+subtitle: "How countries took the lead, and whether rankings flip per person"
+execute:
+  echo: false
+  warning: false
+---
+
+```{r}
+#| include: false
+library(readr)
+emissions <- read_csv("data/emissions_country_year.csv", show_col_types = FALSE)
+```
+
+*Placeholder: short intro. Gas choice (CO2 or CH4) applies to every chart on this page.*
+
+## Cumulative emissions: China, USA, India, UK, Russia
+
+<iframe src="charts/c_leaders_over_time/01_cumulative_featured.html" style="width:100%;height:550px;border:0;"></iframe>
+
+## Per person: Qatar, Australia, Germany, Brazil, Indonesia, Canada, Nigeria
+
+<iframe src="charts/c_leaders_over_time/02_per_capita_featured.html" style="width:100%;height:550px;border:0;"></iframe>
+
+## Do the rankings flip?
+
+<iframe src="charts/c_leaders_over_time/03_rank_flip.html" style="width:100%;height:550px;border:0;"></iframe>
+
+## Comparing everything: parallel coordinates
+
+```{r}
+#| label: parallel-coords
+# TODO: chart 04_parallel_coordinates was deleted from the working tree; rebuild it here or restore it.
+# Axes: total, cumulative, per capita, emissions per GDP. Needs data/parallel_coords_latest.csv.
+```

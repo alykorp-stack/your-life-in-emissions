@@ -23,7 +23,7 @@ data/
     edgar/                        EDGAR 2025 workbook (fills CH4 gaps) and the JRC report PDF
     owid_population/              Population, to 2023 (OWID)
     worldbank_population/         Population, to 2024 (World Bank), extends OWID past 2023
-    owid_gdp_per_capita/          GDP per capita, 1990 onward (OWID)
+    gdp/                          GDP in current US$, 1960-2025 (World Bank)
 ```
 
 ## Derived tables
@@ -48,9 +48,9 @@ Each one has its own script in `R/`. Run `R/emissions_country_year.r` first for 
 | `co2_mt`, `ch4_mtco2e` | Annual emissions, excluding land use. CH4 converted at GWP100 = 27.9 (IPCC AR6) | Mt CO2e |
 | `co2_cum`, `ch4_cum` | Cumulative since 1850 | Mt CO2e |
 | `population` | Total population | people |
-| `gdp` | GDP per capita x population, 2021 international $ (PPP) | $ |
+| `gdp` | Total GDP in current US$ (World Bank, `NY.GDP.MKTP.CD`). Not adjusted for inflation, so values from different decades are not comparable in real terms | $ |
 | `co2_per_capita`, `ch4_per_capita` | Emissions per person | t per person |
-| `co2_per_gdp`, `ch4_per_gdp` | Emissions per unit of GDP | kg per $ |
+| `co2_per_gdp`, `ch4_per_gdp` | Emissions per unit of GDP (current US$) | kg per $ |
 | `co2_share_annual`, `ch4_share_annual` | Country share of the world total that year | 0 to 1 |
 | `co2_share_cum`, `ch4_share_cum` | Country share of the world cumulative total | 0 to 1 |
 | `*_rank_annual`, `*_rank_cum`, `*_rank_per_capita` | Rank within the year (1 = highest), per gas | |
@@ -66,16 +66,21 @@ Population after 2023 works the same way (OWID 2023 x World Bank change).
 
 ## Known gaps and approximations
 
-- **Excluded entirely:** Antarctica, Monaco, San Marino, Tokelau, Vatican (no CO2 after 2018).
+- **Excluded entirely:** Antarctica, Monaco, San Marino, Tokelau, Vatican (no CO2 after 2018);
+  Netherlands Antilles (dissolved 2010); Niue (no CH4 or 2024 population in the newer sources).
+  Territories that PRIMAP does not list are also absent, e.g. Greenland, Bermuda, Kosovo, Palestine,
+  New Caledonia (`EXCLUDE_ISO` in the script covers the ones PRIMAP does list).
 - **CH4 from EDGAR:** Taiwan, Anguilla, Cook Islands, St Helena (not in the World Bank file).
 - **CH4 proxy:** Serbia, Montenegro, Andorra, Liechtenstein and South Sudan only exist inside
   combined entities in the newer sources; each uses its parent's growth (`CH4_PROXY` in the script).
-- **Niue:** no CH4 after 2018.
-- **Population:** missing before 1950 for Ireland, Aruba, Anguilla, Cook Islands, Macao, Niue,
+- **Population:** missing before 1950 for Ireland, Aruba, Anguilla, Cook Islands, Macao,
   St Helena, Turks and Caicos, British Virgin Islands. Missing in 2024 for Anguilla, Cook
-  Islands, Niue, St Helena, Taiwan.
-- **GDP:** none before 1990, and none at all for some countries (e.g. Cuba, Venezuela, North
-  Korea, Taiwan, Yemen, Eritrea, Somalia). `gdp`, `*_per_gdp` are empty there.
+  Islands, St Helena, Taiwan.
+- **GDP:** current US$ from the World Bank, 1960 onward, but many countries start later. None at all for
+  Anguilla, Cook Islands, North Korea, St Helena, Taiwan and the British Virgin Islands. Missing in 2024 for
+  those plus Cuba, Eritrea, South Sudan, Syria and Yemen. `gdp`, `*_per_gdp` are empty there. Current US$
+  is not adjusted for inflation or price differences, so compare `*_per_gdp` across countries within a
+  year, not across decades.
 - **Borders:** PRIMAP assigns history to present-day borders (e.g. the USSR is split among
   its successor states).
 - **Small states:** per-capita ranks include very small populations (e.g. Palau), which can
@@ -86,6 +91,6 @@ Population after 2023 works the same way (OWID 2023 x World Bank change).
 ## Sources
 
 - PRIMAP-hist v2.2 (Gütschow et al.), `HISTCR` scenario, category `IPCM0EL` (national total excluding land use)
-- Our World in Data: annual CO2 (Global Carbon Budget), population (HYDE, Gapminder, UN WPP), GDP per capita (World Bank, Eurostat, OECD, IMF)
-- World Bank WDI: `EN.GHG.CH4.MT.CE.AR5` (CH4 excluding LULUCF, from EDGAR) and `SP.POP.TOTL` (population)
+- Our World in Data: annual CO2 (Global Carbon Budget), population (HYDE, Gapminder, UN WPP)
+- World Bank WDI: `EN.GHG.CH4.MT.CE.AR5` (CH4 excluding LULUCF, from EDGAR), `SP.POP.TOTL` (population) and `NY.GDP.MKTP.CD` (GDP, current US$)
 - EDGAR_2025_GHG, JRC/IEA "GHG emissions of all world countries, 2025 Report"

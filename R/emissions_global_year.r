@@ -1,6 +1,5 @@
-# Build data/emissions_global_year.csv: world totals per year, annual and cumulative, per gas.
-# Drives the landing page and the generational chart.
-#
+#world totals per year, annual and cumulative, per gas.
+
 # World = the sum of the countries in emissions_country_year.csv (so shares in that table add to 1).
 # Run from the project root:  Rscript R/emissions_global_year.r
 # Requires data/emissions_country_year.csv (run R/emissions_country_year.r first).

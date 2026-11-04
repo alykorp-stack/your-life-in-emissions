@@ -123,16 +123,20 @@ Which countries emitted the most during your lifetime? The five biggest appear f
 
 Then switch **Measure** to *Emissions per person*. The ranking changes completely: the countries that emit the most in total are not the ones that emit the most per resident. The choice of measure changes the story.
 
-## Who led, and who was close behind
+## Who led, and by how much
 
-A strip shows the three largest CO2 emitters in each year of your life. @cr-leaders
+Which country emitted the most CO2 in each year of your life, and how close was the next one? Each line is one country's yearly emissions, and its name sits at the right end of the line. The countries shown are the ones that were the largest or second largest emitter in at least one year of your life. @cr-leaders
 
 ```{ojs}
 runs = { const out = []; for (const r of leaders.filter(r => r.year >= birth).sort((a, b) => a.year - b.year)) { const l = out[out.length - 1]; if (l && l.country === r.country) l.years++; else out.push({country: r.country, years: 1}); } return out; }
 md`The largest CO2 emitter of your lifetime was ${runs.map(r => `**${r.country}** (${r.years} ${r.years === 1 ? "year" : "years"})`).join(", then ")}.`
 ```
 
-The second and third rows show who was behind in each year. Past states are assigned to today's borders, so the Soviet Union appears as Russia.
+**How to read it.** The higher a line, the more that country emitted in that year. Where one line crosses another, the lead changed hands. The space between two lines is the gap: a wide gap means the leader was far ahead, and lines that run close together mean a tight race. Hover a year to see every country's number.
+
+**Why it matters.** A ranking only tells you who is first. The lines also show how big the lead was and how quickly it moved, which a list of names cannot. They show that the leader is not fixed: China overtook the United States in 2006, so anyone born before then has seen the lead change hands. Where the lines are heading is where most of today's emissions come from, and that is where changes in emissions now have the largest effect.
+
+Past states are assigned to today's borders, so the Soviet Union appears as Russia.
 
 ## What if emissions had stopped growing?
 

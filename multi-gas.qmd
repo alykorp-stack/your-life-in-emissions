@@ -1,0 +1,15 @@
+---
+title: "Multi-gas breakdown"
+subtitle: "CO2, methane, nitrous oxide and beyond"
+execute:
+  echo: false
+  warning: false
+---
+
+*Placeholder: intro and the GWP used to convert every gas to CO2-equivalent, so gases can be compared side by side.*
+
+```{r}
+#| label: gas-trends
+# TODO: global (later national) trend per gas. Needs data/emissions_long.csv (iso_code, year, gas, value).
+# Idea: checkbox per gas to superimpose lines, plus a year slider or dropdown.
+```

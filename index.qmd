@@ -1,0 +1,39 @@
+---
+title: "Your life in emissions"
+subtitle: "Who emitted what, and when, across a lifetime"
+execute:
+  echo: false
+  warning: false
+---
+
+```{r}
+#| include: false
+library(readr)
+world <- read_csv("data/emissions_global_year.csv", show_col_types = FALSE)
+```
+
+## About the project
+
+*Placeholder: two or three sentences on what this site is, where the data comes from, and who it is for.*
+
+## What you can explore
+
+| Page | Question it answers |
+|---|---|
+| [Your life](scrolly/index.qmd) | Which generations lived through the greatest cumulative emissions, which events drove them, and which countries led? |
+| [Countries now](countries-now.qmd) | Which countries emit the most right now, and how does that change when we look at cumulative emissions? |
+| [Leaders over time](leaders.qmd) | How have countries taken the lead over time, and do rankings flip per person? |
+| [Multi-gas](multi-gas.qmd) | How do CH4, N2O and other gases compare with CO2? |
+| [What's next](whats-next.qmd) | Carbon budget and country pledges. |
+| [About](about.qmd) | Sources, method and limitations. |
+
+## Why gases matter
+
+*Placeholder: short text on warming potential (GWP), how long each gas stays in the air, and the history of each. Data needed: `data/gases.csv` (gas, GWP100, lifetime), not built yet.*
+
+```{r}
+#| label: fig-global-annual
+#| fig-cap: "Global annual emissions per gas (placeholder)"
+# TODO: static chart from `world` (emissions_global_year.csv), CO2 and CH4 in the same units.
+# Later: swap for an echarts4r version.
+```

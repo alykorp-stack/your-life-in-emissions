@@ -1,0 +1,27 @@
+---
+title: "About and methodology"
+execute:
+  echo: false
+  warning: false
+---
+
+## Data sources
+
+*Placeholder: table built from `data/sources.csv` (dataset, publisher, version, URL, access date, license, charts that use it).*
+
+```{r}
+#| label: sources-table
+# TODO: read data/sources.csv and show with knitr::kable().
+```
+
+## How emissions are attributed to countries that no longer exist
+
+*Placeholder.*
+
+## How the site was built
+
+*Placeholder: R, ggplot2, echarts4r, Quarto, OJS and closeread.*
+
+## Limitations
+
+*Placeholder: missing years, territorial vs consumption-based accounting, defunct states, population data only to 2023.*

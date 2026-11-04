@@ -19,7 +19,7 @@ CH4_NEW_FILE    <- file.path(RAW, "worldbank_ch4/ch4_excl_lulucf.csv")         #
 EDGAR_FILE      <- file.path(RAW, "edgar/EDGAR_2025_GHG_booklet_2025.xlsx")    # fills CH4 for countries missing from World Bank
 POP_FILE        <- file.path(RAW, "owid_population/population.csv")            # OWID, to 2023
 POP_NEW_FILE    <- file.path(RAW, "worldbank_population/population.csv")       # World Bank, extends population past 2023
-GDPPC_FILE      <- file.path(RAW, "owid_gdp_per_capita/gdp_per_capita.csv")    # OWID, 2021 international $ (PPP), from 1990
+GDP_FILE        <- file.path(RAW, "gdp/API_NY.GDP.MKTP.CD_DS2_en_csv_v2_512.csv")   # World Bank, total GDP in current US$, 1960-2025
 OUT_FILE        <- "data/emissions_country_year.csv"
 
 GWP_CH4 <- 27.9   # IPCC AR6 GWP100. PRIMAP reports CH4 as mass, so we convert it ourselves.
@@ -28,14 +28,19 @@ LAST_PRIMAP_YEAR <- 2018
 LAST_POP_YEAR    <- 2023   # last year in the OWID population file
 LAST_YEAR        <- 2024
 
-# No CO2 after 2018 in any newer source (and no population), so left out of the table.
-EXCLUDE_ISO <- c("ATA", "MCO", "SMR", "TKL", "VAT")
+# Left out of the table entirely (all years, both gases):
+#   ATA, MCO, SMR, TKL, VAT: no CO2 after 2018 in any newer source (and no population).
+#   ANT (Netherlands Antilles): dissolved in 2010, so it has no iso3c name and no later data.
+#   NIU (Niue): no CH4 after 2018 in the World Bank or EDGAR files, and no 2024 population.
+EXCLUDE_ISO <- c("ANT", "ATA", "MCO", "NIU", "SMR", "TKL", "VAT")
 
 # World Bank and EDGAR report these members only inside a combined entity (child = parent).
 # The parent's change since 2018 is applied to the child's PRIMAP 2018 value (approximation).
 CH4_PROXY <- c(SRB = "SCG", MNE = "SCG", AND = "ESP", LIE = "CHE", SSD = "SDN")
 
-# ---- Helpers -----------------------------------------------------------------
+
+
+# ---------------------------------------------------------------------
 
 # World Bank wide csv (one column per year) -> long: iso_code, year, new
 read_worldbank <- function(path) {
@@ -44,6 +49,7 @@ read_worldbank <- function(path) {
     pivot_longer(-iso_code, names_to = "year", values_to = "new",
                  names_transform = as.integer, values_transform = as.numeric)
 }
+
 
 # Growth-rate splice factor: value in each year after `from` divided by its value in `from`.
 change_since <- function(new, from = LAST_PRIMAP_YEAR) {
@@ -61,8 +67,10 @@ change_since <- function(new, from = LAST_PRIMAP_YEAR) {
 emissions <- read_csv(PRIMAP_FILE, show_col_types = FALSE) |>
   filter(scenario == "HISTCR", category == "IPCM0EL",
          entity %in% c("CO2", "CH4"), unit == "Gg") |>
-  pivot_longer(matches("^\\d{4}$"), names_to = "year", values_to = "gg",
-               names_transform = as.integer) |>
+  pivot_longer(matches("^\\d{4}$"), 
+    names_to = "year", 
+    values_to = "gg",
+    names_transform = as.integer) |>
   rename(iso_code = country) |>
   mutate(country = countrycode(iso_code, "iso3c", "country.name", warn = FALSE)) |>
   filter(!is.na(country), !iso_code %in% EXCLUDE_ISO)
@@ -128,7 +136,7 @@ emissions <- emissions |>
   ungroup()
 
 # ---- 4. Population and GDP ----------------------------------------------------
-# The GDP file is per capita, so total GDP = GDP per capita x population.
+# GDP is the World Bank total in current US$ (prices of each year, not adjusted for inflation).
 
 population <- read_csv(POP_FILE, show_col_types = FALSE) |>
   select(iso_code = Code, year = Year, population = Population)
@@ -142,21 +150,18 @@ pop_ext <- population |>
 
 population <- bind_rows(population, pop_ext)
 
-gdp_pc <- read_csv(GDPPC_FILE, show_col_types = FALSE) |>
-  select(iso_code = Code, year = Year, gdp_per_capita = `GDP per capita`)
+gdp <- read_worldbank(GDP_FILE) |> rename(gdp = new)
 
 emissions <- emissions |>
   left_join(population, by = c("iso_code", "year")) |>
-  left_join(gdp_pc, by = c("iso_code", "year")) |>
-  mutate(gdp = gdp_per_capita * population) |>
-  select(-gdp_per_capita)
+  left_join(gdp, by = c("iso_code", "year"))
 
 # ---- 5. Intensities, shares, ranks (per gas, per year) -----------------------
 
 emissions <- emissions |>
   mutate(co2_per_capita = co2_mt     * 1e6 / population,   # t per person
          ch4_per_capita = ch4_mtco2e * 1e6 / population,
-         co2_per_gdp    = co2_mt     * 1e9 / gdp,          # kg per international $
+         co2_per_gdp    = co2_mt     * 1e9 / gdp,          # kg per current US$
          ch4_per_gdp    = ch4_mtco2e * 1e9 / gdp) |>
   group_by(year) |>
   mutate(co2_share_annual = co2_mt     / sum(co2_mt, na.rm = TRUE),

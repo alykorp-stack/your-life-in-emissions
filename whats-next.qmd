@@ -1,0 +1,25 @@
+---
+title: "What's next"
+subtitle: "The carbon budget and what countries are doing about it"
+execute:
+  echo: false
+  warning: false
+---
+
+## Carbon budget
+
+*Placeholder: remaining budget by temperature target and probability, compared with current annual emissions to give "years left".*
+
+```{r}
+#| label: carbon-budget
+# TODO: needs data/carbon_budget.csv (temperature target, probability, remaining GtCO2, year of estimate).
+```
+
+## Country pledges
+
+*Placeholder: pledges for the featured countries only.*
+
+```{r}
+#| label: ndc-targets
+# TODO: needs data/ndc_targets.csv (country, target year, target type, % reduction vs baseline, net-zero year, source).
+```

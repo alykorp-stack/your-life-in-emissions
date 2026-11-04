@@ -1,0 +1,219 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About and methodology",
+    "section": "",
+    "text": "Placeholder: table built from data/sources.csv (dataset, publisher, version, URL, access date, license, charts that use it)."
+  },
+  {
+    "objectID": "about.html#data-sources",
+    "href": "about.html#data-sources",
+    "title": "About and methodology",
+    "section": "",
+    "text": "Placeholder: table built from data/sources.csv (dataset, publisher, version, URL, access date, license, charts that use it)."
+  },
+  {
+    "objectID": "about.html#how-emissions-are-attributed-to-countries-that-no-longer-exist",
+    "href": "about.html#how-emissions-are-attributed-to-countries-that-no-longer-exist",
+    "title": "About and methodology",
+    "section": "How emissions are attributed to countries that no longer exist",
+    "text": "How emissions are attributed to countries that no longer exist\nPlaceholder."
+  },
+  {
+    "objectID": "about.html#how-the-site-was-built",
+    "href": "about.html#how-the-site-was-built",
+    "title": "About and methodology",
+    "section": "How the site was built",
+    "text": "How the site was built\nPlaceholder: R, ggplot2, echarts4r, Quarto, OJS and closeread."
+  },
+  {
+    "objectID": "about.html#limitations",
+    "href": "about.html#limitations",
+    "title": "About and methodology",
+    "section": "Limitations",
+    "text": "Limitations\nPlaceholder: missing years, territorial vs consumption-based accounting, defunct states, population data only to 2023."
+  },
+  {
+    "objectID": "multi-gas.html",
+    "href": "multi-gas.html",
+    "title": "Multi-gas breakdown",
+    "section": "",
+    "text": "Placeholder: intro and the GWP used to convert every gas to CO2-equivalent, so gases can be compared side by side."
+  },
+  {
+    "objectID": "countries-now.html",
+    "href": "countries-now.html",
+    "title": "Countries now",
+    "section": "",
+    "text": "Placeholder: short intro. Controls to add later: gas selector, metric toggle (annual / cumulative / per capita), year slider."
+  },
+  {
+    "objectID": "countries-now.html#map",
+    "href": "countries-now.html#map",
+    "title": "Countries now",
+    "section": "Map",
+    "text": "Map"
+  },
+  {
+    "objectID": "countries-now.html#top-x-vs.-the-rest-of-the-world",
+    "href": "countries-now.html#top-x-vs.-the-rest-of-the-world",
+    "title": "Countries now",
+    "section": "Top X vs. the rest of the world",
+    "text": "Top X vs. the rest of the world"
+  },
+  {
+    "objectID": "countries-now.html#pick-your-countries-vs.-the-rest",
+    "href": "countries-now.html#pick-your-countries-vs.-the-rest",
+    "title": "Countries now",
+    "section": "Pick your countries vs. the rest",
+    "text": "Pick your countries vs. the rest"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Your life in emissions",
+    "section": "",
+    "text": "Placeholder: two or three sentences on what this site is, where the data comes from, and who it is for."
+  },
+  {
+    "objectID": "index.html#about-the-project",
+    "href": "index.html#about-the-project",
+    "title": "Your life in emissions",
+    "section": "",
+    "text": "Placeholder: two or three sentences on what this site is, where the data comes from, and who it is for."
+  },
+  {
+    "objectID": "index.html#what-you-can-explore",
+    "href": "index.html#what-you-can-explore",
+    "title": "Your life in emissions",
+    "section": "What you can explore",
+    "text": "What you can explore\n\n\n\nPage\nQuestion it answers\n\n\n\n\nYour life\nWhich generations lived through the greatest cumulative emissions, which events drove them, and which countries led?\n\n\nCountries now\nWhich countries emit the most right now, and how does that change when we look at cumulative emissions?\n\n\nLeaders over time\nHow have countries taken the lead over time, and do rankings flip per person?\n\n\nMulti-gas\nHow do CH4, N2O and other gases compare with CO2?\n\n\nWhat’s next\nCarbon budget and country pledges.\n\n\nAbout\nSources, method and limitations."
+  },
+  {
+    "objectID": "index.html#why-gases-matter",
+    "href": "index.html#why-gases-matter",
+    "title": "Your life in emissions",
+    "section": "Why gases matter",
+    "text": "Why gases matter\nPlaceholder: short text on warming potential (GWP), how long each gas stays in the air, and the history of each. Data needed: data/gases.csv (gas, GWP100, lifetime), not built yet."
+  },
+  {
+    "objectID": "scrolly/index.html",
+    "href": "scrolly/index.html",
+    "title": "Your life in emissions",
+    "section": "",
+    "text": "viewof birthInput = Inputs.number([1850, 2024], {value: 1988, step: 1, label: \"Birth year\"})\nbirth = Math.min(2024, Math.max(1850, Math.round(birthInput || 1988)))\nw = transpose(world)\nevents = transpose(ev)\nleaders = transpose(lead)\ngenerations = transpose(gens)\nlast = 2024\nsum = (rows, key, from) =&gt; d3.sum(rows.filter(r =&gt; r.year &gt;= from), r =&gt; r[key])\npct = x =&gt; (100 * x).toFixed(1) + \"%\"\nlifeShare = ({co2: sum(w, \"co2\", birth) / sum(w, \"co2\", 0), ch4: sum(w, \"ch4\", birth) / sum(w, \"ch4\", 0)})\nhalfYear = key =&gt; { let run = 0, total = sum(w, key, 0); for (const r of w) { run += r[key]; if (run &gt;= total / 2) return r.year; } }\nhalf = ({co2: halfYear(\"co2\"), ch4: halfYear(\"ch4\")})\nagePhrase = year =&gt; year &lt; birth ? \"before you were born\" : year === birth ? \"the year you were born\" : `when you were ${year - birth}`\ngeneration = { const g = generations.find(g =&gt; g.start_birth_year &lt;= birth && birth &lt;= g.end_birth_year); return g ? g.generation : (birth &lt; 1928 ? \"before the Silent generation\" : \"Gen Alpha or later\"); }\nsliderRate = Generators.observe(notify =&gt; { const f = e =&gt; { if (e.data && e.data.rate !== undefined) notify(e.data.rate); }; notify(0); window.addEventListener('message', f); return () =&gt; window.removeEventListener('message', f); })\nbuildStamp = Date.now()\nframe = name =&gt; html`&lt;iframe class=\"chart-frame\" src=\"../charts/d_scrollytelling/${name}.html?embed=1&birth=${birth}&v=${buildStamp}\"&gt;&lt;/iframe&gt;`\nType the year you were born in the box above. It stays at the top as you scroll, and every chart below redraws for your lifetime.\nmd`You were born in **${birth}**, which makes you part of **${generation}**. Scroll down.`"
+  },
+  {
+    "objectID": "scrolly/index.html#the-whole-record",
+    "href": "scrolly/index.html#the-whole-record",
+    "title": "Your life in emissions",
+    "section": "The whole record",
+    "text": "The whole record"
+  },
+  {
+    "objectID": "scrolly/index.html#what-the-world-was-going-through",
+    "href": "scrolly/index.html#what-the-world-was-going-through",
+    "title": "Your life in emissions",
+    "section": "What the world was going through",
+    "text": "What the world was going through"
+  },
+  {
+    "objectID": "scrolly/index.html#who-emitted-it",
+    "href": "scrolly/index.html#who-emitted-it",
+    "title": "Your life in emissions",
+    "section": "Who emitted it",
+    "text": "Who emitted it"
+  },
+  {
+    "objectID": "scrolly/index.html#who-led-and-by-how-much",
+    "href": "scrolly/index.html#who-led-and-by-how-much",
+    "title": "Your life in emissions",
+    "section": "Who led, and by how much",
+    "text": "Who led, and by how much"
+  },
+  {
+    "objectID": "scrolly/index.html#what-if-emissions-had-stopped-growing",
+    "href": "scrolly/index.html#what-if-emissions-had-stopped-growing",
+    "title": "Your life in emissions",
+    "section": "What if emissions had stopped growing?",
+    "text": "What if emissions had stopped growing?"
+  },
+  {
+    "objectID": "scrolly/index.html#then-and-now",
+    "href": "scrolly/index.html#then-and-now",
+    "title": "Your life in emissions",
+    "section": "Then and now",
+    "text": "Then and now"
+  },
+  {
+    "objectID": "scrolly/index.html#your-familys-ladder",
+    "href": "scrolly/index.html#your-familys-ladder",
+    "title": "Your life in emissions",
+    "section": "Your family’s ladder",
+    "text": "Your family’s ladder"
+  },
+  {
+    "objectID": "scrolly/index.html#how-this-was-made-and-what-to-be-careful-about",
+    "href": "scrolly/index.html#how-this-was-made-and-what-to-be-careful-about",
+    "title": "Your life in emissions",
+    "section": "How this was made, and what to be careful about",
+    "text": "How this was made, and what to be careful about\n\nData. Annual CO2 and CH4 emissions by country, 1850 to 2024, excluding land use: PRIMAP-hist v2.2 (to 2018), Global Carbon Budget and EDGAR (later years). CH4 is converted to CO2 equivalent at GWP100 = 27.9. World totals are the sum of countries.\nBorders. History is assigned to today’s borders, so emissions of the Soviet Union appear under Russia and its other successor states.\nEvents. “Above or below trend” compares an event’s years with a constant-growth trend fitted to the ten years before it. A baseline can contain an earlier shock (the trend used for 2022 includes the pandemic), and policy milestones such as Kyoto and Paris get no number because a trend cannot measure their effect.\nPer person. The default per person ranking leaves out countries with under one million people, which would otherwise top any list. You can add any country yourself. Kuwait’s 1991 spike is the Gulf War oil-well fires.\nThe thought experiment is a simple calculation, not a model of what was possible.\nGaps. A few small territories lack some years; countries missing a value count as zero in the totals."
+  },
+  {
+    "objectID": "leaders.html",
+    "href": "leaders.html",
+    "title": "Leaders over time",
+    "section": "",
+    "text": "Placeholder: short intro. Gas choice (CO2 or CH4) applies to every chart on this page."
+  },
+  {
+    "objectID": "leaders.html#cumulative-emissions-china-usa-india-uk-russia",
+    "href": "leaders.html#cumulative-emissions-china-usa-india-uk-russia",
+    "title": "Leaders over time",
+    "section": "Cumulative emissions: China, USA, India, UK, Russia",
+    "text": "Cumulative emissions: China, USA, India, UK, Russia"
+  },
+  {
+    "objectID": "leaders.html#per-person-qatar-australia-germany-brazil-indonesia-canada-nigeria",
+    "href": "leaders.html#per-person-qatar-australia-germany-brazil-indonesia-canada-nigeria",
+    "title": "Leaders over time",
+    "section": "Per person: Qatar, Australia, Germany, Brazil, Indonesia, Canada, Nigeria",
+    "text": "Per person: Qatar, Australia, Germany, Brazil, Indonesia, Canada, Nigeria"
+  },
+  {
+    "objectID": "leaders.html#do-the-rankings-flip",
+    "href": "leaders.html#do-the-rankings-flip",
+    "title": "Leaders over time",
+    "section": "Do the rankings flip?",
+    "text": "Do the rankings flip?"
+  },
+  {
+    "objectID": "leaders.html#comparing-everything-parallel-coordinates",
+    "href": "leaders.html#comparing-everything-parallel-coordinates",
+    "title": "Leaders over time",
+    "section": "Comparing everything: parallel coordinates",
+    "text": "Comparing everything: parallel coordinates"
+  },
+  {
+    "objectID": "whats-next.html",
+    "href": "whats-next.html",
+    "title": "What’s next",
+    "section": "",
+    "text": "Placeholder: remaining budget by temperature target and probability, compared with current annual emissions to give “years left”."
+  },
+  {
+    "objectID": "whats-next.html#carbon-budget",
+    "href": "whats-next.html#carbon-budget",
+    "title": "What’s next",
+    "section": "",
+    "text": "Placeholder: remaining budget by temperature target and probability, compared with current annual emissions to give “years left”."
+  },
+  {
+    "objectID": "whats-next.html#country-pledges",
+    "href": "whats-next.html#country-pledges",
+    "title": "What’s next",
+    "section": "Country pledges",
+    "text": "Country pledges\nPlaceholder: pledges for the featured countries only."
+  }
+]
