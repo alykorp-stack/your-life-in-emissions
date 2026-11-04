@@ -26,7 +26,8 @@ execute:
 library(readr)
 world <- read_csv("../data/emissions_global_year.csv", show_col_types = FALSE)[, c("year", "co2_mt", "ch4_mtco2e")]
 names(world) <- c("year", "co2", "ch4")
-ev <- read_csv("../data/events_impact.csv", show_col_types = FALSE)[, c("event", "start", "end", "kind", "gas", "pct_vs_trend", "baseline_mt", "actual_mt", "trend_growth_pct")]
+ev <- read_csv("../data/events_impact.csv", show_col_types = FALSE)
+ev <- unique(ev[ev$kind == "event", c("event", "start", "description")])
 lead <- read_csv("../data/top_emitter_by_year.csv", show_col_types = FALSE)
 lead <- lead[lead$gas == "co2", c("year", "country")]
 gens <- read_csv("../data/generations.csv", show_col_types = FALSE)
@@ -100,26 +101,14 @@ The steep part of the curve is recent. Dots mark the halfway years, and the tick
 
 ## What the world was going through
 
-Emissions are not a smooth climb. Wars, recessions, oil shocks and the pandemic bent the curve. For each event we compare emissions with the trend of the ten years before it (the dashed line) and show the three that moved CO2 furthest from that trend. @cr-events
+Emissions are not a smooth climb. Wars, recessions, oil shocks and the pandemic bent the curve. Each line on the chart marks the year an event began. @cr-events
 
 ```{ojs}
-measured = events.filter(e => e.kind === "event" && e.gas === "CO2" && e.start > birth)
-bigThree = measured.slice().sort((a, b) => Math.abs(b.pct_vs_trend) - Math.abs(a.pct_vs_trend)).slice(0, 3).sort((a, b) => a.start - b.start)
-signedPct = v => (v > 0 ? "+" : "\u2212") + Math.abs(v) + "%"
-md`${measured.length === 0 ? "None of the events in our list fall inside your lifetime." : `**${measured.length}** events in our list fall inside your lifetime. The ${bigThree.length === 3 ? "three" : ""} that moved CO2 furthest from its trend: ${bigThree.map(e => `**${e.event}** (${signedPct(e.pct_vs_trend)})`).join(", ")}.`}`
+measured = events.filter(e => e.start > birth).sort((a, b) => a.start - b.start)
+md`${measured.length === 0 ? "None of the events in our list fall inside your lifetime." : `**${measured.length}** events in our list happened during your lifetime:` + String.fromCharCode(10, 10) + measured.map(e => `- **${e.start}: ${e.event}.** ${e.description}`).join(String.fromCharCode(10))}`
 ```
 
-**What is the dashed line?** It is where emissions were heading *before* the event. We take the ten years just before it, measure how fast CO2 was growing in a typical year in that stretch, and keep that same pace going through the event's years. Think of it as "business as usual": a reference line, not a forecast.
-
-**How to read the percentage.** Add up all the CO2 emitted during the event and compare it with what the dashed line would have given over the same years. A minus means emissions came in *below* the earlier pace; a plus means *above* it.
-
-```{ojs}
-example = bigThree.length ? bigThree.slice().sort((a, b) => Math.abs(b.pct_vs_trend) - Math.abs(a.pct_vs_trend))[0] : null
-exYears = example ? example.end - example.start + 1 : 0
-md`${example ? `**An example from your lifetime: ${example.event}** (${example.start === example.end ? example.start : example.start + " to " + example.end}). In the ten years before it, CO2 grew by about **${example.trend_growth_pct.toFixed(1)}% a year**. Keeping that pace, the world would have emitted about **${Math.round(example.baseline_mt / 1000)} Gt** over ${exYears === 1 ? "that year" : "those " + exYears + " years"}. It actually emitted **${Math.round(example.actual_mt / 1000)} Gt**, which is **${Math.abs(example.pct_vs_trend)}% ${example.pct_vs_trend > 0 ? "more" : "less"}** than the dashed line.` : ""}`
-```
-
-This shows how emissions moved while an event was going on. It does not prove the event caused it. Hover a year on the chart for the numbers behind it.
+Hover a year on the chart for the emissions numbers behind it.
 
 ## Who emitted it
 
@@ -231,7 +220,7 @@ frame("07_generational_ladder")
 
 - **Data.** Annual CO2 and CH4 emissions by country, 1850 to 2024, excluding land use: PRIMAP-hist v2.2 (to 2018), Global Carbon Budget and EDGAR (later years). CH4 is converted to CO2 equivalent at GWP100 = 27.9. World totals are the sum of countries.
 - **Borders.** History is assigned to today's borders, so emissions of the Soviet Union appear under Russia and its other successor states.
-- **Events.** "Above or below trend" compares an event's years with a constant-growth trend fitted to the ten years before it. A baseline can contain an earlier shock (the trend used for 2022 includes the pandemic), and policy milestones such as Kyoto and Paris get no number because a trend cannot measure their effect.
+- **Events.** Each event is marked in the year it began (China joins the WTO in 2001, the global financial crisis in 2008). The chart shows when things happened; it does not claim an event caused any change in the curve. Policy milestones such as Kyoto and Paris are not marked.
 - **Per person.** The default per person ranking leaves out countries with under one million people, which would otherwise top any list. You can add any country yourself. Kuwait's 1991 spike is the Gulf War oil-well fires.
 - **The thought experiment** is a simple calculation, not a model of what was possible.
 - **Gaps.** A few small territories lack some years; countries missing a value count as zero in the totals.
