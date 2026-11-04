@@ -121,6 +121,7 @@ About/methodology
 Keep a sources.csv (dataset, publisher, version, URL, access date, license, which charts use it). It doubles as documentation and keeps you honest later.
 Log the limitations as you clean (missing years, territorial vs consumption-based accounting, defunct states).
 
+
 ## Charts built so far and what they use
 
 Every chart has a static PNG (ggplot2) and an interactive HTML. New interactive charts use echarts4r from now on; the plotly ones already built (b_countries_now) stay as they are.
@@ -144,3 +145,8 @@ Every chart has a static PNG (ggplot2) and an interactive HTML. New interactive 
 | d_scrollytelling/05_counterfactual (birth year, rate slider, prototype) | ggplot2 | echarts4r |
 | d_scrollytelling/06_year_vs_today (birth year, prototype) | ggplot2 | echarts4r |
 | d_scrollytelling/07_generational_ladder (birth year, prototype) | ggplot2 | echarts4r |
+
+
+## Notes 
+For the country select the country you were born then in the generational grap it will tell u the percent 
+
