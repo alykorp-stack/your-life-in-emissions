@@ -1,0 +1,11 @@
+/*-- scss:defaults --*/
+$web-font-family: "Montserrat";
+$font-family-sans-serif: "Montserrat", sans-serif;
+$font-family-monospace: "Montserrat", sans-serif;
+$headings-font-family: "Montserrat", sans-serif;
+$navbar-font-family: "Montserrat", sans-serif;
+
+/*-- scss:rules --*/
+body, .navbar, .nav-footer, h1, h2, h3, h4, h5, h6, code, pre, button, input, select, textarea {
+  font-family: "Montserrat", sans-serif;
+}
