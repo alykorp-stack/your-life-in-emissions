@@ -1,0 +1,56 @@
+---
+title: "Explore the data"
+subtitle: "Countries now, leaders over time, and the gases beyond CO2"
+execute:
+  echo: false
+  warning: false
+---
+
+```{r}
+#| include: false
+library(readr)
+emissions <- read_csv("data/emissions_country_year.csv", show_col_types = FALSE)
+```
+
+<iframe src="charts/b_countries_now/02_choropleth.html" style="width:100%;height:600px;border:0;"></iframe>
+
+*Map: who emits the most today. Placeholder controls to add later: gas selector, metric toggle (annual / cumulative / per capita), year slider.*
+
+<iframe src="charts/b_countries_now/01_top_x_vs_rest.html" style="width:100%;height:600px;border:0;"></iframe>
+
+*Top X countries vs. the rest of the world.*
+
+```{r}
+#| label: pick-countries
+# TODO: second bar chart where the visitor chooses the countries (same logic as Top X, user-selected subset).
+```
+
+*Pick your countries vs. the rest.*
+
+<iframe src="charts/c_leaders_over_time/01_cumulative_featured.html" style="width:100%;height:550px;border:0;"></iframe>
+
+*Cumulative emissions: China, USA, India, UK, Russia. The gas choice (CO2 or CH4) applies to every chart in this section.*
+
+<iframe src="charts/c_leaders_over_time/02_per_capita_featured.html" style="width:100%;height:550px;border:0;"></iframe>
+
+*Per person: Qatar, Australia, Germany, Brazil, Indonesia, Canada, Nigeria.*
+
+<iframe src="charts/c_leaders_over_time/03_rank_flip.html" style="width:100%;height:550px;border:0;"></iframe>
+
+*Do the rankings flip when emissions are counted per person?*
+
+```{r}
+#| label: parallel-coords
+# TODO: chart 04_parallel_coordinates was deleted from the working tree; rebuild it here or restore it.
+# Axes: total, cumulative, per capita, emissions per GDP. Needs data/parallel_coords_latest.csv.
+```
+
+*Comparing everything: parallel coordinates across total, cumulative, per capita and emissions per GDP.*
+
+```{r}
+#| label: gas-trends
+# TODO: global (later national) trend per gas. Needs data/emissions_long.csv (iso_code, year, gas, value).
+# Idea: checkbox per gas to superimpose lines, plus a year slider or dropdown.
+```
+
+*Multi-gas breakdown: CO2, methane, nitrous oxide and beyond, all converted to CO2-equivalent with the same GWP so gases can be compared side by side (placeholder: state the GWP used).*

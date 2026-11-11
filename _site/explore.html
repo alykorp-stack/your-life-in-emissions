@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Multi-gas breakdown – Your life in emissions</title>
+<title>Explore the data – Your life in emissions</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -109,16 +109,8 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Your life</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./countries-now.html"> 
-<span class="menu-text">Countries now</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./leaders.html"> 
-<span class="menu-text">Leaders over time</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="./multi-gas.html" aria-current="page"> 
-<span class="menu-text">Multi-gas</span></a>
+    <a class="nav-link active" href="./explore.html" aria-current="page"> 
+<span class="menu-text">Explore</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./whats-next.html"> 
@@ -145,8 +137,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Multi-gas breakdown</h1>
-<p class="subtitle lead">CO2, methane, nitrous oxide and beyond</p>
+<h1 class="title">Explore the data</h1>
+<p class="subtitle lead">Countries now, leaders over time, and the gases beyond CO2</p>
 </div>
 
 
@@ -163,7 +155,24 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><em>Placeholder: intro and the GWP used to convert every gas to CO2-equivalent, so gases can be compared side by side.</em></p>
+<iframe src="charts/b_countries_now/02_choropleth.html" style="width:100%;height:600px;border:0;">
+</iframe>
+<p><em>Map: who emits the most today. Placeholder controls to add later: gas selector, metric toggle (annual / cumulative / per capita), year slider.</em></p>
+<iframe src="charts/b_countries_now/01_top_x_vs_rest.html" style="width:100%;height:600px;border:0;">
+</iframe>
+<p><em>Top X countries vs.&nbsp;the rest of the world.</em></p>
+<p><em>Pick your countries vs.&nbsp;the rest.</em></p>
+<iframe src="charts/c_leaders_over_time/01_cumulative_featured.html" style="width:100%;height:550px;border:0;">
+</iframe>
+<p><em>Cumulative emissions: China, USA, India, UK, Russia. The gas choice (CO2 or CH4) applies to every chart in this section.</em></p>
+<iframe src="charts/c_leaders_over_time/02_per_capita_featured.html" style="width:100%;height:550px;border:0;">
+</iframe>
+<p><em>Per person: Qatar, Australia, Germany, Brazil, Indonesia, Canada, Nigeria.</em></p>
+<iframe src="charts/c_leaders_over_time/03_rank_flip.html" style="width:100%;height:550px;border:0;">
+</iframe>
+<p><em>Do the rankings flip when emissions are counted per person?</em></p>
+<p><em>Comparing everything: parallel coordinates across total, cumulative, per capita and emissions per GDP.</em></p>
+<p><em>Multi-gas breakdown: CO2, methane, nitrous oxide and beyond, all converted to CO2-equivalent with the same GWP so gases can be compared side by side (placeholder: state the GWP used).</em></p>
 
 
 

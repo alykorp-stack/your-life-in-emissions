@@ -21,9 +21,7 @@ world <- read_csv("data/emissions_global_year.csv", show_col_types = FALSE)
 | Page | Question it answers |
 |---|---|
 | [Your life](scrolly/index.qmd) | Which generations lived through the greatest cumulative emissions, which events drove them, and which countries led? |
-| [Countries now](countries-now.qmd) | Which countries emit the most right now, and how does that change when we look at cumulative emissions? |
-| [Leaders over time](leaders.qmd) | How have countries taken the lead over time, and do rankings flip per person? |
-| [Multi-gas](multi-gas.qmd) | How do CH4, N2O and other gases compare with CO2? |
+| [Explore](explore.qmd) | Which countries emit the most now, how have leaders changed over time (and per person), and how do CH4, N2O and other gases compare with CO2? |
 | [What's next](whats-next.qmd) | Carbon budget and country pledges. |
 | [About](about.qmd) | Sources, method and limitations. |
 

@@ -3,9 +3,7 @@ project:
   render:
     - index.qmd
     - scrolly/index.qmd
-    - countries-now.qmd
-    - leaders.qmd
-    - multi-gas.qmd
+    - explore.qmd
     - whats-next.qmd
     - about.qmd
   resources:
@@ -19,12 +17,8 @@ website:
         text: Home
       - href: scrolly/index.qmd
         text: Your life
-      - href: countries-now.qmd
-        text: Countries now
-      - href: leaders.qmd
-        text: Leaders over time
-      - href: multi-gas.qmd
-        text: Multi-gas
+      - href: explore.qmd
+        text: Explore
       - href: whats-next.qmd
         text: What's next
       - href: about.qmd

@@ -35,39 +35,11 @@
     "text": "Limitations\nPlaceholder: missing years, territorial vs consumption-based accounting, defunct states, population data only to 2023."
   },
   {
-    "objectID": "multi-gas.html",
-    "href": "multi-gas.html",
-    "title": "Multi-gas breakdown",
+    "objectID": "explore.html",
+    "href": "explore.html",
+    "title": "Explore the data",
     "section": "",
-    "text": "Placeholder: intro and the GWP used to convert every gas to CO2-equivalent, so gases can be compared side by side."
-  },
-  {
-    "objectID": "countries-now.html",
-    "href": "countries-now.html",
-    "title": "Countries now",
-    "section": "",
-    "text": "Placeholder: short intro. Controls to add later: gas selector, metric toggle (annual / cumulative / per capita), year slider."
-  },
-  {
-    "objectID": "countries-now.html#map",
-    "href": "countries-now.html#map",
-    "title": "Countries now",
-    "section": "Map",
-    "text": "Map"
-  },
-  {
-    "objectID": "countries-now.html#top-x-vs.-the-rest-of-the-world",
-    "href": "countries-now.html#top-x-vs.-the-rest-of-the-world",
-    "title": "Countries now",
-    "section": "Top X vs. the rest of the world",
-    "text": "Top X vs. the rest of the world"
-  },
-  {
-    "objectID": "countries-now.html#pick-your-countries-vs.-the-rest",
-    "href": "countries-now.html#pick-your-countries-vs.-the-rest",
-    "title": "Countries now",
-    "section": "Pick your countries vs. the rest",
-    "text": "Pick your countries vs. the rest"
+    "text": "Map: who emits the most today. Placeholder controls to add later: gas selector, metric toggle (annual / cumulative / per capita), year slider.\n\n\nTop X countries vs. the rest of the world.\nPick your countries vs. the rest.\n\n\nCumulative emissions: China, USA, India, UK, Russia. The gas choice (CO2 or CH4) applies to every chart in this section.\n\n\nPer person: Qatar, Australia, Germany, Brazil, Indonesia, Canada, Nigeria.\n\n\nDo the rankings flip when emissions are counted per person?\nComparing everything: parallel coordinates across total, cumulative, per capita and emissions per GDP.\nMulti-gas breakdown: CO2, methane, nitrous oxide and beyond, all converted to CO2-equivalent with the same GWP so gases can be compared side by side (placeholder: state the GWP used)."
   },
   {
     "objectID": "index.html",
@@ -88,7 +60,7 @@
     "href": "index.html#what-you-can-explore",
     "title": "Your life in emissions",
     "section": "What you can explore",
-    "text": "What you can explore\n\n\n\nPage\nQuestion it answers\n\n\n\n\nYour life\nWhich generations lived through the greatest cumulative emissions, which events drove them, and which countries led?\n\n\nCountries now\nWhich countries emit the most right now, and how does that change when we look at cumulative emissions?\n\n\nLeaders over time\nHow have countries taken the lead over time, and do rankings flip per person?\n\n\nMulti-gas\nHow do CH4, N2O and other gases compare with CO2?\n\n\nWhat’s next\nCarbon budget and country pledges.\n\n\nAbout\nSources, method and limitations."
+    "text": "What you can explore\n\n\n\nPage\nQuestion it answers\n\n\n\n\nYour life\nWhich generations lived through the greatest cumulative emissions, which events drove them, and which countries led?\n\n\nExplore\nWhich countries emit the most now, how have leaders changed over time (and per person), and how do CH4, N2O and other gases compare with CO2?\n\n\nWhat’s next\nCarbon budget and country pledges.\n\n\nAbout\nSources, method and limitations."
   },
   {
     "objectID": "index.html#why-gases-matter",
@@ -159,41 +131,6 @@
     "title": "Your life in emissions",
     "section": "How this was made, and what to be careful about",
     "text": "How this was made, and what to be careful about\n\nData. Annual CO2 and CH4 emissions by country, 1850 to 2024, excluding land use: PRIMAP-hist v2.2 (to 2018), Global Carbon Budget and EDGAR (later years). CH4 is converted to CO2 equivalent at GWP100 = 27.9. World totals are the sum of countries.\nBorders. History is assigned to today’s borders, so emissions of the Soviet Union appear under Russia and its other successor states.\nEvents. Each event is marked in the year it began (China joins the WTO in 2001, the global financial crisis in 2008). The chart shows when things happened; it does not claim an event caused any change in the curve. Policy milestones such as Kyoto and Paris are not marked.\nPer person. The default per person ranking leaves out countries with under one million people, which would otherwise top any list. You can add any country yourself. Kuwait’s 1991 spike is the Gulf War oil-well fires.\nThe thought experiment is a simple calculation, not a model of what was possible.\nGaps. A few small territories lack some years; countries missing a value count as zero in the totals."
-  },
-  {
-    "objectID": "leaders.html",
-    "href": "leaders.html",
-    "title": "Leaders over time",
-    "section": "",
-    "text": "Placeholder: short intro. Gas choice (CO2 or CH4) applies to every chart on this page."
-  },
-  {
-    "objectID": "leaders.html#cumulative-emissions-china-usa-india-uk-russia",
-    "href": "leaders.html#cumulative-emissions-china-usa-india-uk-russia",
-    "title": "Leaders over time",
-    "section": "Cumulative emissions: China, USA, India, UK, Russia",
-    "text": "Cumulative emissions: China, USA, India, UK, Russia"
-  },
-  {
-    "objectID": "leaders.html#per-person-qatar-australia-germany-brazil-indonesia-canada-nigeria",
-    "href": "leaders.html#per-person-qatar-australia-germany-brazil-indonesia-canada-nigeria",
-    "title": "Leaders over time",
-    "section": "Per person: Qatar, Australia, Germany, Brazil, Indonesia, Canada, Nigeria",
-    "text": "Per person: Qatar, Australia, Germany, Brazil, Indonesia, Canada, Nigeria"
-  },
-  {
-    "objectID": "leaders.html#do-the-rankings-flip",
-    "href": "leaders.html#do-the-rankings-flip",
-    "title": "Leaders over time",
-    "section": "Do the rankings flip?",
-    "text": "Do the rankings flip?"
-  },
-  {
-    "objectID": "leaders.html#comparing-everything-parallel-coordinates",
-    "href": "leaders.html#comparing-everything-parallel-coordinates",
-    "title": "Leaders over time",
-    "section": "Comparing everything: parallel coordinates",
-    "text": "Comparing everything: parallel coordinates"
   },
   {
     "objectID": "whats-next.html",
