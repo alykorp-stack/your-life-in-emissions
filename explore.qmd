@@ -1,6 +1,9 @@
 ---
 title: "Explore the data"
 subtitle: "Countries now, leaders over time, and the gases beyond CO2"
+toc: true
+toc-location: left
+toc-title: "On this page"
 execute:
   echo: false
   warning: false
@@ -12,13 +15,19 @@ library(readr)
 emissions <- read_csv("data/emissions_country_year.csv", show_col_types = FALSE)
 ```
 
+## Who emits the most today
+
 <iframe src="charts/b_countries_now/02_choropleth.html" style="width:100%;height:600px;border:0;"></iframe>
 
 *Map: who emits the most today. Placeholder controls to add later: gas selector, metric toggle (annual / cumulative / per capita), year slider.*
 
+## Top countries vs. the rest of the world
+
 <iframe src="charts/b_countries_now/01_top_x_vs_rest.html" style="width:100%;height:600px;border:0;"></iframe>
 
 *Top X countries vs. the rest of the world.*
+
+## Pick your countries
 
 ```{r}
 #| label: pick-countries
@@ -27,17 +36,25 @@ emissions <- read_csv("data/emissions_country_year.csv", show_col_types = FALSE)
 
 *Pick your countries vs. the rest.*
 
+## Cumulative emissions of the biggest emitters
+
 <iframe src="charts/c_leaders_over_time/01_cumulative_featured.html" style="width:100%;height:550px;border:0;"></iframe>
 
 *Cumulative emissions: China, USA, India, UK, Russia. The gas choice (CO2 or CH4) applies to every chart in this section.*
+
+## Emissions per person
 
 <iframe src="charts/c_leaders_over_time/02_per_capita_featured.html" style="width:100%;height:550px;border:0;"></iframe>
 
 *Per person: Qatar, Australia, Germany, Brazil, Indonesia, Canada, Nigeria.*
 
-<iframe src="charts/c_leaders_over_time/03_rank_flip.html" style="width:100%;height:550px;border:0;"></iframe>
+## Who emits the most per person
 
-*Do the rankings flip when emissions are counted per person?*
+<iframe src="charts/c_leaders_over_time/03_per_capita_ranked.html" title="Top 20 countries by emissions per person, against the world average" style="width:100%;height:680px;border:0;"></iframe>
+
+*Placeholder: the 20 countries with the highest emissions per person in a year, against the world average. Switch the gas or move the year slider. Kuwait's 1991 spike is the Gulf War oil-well fires.*
+
+## Comparing everything
 
 ```{r}
 #| label: parallel-coords
@@ -46,6 +63,8 @@ emissions <- read_csv("data/emissions_country_year.csv", show_col_types = FALSE)
 ```
 
 *Comparing everything: parallel coordinates across total, cumulative, per capita and emissions per GDP.*
+
+## Gases beyond CO2
 
 ```{r}
 #| label: gas-trends

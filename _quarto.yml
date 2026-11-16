@@ -13,8 +13,6 @@ website:
   title: "Your life in emissions"
   navbar:
     right:
-      - href: index.qmd
-        text: Home
       - href: scrolly/index.qmd
         text: Your life
       - href: explore.qmd
@@ -30,5 +28,6 @@ format:
     theme:
       - flatly
       - theme.scss
+      - colors.scss   # seafarer colors; the scrolly page does not use this file
     include-in-header: fonts.html
     toc: false

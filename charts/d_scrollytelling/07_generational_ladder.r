@@ -75,9 +75,9 @@ e <- e |> htmlwidgets::onRender("
     var state = {birth: d.birth};
     if (!embed) {
       var css = document.createElement('style');
-      css.textContent = '.c7 { font-family: system-ui, sans-serif; position: absolute; top: 8px; left: 0; z-index: 5; color: #1e3a5f; } ' +
+      css.textContent = '.c7 { font-family: Inter, system-ui, sans-serif; position: absolute; top: 8px; left: 0; z-index: 5; color: #1e3a5f; } ' +
         '.c7 label { display: block; font-size: 12px; font-weight: 600; margin: 0 0 3px 2px; } ' +
-        '.c7 input { font: 600 14px system-ui, sans-serif; width: 88px; height: 34px; padding: 0 10px; color: #1e3a5f; background: #f2f7fd; border: 2px solid #2b6cb0; border-radius: 10px; }';
+        '.c7 input { font: 600 14px Inter, system-ui, sans-serif; width: 88px; height: 34px; padding: 0 10px; color: #1e3a5f; background: #f2f7fd; border: 2px solid #2b6cb0; border-radius: 10px; }';
       document.head.appendChild(css);
       var box = document.createElement('div'); box.className = 'c7';
       var lab = document.createElement('label'); lab.textContent = 'Birth year';
@@ -105,7 +105,7 @@ e <- e |> htmlwidgets::onRender("
         grid: {top: embed ? 120 : 186, right: 30, bottom: 80, left: 70},
         legend: {top: embed ? 84 : 150, left: 0, selectedMode: false},
         tooltip: {trigger: 'item', formatter: function(p) { return p.name.replace('\\n', ' ') + '<br>' + p.seriesName + ': ' + (100 * p.value).toFixed(1) + '% of all emissions since 1850'; }},
-        graphic: {type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11}},
+        graphic: {type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11, fontFamily: 'Inter, system-ui, sans-serif'}},
         xAxis: {type: 'category', data: cats, axisLabel: {fontSize: 12, interval: 0}},
         yAxis: {type: 'value', min: 0, max: 1, axisLabel: {formatter: function(v) { return Math.round(100 * v) + '%'; }}},
         series: gases.map(function(g, k) {

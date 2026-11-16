@@ -39,35 +39,98 @@
     "href": "explore.html",
     "title": "Explore the data",
     "section": "",
-    "text": "Map: who emits the most today. Placeholder controls to add later: gas selector, metric toggle (annual / cumulative / per capita), year slider.\n\n\nTop X countries vs. the rest of the world.\nPick your countries vs. the rest.\n\n\nCumulative emissions: China, USA, India, UK, Russia. The gas choice (CO2 or CH4) applies to every chart in this section.\n\n\nPer person: Qatar, Australia, Germany, Brazil, Indonesia, Canada, Nigeria.\n\n\nDo the rankings flip when emissions are counted per person?\nComparing everything: parallel coordinates across total, cumulative, per capita and emissions per GDP.\nMulti-gas breakdown: CO2, methane, nitrous oxide and beyond, all converted to CO2-equivalent with the same GWP so gases can be compared side by side (placeholder: state the GWP used)."
+    "text": "Map: who emits the most today. Placeholder controls to add later: gas selector, metric toggle (annual / cumulative / per capita), year slider."
+  },
+  {
+    "objectID": "explore.html#who-emits-the-most-today",
+    "href": "explore.html#who-emits-the-most-today",
+    "title": "Explore the data",
+    "section": "",
+    "text": "Map: who emits the most today. Placeholder controls to add later: gas selector, metric toggle (annual / cumulative / per capita), year slider."
+  },
+  {
+    "objectID": "explore.html#top-countries-vs.-the-rest-of-the-world",
+    "href": "explore.html#top-countries-vs.-the-rest-of-the-world",
+    "title": "Explore the data",
+    "section": "Top countries vs. the rest of the world",
+    "text": "Top countries vs. the rest of the world\n\n\nTop X countries vs. the rest of the world."
+  },
+  {
+    "objectID": "explore.html#pick-your-countries",
+    "href": "explore.html#pick-your-countries",
+    "title": "Explore the data",
+    "section": "Pick your countries",
+    "text": "Pick your countries\nPick your countries vs. the rest."
+  },
+  {
+    "objectID": "explore.html#cumulative-emissions-of-the-biggest-emitters",
+    "href": "explore.html#cumulative-emissions-of-the-biggest-emitters",
+    "title": "Explore the data",
+    "section": "Cumulative emissions of the biggest emitters",
+    "text": "Cumulative emissions of the biggest emitters\n\n\nCumulative emissions: China, USA, India, UK, Russia. The gas choice (CO2 or CH4) applies to every chart in this section."
+  },
+  {
+    "objectID": "explore.html#emissions-per-person",
+    "href": "explore.html#emissions-per-person",
+    "title": "Explore the data",
+    "section": "Emissions per person",
+    "text": "Emissions per person\n\n\nPer person: Qatar, Australia, Germany, Brazil, Indonesia, Canada, Nigeria."
+  },
+  {
+    "objectID": "explore.html#who-emits-the-most-per-person",
+    "href": "explore.html#who-emits-the-most-per-person",
+    "title": "Explore the data",
+    "section": "Who emits the most per person",
+    "text": "Who emits the most per person\n\n\nPlaceholder: the 20 countries with the highest emissions per person in a year, against the world average. Switch the gas or move the year slider. Kuwait’s 1991 spike is the Gulf War oil-well fires."
+  },
+  {
+    "objectID": "explore.html#comparing-everything",
+    "href": "explore.html#comparing-everything",
+    "title": "Explore the data",
+    "section": "Comparing everything",
+    "text": "Comparing everything\nComparing everything: parallel coordinates across total, cumulative, per capita and emissions per GDP."
+  },
+  {
+    "objectID": "explore.html#gases-beyond-co2",
+    "href": "explore.html#gases-beyond-co2",
+    "title": "Explore the data",
+    "section": "Gases beyond CO2",
+    "text": "Gases beyond CO2\nMulti-gas breakdown: CO2, methane, nitrous oxide and beyond, all converted to CO2-equivalent with the same GWP so gases can be compared side by side (placeholder: state the GWP used)."
   },
   {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Your life in emissions",
     "section": "",
-    "text": "Placeholder: two or three sentences on what this site is, where the data comes from, and who it is for."
+    "text": "Placeholder: CO2 is most of what we emit by weight, but methane (CH4) punches far above its weight. Switch the chart from “By weight” to “By warming” to see it."
+  },
+  {
+    "objectID": "index.html#why-co2-and-ch4",
+    "href": "index.html#why-co2-and-ch4",
+    "title": "Your life in emissions",
+    "section": "",
+    "text": "Placeholder: CO2 is most of what we emit by weight, but methane (CH4) punches far above its weight. Switch the chart from “By weight” to “By warming” to see it."
   },
   {
     "objectID": "index.html#about-the-project",
     "href": "index.html#about-the-project",
     "title": "Your life in emissions",
-    "section": "",
-    "text": "Placeholder: two or three sentences on what this site is, where the data comes from, and who it is for."
-  },
-  {
-    "objectID": "index.html#what-you-can-explore",
-    "href": "index.html#what-you-can-explore",
-    "title": "Your life in emissions",
-    "section": "What you can explore",
-    "text": "What you can explore\n\n\n\nPage\nQuestion it answers\n\n\n\n\nYour life\nWhich generations lived through the greatest cumulative emissions, which events drove them, and which countries led?\n\n\nExplore\nWhich countries emit the most now, how have leaders changed over time (and per person), and how do CH4, N2O and other gases compare with CO2?\n\n\nWhat’s next\nCarbon budget and country pledges.\n\n\nAbout\nSources, method and limitations."
+    "section": "About the project",
+    "text": "About the project\nPlaceholder: two or three sentences on what this site is, where the data comes from, and who it is for."
   },
   {
     "objectID": "index.html#why-gases-matter",
     "href": "index.html#why-gases-matter",
     "title": "Your life in emissions",
     "section": "Why gases matter",
-    "text": "Why gases matter\nPlaceholder: short text on warming potential (GWP), how long each gas stays in the air, and the history of each. Data needed: data/gases.csv (gas, GWP100, lifetime), not built yet."
+    "text": "Why gases matter\nPlaceholder: short text on warming potential (GWP), how long each gas stays in the air, and the history of each. Note that the site uses the 100-year value (27.9); over 20 years methane is 81.2 times as strong, so the 100-year number understates its short-term effect. Values in data/gases.csv (IPCC AR6)."
+  },
+  {
+    "objectID": "index.html#where-emissions-come-from",
+    "href": "index.html#where-emissions-come-from",
+    "title": "Your life in emissions",
+    "section": "Where emissions come from",
+    "text": "Where emissions come from\nPlaceholder: one or two sentences inviting the reader to switch gas, measure and year, or press play."
   },
   {
     "objectID": "scrolly/index.html",
@@ -117,6 +180,13 @@
     "title": "Your life in emissions",
     "section": "Then and now",
     "text": "Then and now"
+  },
+  {
+    "objectID": "scrolly/index.html#per-person-then-and-now",
+    "href": "scrolly/index.html#per-person-then-and-now",
+    "title": "Your life in emissions",
+    "section": "Per person, then and now",
+    "text": "Per person, then and now"
   },
   {
     "objectID": "scrolly/index.html#your-familys-ladder",

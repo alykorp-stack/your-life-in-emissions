@@ -1,0 +1,41 @@
+/*-- scss:defaults --*/
+// Site colors from the ltc package's "seafarer" palette: as.vector(ltc::ltc("seafarer"))
+// #013D5A (dark blue), #FCF3E3, #BDD3CE (light blue), #708C69, #E4A25B
+// Used by every page except the scrolly page (scrolly/index.qmd sets its own theme without this file).
+$seafarer-dark:  #013D5A;
+$seafarer-light: #98C1D9;
+$seafarer-cream: #FCF3E3;
+
+// The cream is too yellow as a full page background, so the page uses a light tint of it (30% cream, 70% white).
+$body-bg: mix($seafarer-cream, #ffffff, 30%);
+
+$navbar-bg: $seafarer-light;
+$navbar-fg: #000000;
+$navbar-hl: #000000;
+$headings-color: $seafarer-dark;
+
+/*-- scss:rules --*/
+// Section headings in dark blue; page titles ("Your life in emissions", "About", ...) in bold black.
+h2, h3, h4, h5, h6 {
+  color: $seafarer-dark;
+}
+h1, .title {
+  color: #000000;
+  font-weight: 700;
+}
+// Navbar text: black and bold
+.navbar .navbar-title, .navbar .nav-link, .navbar .menu-text {
+  color: #000000;
+  font-weight: 700;
+}
+// Page links: spaced apart, underlined on hover and on the page you are on.
+.navbar .navbar-nav .nav-item + .nav-item {
+  margin-left: 1.5rem;
+}
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link:focus-visible,
+.navbar .navbar-nav .nav-link.active {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}

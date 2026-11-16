@@ -124,13 +124,13 @@ e <- e |> htmlwidgets::onRender("
     var SIDE = 230;   // sidebar width in px
     var css = document.createElement('style');
     css.textContent = `
-      .c3 { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color: #1e3a5f; }
+      .c3 { font-family: Inter, system-ui, sans-serif; color: #1e3a5f; }
       .c3-top { position: absolute; top: 8px; left: 0; right: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
       .c3 label.f { display: block; font-size: 12px; font-weight: 600; margin: 0 0 3px 2px; }
-      .c3 input[type=number], .c3 select, .c3 input[type=search] { font: 600 14px system-ui, sans-serif; height: 34px; padding: 0 10px; color: #1e3a5f;
+      .c3 input[type=number], .c3 select, .c3 input[type=search] { font: 600 14px Inter, system-ui, sans-serif; height: 34px; padding: 0 10px; color: #1e3a5f;
                               background: #f2f7fd; border: 2px solid #2b6cb0; border-radius: 10px; }
       .c3 input[type=number] { width: 88px; }
-      .c3 button { font: 700 13px system-ui, sans-serif; height: 34px; padding: 0 14px; color: #fff; background: #2b6cb0; border: 0; border-radius: 10px; cursor: pointer; }
+      .c3 button { font: 700 13px Inter, system-ui, sans-serif; height: 34px; padding: 0 14px; color: #fff; background: #2b6cb0; border: 0; border-radius: 10px; cursor: pointer; }
       .c3 button:hover { background: #1e4e8c; }
       .c3-side { position: absolute; z-index: 5; left: 0; top: 66px; bottom: 28px; width: ${SIDE}px; display: flex; flex-direction: column;
                  border: 1px solid #cfd8e3; border-radius: 12px; background: #f8fafc; overflow: hidden; }
@@ -281,7 +281,7 @@ e <- e |> htmlwidgets::onRender("
         grid: {top: 140, right: 150, bottom: 60, left: SIDE + 80},
         tooltip: {trigger: 'axis', valueFormatter: function(v) { return v.toLocaleString() + (per ? ' t per person' : ' Gt'); }},
         legend: {show: false},
-        graphic: {type: 'text', left: SIDE + 20, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11}},
+        graphic: {type: 'text', left: SIDE + 20, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11, fontFamily: 'Inter, system-ui, sans-serif'}},
         xAxis: {type: 'value', min: state.birth, max: yr1, splitLine: {show: false}, axisLabel: {formatter: function(v) { return String(v); }, hideOverlap: true}},
         yAxis: {type: 'value', min: 0, name: (per ? 'Tonnes per person ' : 'Gt ') + (state.gas === 'CO2' ? 'CO2' : 'CO2e') + (state.mode === 'year' ? ' per year' : ' (running total)'), nameLocation: 'middle', nameGap: 52},
         series: state.countries.map(function(n) {

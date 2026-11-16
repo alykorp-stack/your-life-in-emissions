@@ -6,32 +6,27 @@ execute:
   warning: false
 ---
 
-```{r}
-#| include: false
-library(readr)
-world <- read_csv("data/emissions_global_year.csv", show_col_types = FALSE)
-```
+## Why CO2 and CH4?
+
+*Placeholder: CO2 is most of what we emit by weight, but methane (CH4) punches far above its weight. Switch the chart from "By weight" to "By warming" to see it.*
+
+<iframe src="charts/e_home/01_global_by_gas.html" title="Global CO2 and CH4 emissions by weight and by warming, 1850-2024" style="width:100%;height:560px;border:0;"></iframe>
 
 ## About the project
 
 *Placeholder: two or three sentences on what this site is, where the data comes from, and who it is for.*
 
-## What you can explore
-
-| Page | Question it answers |
-|---|---|
-| [Your life](scrolly/index.qmd) | Which generations lived through the greatest cumulative emissions, which events drove them, and which countries led? |
-| [Explore](explore.qmd) | Which countries emit the most now, how have leaders changed over time (and per person), and how do CH4, N2O and other gases compare with CO2? |
-| [What's next](whats-next.qmd) | Carbon budget and country pledges. |
-| [About](about.qmd) | Sources, method and limitations. |
 
 ## Why gases matter
 
-*Placeholder: short text on warming potential (GWP), how long each gas stays in the air, and the history of each. Data needed: `data/gases.csv` (gas, GWP100, lifetime), not built yet.*
+*Placeholder: short text on warming potential (GWP), how long each gas stays in the air, and the history of each. Note that the site uses the 100-year value (27.9); over 20 years methane is 81.2 times as strong, so the 100-year number understates its short-term effect. Values in `data/gases.csv` (IPCC AR6).*
 
-```{r}
-#| label: fig-global-annual
-#| fig-cap: "Global annual emissions per gas (placeholder)"
-# TODO: static chart from `world` (emissions_global_year.csv), CO2 and CH4 in the same units.
-# Later: swap for an echarts4r version.
-```
+<iframe src="charts/e_home/02_tonne_for_tonne.html" title="Warming from one tonne of CH4 compared with one tonne of CO2" style="width:100%;height:420px;border:0;"></iframe>
+
+## Where emissions come from
+
+*Placeholder: one or two sentences inviting the reader to switch gas, measure and year, or press play.*
+
+<iframe src="charts/e_home/03_world_map.html" title="World map of CO2 and CH4 emissions by country, 1850-2024" style="width:100%;height:620px;border:0;"></iframe>
+
+

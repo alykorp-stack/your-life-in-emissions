@@ -103,9 +103,9 @@ e <- e |> htmlwidgets::onRender("
 
     if (!embed) {
       var css = document.createElement('style');
-      css.textContent = '.c2 { font-family: system-ui, sans-serif; position: absolute; top: 8px; left: 0; z-index: 5; color: #1e3a5f; } ' +
+      css.textContent = '.c2 { font-family: Inter, system-ui, sans-serif; position: absolute; top: 8px; left: 0; z-index: 5; color: #1e3a5f; } ' +
         '.c2 label { display: block; font-size: 12px; font-weight: 600; margin: 0 0 3px 2px; } ' +
-        '.c2 input { font: 600 14px system-ui, sans-serif; width: 88px; height: 34px; padding: 0 10px; color: #1e3a5f; background: #f2f7fd; border: 2px solid #2b6cb0; border-radius: 10px; }';
+        '.c2 input { font: 600 14px Inter, system-ui, sans-serif; width: 88px; height: 34px; padding: 0 10px; color: #1e3a5f; background: #f2f7fd; border: 2px solid #2b6cb0; border-radius: 10px; }';
       document.head.appendChild(css);
       var box = document.createElement('div'); box.className = 'c2';
       var lab = document.createElement('label'); lab.textContent = 'Birth year';
@@ -119,12 +119,12 @@ e <- e |> htmlwidgets::onRender("
 
     // label text above the plot, a thin line down to a dot on the CO2 curve; labels that would touch go on another row
     function placeLabels() {
-      var g = [{type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11}}];
+      var g = [{type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11, fontFamily: 'Inter, system-ui, sans-serif'}}];
       picked.forEach(function(it, k) {
         var xPix = chart.convertToPixel({xAxisIndex: 0}, it.mid);
         var dotPix = chart.convertToPixel({xAxisIndex: 0, yAxisIndex: 0}, [it.mid, it.dot]);
         var yText = T + 74 + ROW * (lanes.length - 1 - it.lane);   // lane 0 is the lowest row, nearest the plot
-        g.push({type: 'text', silent: true, x: xPix, y: yText, style: {text: it.text, fill: '#222', font: '13px system-ui, sans-serif', textAlign: 'center', textVerticalAlign: 'top'}});
+        g.push({type: 'text', silent: true, x: xPix, y: yText, style: {text: it.text, fill: '#222', font: '13px Inter, system-ui, sans-serif', textAlign: 'center', textVerticalAlign: 'top'}});
         g.push({type: 'line', silent: true, shape: {x1: xPix, y1: yText + 20, x2: xPix, y2: dotPix[1]}, style: {stroke: '#555', lineWidth: 1.2}});
         g.push({type: 'circle', silent: true, shape: {cx: xPix, cy: dotPix[1], r: 4}, style: {fill: '#222'}});
       });

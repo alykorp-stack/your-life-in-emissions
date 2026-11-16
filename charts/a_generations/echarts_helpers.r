@@ -1,12 +1,53 @@
 # Shared helpers for the interactive (echarts4r) versions of the generations charts.
 #
 # Sourced by 01, 02, 03 and 04:  source("charts/a_generations/echarts_helpers.r")
-#   save_echart()    saves a widget as standalone HTML
+#   save_echart()    saves a widget as standalone HTML, with the Inter font (use_inter())
 #   add_buttons()    adds zoom in, zoom out and Download PNG buttons (same look as the choropleth's)
 #   lifetime_chart() line chart of CO2 and CH4 with dashed event lines (charts 01 and 04)
 
 library(echarts4r)
 library(htmlwidgets)
+
+# Inter is the site font, used by every chart. The chart HTML loads it from Google Fonts (as the site does).
+FONT_FAMILY <- "Inter, system-ui, sans-serif"
+FONT_CSS    <- "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+
+# Loads Inter into the page, then redraws: chart text is drawn on a canvas, which does not update by itself when a
+# web font arrives. The resize event also reaches charts that redraw themselves on resize.
+.load_font_js <- paste0("
+  function(el) {
+    var chart = window.echarts && echarts.getInstanceByDom(el);
+    var redraw = function() { if (chart) chart.resize(); window.dispatchEvent(new Event('resize')); };
+    var link = document.getElementById('inter-font');
+    if (!link) {
+      link = document.createElement('link');
+      link.id = 'inter-font'; link.rel = 'stylesheet'; link.href = '", FONT_CSS, "';
+      document.head.appendChild(link);
+    }
+    link.addEventListener('load', function() {
+      Promise.all(['400', '600', '700'].map(function(w) { return document.fonts.load(w + ' 12px Inter'); })).then(redraw);
+    });
+  }")
+
+# Adds Inter to the free-standing text set in R (captions): echarts themes do not reach graphic elements.
+.inter_graphic <- function(g) {
+  if (is.null(g)) return(g)
+  if (!is.null(names(g))) g <- list(g)   # a single element
+  lapply(g, \(el) {
+    # [["font"]], not $font: $ would partially match fontSize
+    if (identical(el$type, "text") && is.null(el$style[["font"]])) el$style$fontFamily <- FONT_FAMILY
+    el
+  })
+}
+
+# Every echarts chart in the project goes through save_echart(), so Inter is set here once:
+# a theme gives all chart text Inter (it survives charts that reset their options with setOption(..., true)).
+use_inter <- function(widget) {
+  theme <- list(textStyle = list(fontFamily = FONT_FAMILY), tooltip = list(textStyle = list(fontFamily = FONT_FAMILY)))
+  widget <- e_theme_custom(widget, as.character(jsonlite::toJSON(theme, auto_unbox = TRUE)))
+  widget$x$opts$graphic <- .inter_graphic(widget$x$opts$graphic)
+  onRender(widget, .load_font_js)
+}
 
 # Hover tooltips on event lines show the event's description, looked up by its label.
 .lifetime_tooltip <- function(events) {
@@ -16,6 +57,7 @@ library(htmlwidgets)
 
 # selfcontained = TRUE needs pandoc; use the copy bundled with Quarto if none is on the PATH
 save_echart <- function(widget, path) {
+  widget <- use_inter(widget)
   if (!rmarkdown::pandoc_available()) {
     Sys.setenv(RSTUDIO_PANDOC = file.path(dirname(Sys.which("quarto")), "tools"))
   }
@@ -30,10 +72,10 @@ add_buttons <- function(widget, filename) {
       var chart = echarts.getInstanceByDom(el);
       var css = document.createElement('style');
       css.textContent = `
-        .ctl { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+        .ctl { font-family: Inter, system-ui, sans-serif; }
         .ctl-top { position: absolute; top: 12px; right: 20px; z-index: 5; display: flex; flex-wrap: wrap;
                    justify-content: flex-end; align-items: flex-end; gap: 10px; max-width: calc(100% - 40px); }
-        .ctl button { font: 700 15px system-ui, sans-serif; height: 46px; min-width: 46px; padding: 0 16px; color: #fff;
+        .ctl button { font: 700 15px Inter, system-ui, sans-serif; height: 46px; min-width: 46px; padding: 0 16px; color: #fff;
                       background: #2b6cb0; border: 0; border-radius: 12px; cursor: pointer;
                       box-shadow: 0 2px 6px rgba(43, 108, 176, 0.35); transition: background .15s, transform .05s; }
         .ctl button:hover { background: #1e4e8c; }

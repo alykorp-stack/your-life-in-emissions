@@ -16,6 +16,7 @@ data/
   events.csv
   events_impact.csv
   events_baseline_year.csv
+  gases.csv
   raw/
     primap/                       PRIMAP-hist v2.2 (1850-2018), the historical backbone
     owid_co2/                     Annual CO2 by country, 2018-2024 (OWID / Global Carbon Budget)
@@ -39,6 +40,7 @@ Each one has its own script in `R/`. Run `R/emissions_country_year.r` first for 
 | `events.csv` | `year, label, description, category`: annotations for the charts | typed in |
 | `events_impact.csv` | `event, start, end, kind, category, gas, baseline_mt, actual_mt, pct_vs_trend, trend_growth_pct, fit_years, description`: world events (and policy milestones) and how global emissions moved against the trend of the 10 years before each one. `pct_vs_trend` is not a causal effect | `R/event_impacts.r`, global table |
 | `events_baseline_year.csv` | `event, gas, year, baseline_mt`: the projected trend for each event window, for drawing the dashed lines | `R/event_impacts.r` |
+| `gases.csv` | `gas, gwp20, gwp100, lifetime_years, source`: warming of 1 tonne relative to 1 tonne of CO2 over 20 and 100 years, and time in the air. CO2 has no single lifetime (left empty). The GWP100 of 27.9 is the value used to convert CH4 everywhere else | typed in, IPCC AR6 WG1 Table 7.SM.7 |
 
 ## Columns in `emissions_country_year.csv`
 

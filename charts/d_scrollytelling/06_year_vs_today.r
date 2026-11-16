@@ -68,9 +68,9 @@ e <- e |> htmlwidgets::onRender("
     var state = {birth: d.birth};
     if (!embed) {
       var css = document.createElement('style');
-      css.textContent = '.c6 { font-family: system-ui, sans-serif; position: absolute; top: 8px; left: 0; z-index: 5; color: #1e3a5f; } ' +
+      css.textContent = '.c6 { font-family: Inter, system-ui, sans-serif; position: absolute; top: 8px; left: 0; z-index: 5; color: #1e3a5f; } ' +
         '.c6 label { display: block; font-size: 12px; font-weight: 600; margin: 0 0 3px 2px; } ' +
-        '.c6 input { font: 600 14px system-ui, sans-serif; width: 88px; height: 34px; padding: 0 10px; color: #1e3a5f; background: #f2f7fd; border: 2px solid #2b6cb0; border-radius: 10px; }';
+        '.c6 input { font: 600 14px Inter, system-ui, sans-serif; width: 88px; height: 34px; padding: 0 10px; color: #1e3a5f; background: #f2f7fd; border: 2px solid #2b6cb0; border-radius: 10px; }';
       document.head.appendChild(css);
       var box = document.createElement('div'); box.className = 'c6';
       var lab = document.createElement('label'); lab.textContent = 'Birth year';
@@ -98,7 +98,7 @@ e <- e |> htmlwidgets::onRender("
         grid: {top: embed ? 100 : 166, right: 30, bottom: 70, left: 70},
         legend: {show: false},
         tooltip: {trigger: 'item', formatter: function(p) { return p.seriesName + '<br>' + gases[p.dataIndex] + ': ' + p.value.toFixed(1) + ' Gt CO2e'; }},
-        graphic: {type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11}},
+        graphic: {type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11, fontFamily: 'Inter, system-ui, sans-serif'}},
         xAxis: {type: 'category', data: gases, axisLabel: {fontSize: 14, fontWeight: 'bold'}},
         yAxis: {type: 'value', min: 0, name: 'Gt CO2e per year', nameLocation: 'middle', nameGap: 48},
         series: [mk(then, 'Your birth year, ' + state.birth, 0.45), mk(now, 'Today, ' + d.last, 1)]

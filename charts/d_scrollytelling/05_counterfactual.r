@@ -91,14 +91,14 @@ e <- e |> htmlwidgets::onRender("
     el.style.position = 'relative';
     var css = document.createElement('style');
     css.textContent = `
-      .c5 { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; position: absolute; top: 8px; left: 0; z-index: 5; color: #1e3a5f; }
+      .c5 { font-family: Inter, system-ui, sans-serif; position: absolute; top: 8px; left: 0; z-index: 5; color: #1e3a5f; }
       .c5 .row { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; }
       .c5 label { display: block; font-size: 12px; font-weight: 600; margin: 0 0 3px 2px; }
-      .c5 input[type=number], .c5 select { font: 600 14px system-ui, sans-serif; height: 34px; padding: 0 10px; color: #1e3a5f; background: #f2f7fd;
+      .c5 input[type=number], .c5 select { font: 600 14px Inter, system-ui, sans-serif; height: 34px; padding: 0 10px; color: #1e3a5f; background: #f2f7fd;
                                            border: 2px solid #2b6cb0; border-radius: 10px; }
       .c5 input[type=number] { width: 88px; }
       .c5 input[type=range] { width: 240px; accent-color: #2b6cb0; vertical-align: middle; }
-      .c5 .val { font: 700 14px system-ui, sans-serif; display: inline-block; min-width: 56px; margin-left: 8px; }
+      .c5 .val { font: 700 14px Inter, system-ui, sans-serif; display: inline-block; min-width: 56px; margin-left: 8px; }
     `;
     document.head.appendChild(css);
 
@@ -159,7 +159,7 @@ e <- e |> htmlwidgets::onRender("
           return '<b>' + y + '</b><br>Actual: ' + real[i].toFixed(1) + ' Gt<br>Counterfactual: ' + cf[i].toFixed(1) + ' Gt<br>Gap: ' +
                  (real[i] - cf[i] >= 0 ? '+' : '\\u2212') + Math.abs(real[i] - cf[i]).toFixed(1) + ' Gt';
         }},
-        graphic: {type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11}},
+        graphic: {type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11, fontFamily: 'Inter, system-ui, sans-serif'}},
         xAxis: {type: 'category', data: yrs, boundaryGap: false, axisLabel: {hideOverlap: true, interval: function(i, v) { return +v % 10 === 0 || i === 0 || +v === d.last; }}, axisTick: {show: false}},
         yAxis: {type: 'value', min: 0, name: 'Gt ' + (gas === 'CO2' ? 'CO2' : 'CO2e') + ' per year', nameLocation: 'middle', nameGap: 48},
         series: [

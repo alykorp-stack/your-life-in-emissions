@@ -107,7 +107,6 @@ Pick your countries: same logic, user-selected subset.
 mulative over time (China, USA, India, UK, Russia): just a filtered slice of the master table.
 Per capita comparison (Qatar, Australia, Germany, Brazil, Indonesia, Canada, Nigeria): same, using the per capita columns.
 Parallel coordinates: one row per country for a chosen year, with columns: total, cumulative, per capita, per GDP. A small derived file, parallel_coords_latest.csv, makes this easy. Normalize each axis to 0-1 or keep raw with independent scales.
-Rank flips: the rank columns in the master table cover this.
 
 Multi-gas tab
 Same master table, just more gas columns (CH4, N2O, and optionally F-gases). Convert everything to CO2-equivalent with a stated GWP, otherwise the gases can’t be compared side by side. Superimposed charts work well with a long-format version of the table, so also export emissions_long.csv: iso_code, year, gas, value. This is easier for checkbox toggles.
@@ -136,7 +135,6 @@ Every chart has a static PNG (ggplot2) and an interactive HTML. New interactive 
 | b_countries_now/02_choropleth | ggplot2 | plotly |
 | c_leaders_over_time/01_cumulative_featured | ggplot2 | echarts4r |
 | c_leaders_over_time/02_per_capita_featured | ggplot2 | echarts4r |
-| c_leaders_over_time/03_rank_flip | ggplot2 | echarts4r |
 | c_leaders_over_time/04_parallel_coordinates | ggplot2 | echarts4r |
 | d_scrollytelling/01_lifetime_share (birth year, prototype) | ggplot2 | echarts4r |
 | d_scrollytelling/02_events_impact (birth year, prototype) | ggplot2 | echarts4r |
@@ -150,3 +148,28 @@ Every chart has a static PNG (ggplot2) and an interactive HTML. New interactive 
 ## Notes 
 For the country select the country you were born then in the generational grap it will tell u the percent 
 
+
+
+
+## About
+
+- why were doing it
+- why its relevant
+- the process
+- research questions - more like a guide than a report to find that
+- charts and discuss
+- polish and make better charts
+- 
+
+
+
+home page
+
+- a nice figure to draw people in, use code from ggiraph which is in the slides, short text?
+
+
+## New sources
+
+| Source | What it gives | Used in |
+|---|---|---|
+| IPCC AR6 WG1 (2021), Chapter 7, supplementary Table 7.SM.7 | CH4: GWP20 = 81.2, GWP100 = 27.9, lifetime 11.8 years. CO2 = 1 by definition, no single lifetime | `data/gases.csv`, home page charts (`charts/e_home/`) |

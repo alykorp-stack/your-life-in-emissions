@@ -136,27 +136,35 @@ p_int <- plot_ly() |>
     xaxis = list(title = list(text = "Share of world CO\u2082 (%). Top 10 emitters vs the rest of the world. Source: PRIMAP-hist v2.2 (to 2018), OWID / Global Carbon Budget (2019\u20132024).",
                               font = list(size = 11, color = "#666666"), standoff = 10),
                  range = c(0, payload$ymax[1]), gridcolor = "#e5e7eb", zeroline = FALSE, ticksuffix = "%"),
-    plot_bgcolor = "white", paper_bgcolor = "white", hoverlabel = list(font = list(size = 14))
+    plot_bgcolor = "white", paper_bgcolor = "white", hoverlabel = list(font = list(size = 14)),
+    font = list(family = "Inter, system-ui, sans-serif")   # the site font (loaded in onRender below)
   ) |>
   config(displayModeBar = FALSE) |>
   onRender("
     function(el, x, d) {
+      // Inter, the site font: load it, then let plotly re-measure its text
+      var font = document.createElement('link');
+      font.rel = 'stylesheet';
+      font.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap';
+      font.onload = function() { document.fonts.load('400 12px Inter').then(function() { Plotly.Plots.resize(el); }); };
+      document.head.appendChild(font);
+
       var css = document.createElement('style');
       css.textContent = `
-        .ctl { font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color: #1e3a5f; }
+        .ctl { font-family: Inter, system-ui, sans-serif; color: #1e3a5f; }
         .ctl-top { position: absolute; top: 12px; right: 20px; z-index: 5; display: flex; flex-wrap: wrap;
                    justify-content: flex-end; align-items: flex-end; gap: 10px; max-width: calc(100% - 40px); }
         .ctl-label { display: block; font-size: 13px; font-weight: 600; margin: 0 0 5px 4px; }
         .sel-wrap { position: relative; }
         .sel-wrap::after { content: '\u25BE'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
                            color: #2b6cb0; font-size: 18px; pointer-events: none; }
-        .ctl select { appearance: none; -webkit-appearance: none; font: 600 16px system-ui, sans-serif; color: #1e3a5f;
+        .ctl select { appearance: none; -webkit-appearance: none; font: 600 16px Inter, system-ui, sans-serif; color: #1e3a5f;
                       padding: 10px 40px 10px 16px; min-width: 250px; height: 46px; background: #f2f7fd;
                       border: 2px solid #2b6cb0; border-radius: 14px; box-shadow: 0 2px 6px rgba(43, 108, 176, 0.18);
                       cursor: pointer; transition: box-shadow .15s, background .15s; }
         .ctl select:hover { background: #e6f0fb; box-shadow: 0 3px 10px rgba(43, 108, 176, 0.3); }
         .ctl select:focus-visible, .ctl button:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
-        .ctl button { font: 700 15px system-ui, sans-serif; height: 46px; padding: 0 16px; color: #fff;
+        .ctl button { font: 700 15px Inter, system-ui, sans-serif; height: 46px; padding: 0 16px; color: #fff;
                       background: #2b6cb0; border: 0; border-radius: 12px; cursor: pointer;
                       box-shadow: 0 2px 6px rgba(43, 108, 176, 0.35); transition: background .15s, transform .05s; }
         .ctl button:hover { background: #1e4e8c; }
