@@ -56,7 +56,7 @@ p_map <- ggplot(map_data) +
   geom_sf(aes(fill = ch4_mtco2e), color = "white", linewidth = 0.1) +
   # sqrt scale so mid-sized emitters stay visible next to the largest
   scale_fill_gradient(
-    low = "#e8f1f4", high = "#0b3c4f", trans = "sqrt", na.value = "#d9d9d9",
+    low = "#E4EEE8", high = "#173E38", trans = "sqrt", na.value = "#d9d9d9",
     breaks = c(10, 100, 500, 1000), labels = scales::comma,
     name = "Mt CO2e",
     guide = guide_colorbar(barwidth = 10, barheight = 0.5, title.position = "top")
@@ -89,6 +89,19 @@ geo_file <- tempfile(fileext = ".geojson")
 # 2 decimals (~1 km) is plenty at world scale and roughly halves the file
 st_write(world_simple |> select(iso_code), geo_file, quiet = TRUE, layer_options = "COORDINATE_PRECISION=2")
 geo_json <- jsonlite::read_json(geo_file)
+# Rounding to 2 decimals can collapse a tiny part of a state into a line, which the writer then saves as a LineString or
+# GeometryCollection; echarts only draws polygons, so keep the polygon parts and drop the rest.
+geo_json$features <- lapply(geo_json$features, function(f) {
+  g <- f$geometry
+  if (identical(g$type, "GeometryCollection")) {
+    polys <- Filter(\(x) x$type %in% c("Polygon", "MultiPolygon"), g$geometries)
+    as_multi <- lapply(polys, \(x) if (x$type == "Polygon") list(x$coordinates) else x$coordinates)
+    f$geometry <- list(type = "MultiPolygon", coordinates = do.call(c, as_multi))
+  } else if (!(g$type %in% c("Polygon", "MultiPolygon"))) {
+    f$geometry <- list(type = "Polygon", coordinates = list())
+  }
+  f
+})
 
 # Four views: gas x measure. cap_p: the color scale tops out at this quantile; per person has a few
 # extreme outliers, so it is capped at the 99.5th percentile (those countries get the darkest color).
@@ -143,28 +156,29 @@ p <- tibble(iso_code = iso_codes[1], value = 0) |>
       if (!d || d.raw === undefined) return '<b>' + name + '</b><br>No data';
       return '<b>' + name + '</b><br>' + d.year + '<br>' + d.text;
     }")) |>
-  e_title("", left = 0, textStyle = list(fontSize = 17)) |>
+  e_title("", left = 0, top = 4, textStyle = list(fontSize = 18, fontWeight = 700, color = "#173E38"),
+          subtextStyle = list(fontSize = 12.5, color = "#4F6F68"), itemGap = 4) |>
   e_legend(show = FALSE)
 
 p$x$opts$series[[1]] <- modifyList(p$x$opts$series[[1]], list(
   nameProperty = "iso_code",
   showLegendSymbol = FALSE,            # otherwise echarts puts a dot on every country
   roam = "move",                       # drag to pan; zoom with the buttons, so the page still scrolls
-  top = 120, bottom = 110, left = 10, right = 10,
-  itemStyle = list(areaColor = "#d9d9d9", borderColor = "#ffffff", borderWidth = 0.3),
-  emphasis = list(label = list(show = FALSE), itemStyle = list(areaColor = "#efb306")),
+  top = 70, bottom = 100, left = 10, right = 10,
+  itemStyle = list(areaColor = "#DCDDD8", borderColor = "#ffffff", borderWidth = 0.4),
+  emphasis = list(label = list(show = FALSE), itemStyle = list(areaColor = "#E8B86A")),
   select = list(disabled = TRUE),
   label = list(show = FALSE)
 ))
 p$x$opts$visualMap <- list(list(
   type = "continuous", min = 0, max = 1, calculable = FALSE, orient = "horizontal",
-  left = 10, bottom = 34, itemWidth = 12, itemHeight = 150,
-  inRange = list(color = c("#e8f1f4", "#8fc1d1", "#1f6f8b", "#0b3c4f")),
-  textStyle = list(color = "#444", fontSize = 12)
+  left = 10, bottom = 40, itemWidth = 11, itemHeight = 150,
+  inRange = list(color = c("#E4EEE8", "#A9C9B8", "#69A99B", "#117B73", "#173E38")),
+  textStyle = list(color = "#304B47", fontSize = 12)
 ))
 # The caption wraps to the chart width (set in the browser, see fitCaption below).
-p$x$opts$graphic <- list(list(id = "caption", type = "text", left = 0, bottom = 2,
-                              style = list(text = caption, fill = "#888", fontSize = 10, overflow = "break")))
+p$x$opts$graphic <- list(list(id = "caption", type = "text", left = 10, bottom = 4,
+                              style = list(text = caption, fill = "#6B7F7A", fontSize = 10, lineHeight = 14, overflow = "break")))
 
 p <- p |>
   onRender("
@@ -175,35 +189,36 @@ p <- p |>
       // ---- Styles for the controls (same look as the plotly map) ----
       var css = document.createElement('style');
       css.textContent = `
-        .ctl { font-family: Inter, system-ui, sans-serif; color: #1e3a5f; }
-        .ctl-top { position: absolute; top: 40px; right: 10px; z-index: 5; display: flex; flex-wrap: wrap;
-                   justify-content: flex-end; align-items: flex-end; gap: 10px; max-width: calc(100% - 20px); }
-        .ctl-label { display: block; font-size: 13px; font-weight: 600; margin: 0 0 5px 4px; }
+        .ctl { font-family: Inter, system-ui, sans-serif; color: #173E38; }
+        .ctl-top { position: absolute; top: 6px; right: 10px; z-index: 5; display: flex; flex-wrap: wrap;
+                   justify-content: flex-end; align-items: flex-end; gap: 8px; max-width: calc(100% - 20px); }
+        .ctl-label { display: block; font-size: 11px; font-weight: 600; letter-spacing: .02em; color: #4F6F68; margin: 0 0 3px 3px; }
         .sel-wrap { position: relative; }
-        .sel-wrap::after { content: '\\u25BE'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-                           color: #2b6cb0; font-size: 18px; pointer-events: none; }
-        .ctl select { appearance: none; -webkit-appearance: none; font: 600 15px Inter, system-ui, sans-serif; color: #1e3a5f;
-                      padding: 8px 38px 8px 14px; min-width: 150px; height: 42px; background: #f2f7fd;
-                      border: 2px solid #2b6cb0; border-radius: 12px; cursor: pointer; }
-        .ctl select:hover { background: #e6f0fb; }
-        .ctl select:focus-visible, .ctl button:focus-visible, .ctl input:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
-        .ctl button { font: 700 15px Inter, system-ui, sans-serif; height: 42px; min-width: 42px; padding: 0 14px; color: #fff;
-                      background: #2b6cb0; border: 0; border-radius: 12px; cursor: pointer;
-                      box-shadow: 0 2px 6px rgba(43, 108, 176, 0.35); transition: background .15s; }
-        .ctl button:hover { background: #1e4e8c; }
-        .ctl .zoom { font-size: 22px; line-height: 1; padding: 0; width: 42px; }
-        .ctl-bottom { position: absolute; left: 260px; right: 20px; bottom: 34px; z-index: 5; display: flex;
-                      align-items: center; gap: 12px; }
-        .yr { min-width: 64px; text-align: center; font-size: 18px; font-weight: 700; color: #fff; background: #2b6cb0;
-              border-radius: 12px; padding: 6px 10px; }
-        .ends { font-size: 13px; font-weight: 600; color: #5b7390; }
-        .ctl input[type=range] { -webkit-appearance: none; appearance: none; flex: 1; min-width: 80px; height: 10px;
-                                 border-radius: 6px; background: #cbd5e1; cursor: pointer; margin: 0; }
-        .ctl input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; border-radius: 50%;
-                                 background: #fff; border: 5px solid #2b6cb0; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); }
+        .sel-wrap::after { content: '\\u25BE'; position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
+                           color: #117B73; font-size: 14px; pointer-events: none; }
+        .ctl select { appearance: none; -webkit-appearance: none; font: 600 13px Inter, system-ui, sans-serif; color: #173E38;
+                      padding: 0 30px 0 12px; min-width: 128px; height: 32px; background: #F7F8F3;
+                      border: 1.5px solid #117B73; border-radius: 8px; cursor: pointer; transition: background .15s, border-color .15s; }
+        .ctl select:hover { background: #E4EEE8; border-color: #173E38; }
+        .ctl select:focus-visible, .ctl button:focus-visible, .ctl input:focus-visible { outline: 3px solid #A9C9B8; outline-offset: 2px; }
+        .ctl button { font: 600 13px Inter, system-ui, sans-serif; height: 32px; min-width: 32px; padding: 0 12px; color: #fff;
+                      background: #117B73; border: 0; border-radius: 8px; cursor: pointer;
+                      box-shadow: 0 1px 4px rgba(17, 123, 115, 0.3); transition: background .15s, transform .1s; }
+        .ctl button:hover { background: #173E38; }
+        .ctl button:active { transform: translateY(1px); }
+        .ctl .zoom { font-size: 18px; line-height: 1; padding: 0; width: 32px; }
+        .ctl-bottom { position: absolute; left: 250px; right: 14px; bottom: 36px; z-index: 5; display: flex;
+                      align-items: center; gap: 10px; }
+        .yr { min-width: 56px; text-align: center; font-size: 15px; font-weight: 700; color: #fff; background: #173E38;
+              border-radius: 8px; line-height: 32px; height: 32px; padding: 0 8px; }
+        .ends { font-size: 12px; font-weight: 600; color: #4F6F68; }
+        .ctl input[type=range] { -webkit-appearance: none; appearance: none; flex: 1; min-width: 80px; height: 8px;
+                                 border-radius: 5px; background: #D3DED6; cursor: pointer; margin: 0; }
+        .ctl input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+                                 background: #fff; border: 4px solid #117B73; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); }
         .ctl input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #fff;
-                                 border: 5px solid #2b6cb0; }
-        @media (max-width: 640px) { .ctl-bottom { left: 10px; bottom: 80px; } }
+                                 border: 5px solid #117B73; }
+        @media (max-width: 640px) { .ctl-top { top: 52px; left: 10px; right: 10px; justify-content: flex-start; } .ctl-bottom { left: 10px; right: 10px; bottom: 84px; } .ctl select { min-width: 112px; } }
       `;
       document.head.appendChild(css);
       el.style.position = 'relative';
@@ -260,7 +275,7 @@ p <- p |>
         }
         lab.textContent = year;
         var pct = yi / (d.years.length - 1) * 100;
-        rng.style.background = 'linear-gradient(to right, #2b6cb0 ' + pct + '%, #cbd5e1 ' + pct + '%)';
+        rng.style.background = 'linear-gradient(to right, #117B73 ' + pct + '%, #D3DED6 ' + pct + '%)';
         var unitText = d.units[k] + (d.capped[k] ? ' (scale capped at ' + fmt(d.zmax[k]) + ')' : '');
         chart.setOption({
           title: [{text: d.labels[k] + ' by country, ' + year, subtext: unitText}],
@@ -306,12 +321,27 @@ p <- p |>
         a.click();
       });
 
-      function fitCaption() { chart.setOption({graphic: [{id: 'caption', style: {width: el.clientWidth - 10}}]}); }
+      // Layout for narrow screens: toolbar wraps under the title, legend and slider stack above the caption. Data and options are untouched.
+      function fitLayout() {
+        var narrow = el.clientWidth < 640;
+        chart.setOption({
+          series: [{top: narrow ? 150 : 70, bottom: narrow ? 180 : 100}],
+          visualMap: [{bottom: narrow ? 126 : 40}]
+        });
+      }
+      window.addEventListener('resize', fitLayout);
+      fitLayout();
+
+      function fitCaption() { chart.setOption({graphic: [{id: 'caption', style: {width: el.clientWidth - 20}}]}); }
       window.addEventListener('resize', fitCaption);
       fitCaption();
       update();
     }
   ", data = payload)
 
-save_echart(p, OUT_HTML)
+# Saved directly, not through save_echart(): its Inter theme re-initialises the chart and drops the registered world map
+# (blank chart). The map's own HTML sets Inter in its controls.
+if (!rmarkdown::pandoc_available()) Sys.setenv(RSTUDIO_PANDOC = file.path(dirname(Sys.which("quarto")), "tools"))
+htmlwidgets::saveWidget(p, file.path(getwd(), OUT_HTML), selfcontained = TRUE)
+unlink(sub("[.]html$", "_files", OUT_HTML), recursive = TRUE)
 message("HTML size: ", round(file.size(OUT_HTML) / 1e6, 1), " MB")

@@ -24,7 +24,7 @@ BIRTH <- if (length(args)) as.integer(args[1]) else 1988L
 
 font    <- "sans"
 hat     <- as.vector(ltc("hat"))
-palette <- c(hat[c(6, 3, 9, 1, 4, 7, 2, 5, 8)], "#7a7a7a")
+palette <- c("#117B73", "#CF7453", "#E8B86A", "#173E38", "#7FB59A", "#8F3F26", "#5CB8AE", "#A8761A", "#6B8A84", "#8A9A96")
 caption <- "Data: PRIMAP-hist v2.2, Global Carbon Budget, EDGAR. Excludes land use. CH4 at GWP100 = 27.9. History is assigned to today's borders."
 short   <- c("United States" = "USA", "United Kingdom" = "UK", "Saudi Arabia" = "Saudi Arabia")
 
@@ -99,7 +99,7 @@ val_js <- imap(c(co2 = "co2_mt", ch4 = "ch4_mtco2e"), \(col, g) {
 })
 
 e <- tibble(x = 0, y = 0) |> e_charts(x) |> e_line(y)   # placeholder, the real chart is built by the script below
-e$x$opts$graphic <- list(type = "text", left = 0, bottom = 6, style = list(text = caption, fill = "#888", fontSize = 11))
+e$x$opts$graphic <- list(type = "text", left = 0, bottom = 6, style = list(text = caption, fill = "#5D7571", fontSize = 11))
 
 e <- e |> htmlwidgets::onRender("
   function(el, x, d) {
@@ -109,11 +109,11 @@ e <- e |> htmlwidgets::onRender("
     el.style.position = 'relative';
     var css = document.createElement('style');
     css.textContent = `
-      .c4 { font-family: Inter, system-ui, sans-serif; position: absolute; top: 8px; left: 0; z-index: 5; color: #1e3a5f; }
+      .c4 { font-family: Inter, system-ui, sans-serif; position: absolute; top: 8px; left: 0; z-index: 5; color: #173E38; }
       .c4 .row { display: flex; gap: 12px; align-items: flex-end; }
       .c4 label { display: block; font-size: 12px; font-weight: 600; margin: 0 0 3px 2px; }
-      .c4 input, .c4 select { font: 600 14px Inter, system-ui, sans-serif; height: 34px; padding: 0 10px; color: #1e3a5f; background: #f2f7fd;
-                              border: 2px solid #2b6cb0; border-radius: 10px; }
+      .c4 input, .c4 select { font: 600 14px Inter, system-ui, sans-serif; height: 34px; padding: 0 10px; color: #173E38; background: #F7F8F3;
+                              border: 2px solid #117B73; border-radius: 10px; }
       .c4 input[type=number] { width: 88px; }
     `;
     document.head.appendChild(css);
@@ -166,7 +166,7 @@ e <- e |> htmlwidgets::onRender("
         xAxis: {type: 'value', min: state.birth, max: d.last, splitLine: {show: false},
                 axisLabel: {formatter: function(v) { return String(v); }, hideOverlap: true}},
         yAxis: {type: 'value', min: 0, name: 'Annual ' + gasName + (g === 'co2' ? '' : ' (as CO2e)') + ' emissions (Gt per year)', nameLocation: 'middle', nameGap: 42},
-        graphic: {type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11, fontFamily: 'Inter, system-ui, sans-serif'}},
+        graphic: {type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#5D7571', fontSize: 11, fontFamily: 'Inter, system-ui, sans-serif'}},
         series: series
       }, true);
     }

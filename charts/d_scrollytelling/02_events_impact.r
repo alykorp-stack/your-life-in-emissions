@@ -22,7 +22,7 @@ BIRTH <- if (length(args)) as.integer(args[1]) else 1988L
 
 font      <- "sans"
 hat       <- as.vector(ltc("hat"))
-gasColors <- c("CO2" = hat[6], "CH4" = hat[7])   # same colors as the other charts
+gasColors <- c("CO2" = "#117B73", "CH4" = "#CF7453")   # same colors as the other charts
 caption   <- "Data: PRIMAP-hist v2.2, Global Carbon Budget, EDGAR. Excludes land use. CH4 at GWP100 = 27.9."
 
 world <- read_csv("data/emissions_global_year.csv", show_col_types = FALSE) |>
@@ -103,9 +103,9 @@ e <- e |> htmlwidgets::onRender("
 
     if (!embed) {
       var css = document.createElement('style');
-      css.textContent = '.c2 { font-family: Inter, system-ui, sans-serif; position: absolute; top: 8px; left: 0; z-index: 5; color: #1e3a5f; } ' +
+      css.textContent = '.c2 { font-family: Inter, system-ui, sans-serif; position: absolute; top: 8px; left: 0; z-index: 5; color: #173E38; } ' +
         '.c2 label { display: block; font-size: 12px; font-weight: 600; margin: 0 0 3px 2px; } ' +
-        '.c2 input { font: 600 14px Inter, system-ui, sans-serif; width: 88px; height: 34px; padding: 0 10px; color: #1e3a5f; background: #f2f7fd; border: 2px solid #2b6cb0; border-radius: 10px; }';
+        '.c2 input { font: 600 14px Inter, system-ui, sans-serif; width: 88px; height: 34px; padding: 0 10px; color: #173E38; background: #F7F8F3; border: 2px solid #117B73; border-radius: 10px; }';
       document.head.appendChild(css);
       var box = document.createElement('div'); box.className = 'c2';
       var lab = document.createElement('label'); lab.textContent = 'Birth year';
@@ -119,14 +119,14 @@ e <- e |> htmlwidgets::onRender("
 
     // label text above the plot, a thin line down to a dot on the CO2 curve; labels that would touch go on another row
     function placeLabels() {
-      var g = [{type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11, fontFamily: 'Inter, system-ui, sans-serif'}}];
+      var g = [{type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#5D7571', fontSize: 11, fontFamily: 'Inter, system-ui, sans-serif'}}];
       picked.forEach(function(it, k) {
         var xPix = chart.convertToPixel({xAxisIndex: 0}, it.mid);
         var dotPix = chart.convertToPixel({xAxisIndex: 0, yAxisIndex: 0}, [it.mid, it.dot]);
         var yText = T + 74 + ROW * (lanes.length - 1 - it.lane);   // lane 0 is the lowest row, nearest the plot
-        g.push({type: 'text', silent: true, x: xPix, y: yText, style: {text: it.text, fill: '#222', font: '13px Inter, system-ui, sans-serif', textAlign: 'center', textVerticalAlign: 'top'}});
-        g.push({type: 'line', silent: true, shape: {x1: xPix, y1: yText + 20, x2: xPix, y2: dotPix[1]}, style: {stroke: '#555', lineWidth: 1.2}});
-        g.push({type: 'circle', silent: true, shape: {cx: xPix, cy: dotPix[1], r: 4}, style: {fill: '#222'}});
+        g.push({type: 'text', silent: true, x: xPix, y: yText, style: {text: it.text, fill: '#304B47', font: '13px Inter, system-ui, sans-serif', textAlign: 'center', textVerticalAlign: 'top'}});
+        g.push({type: 'line', silent: true, shape: {x1: xPix, y1: yText + 20, x2: xPix, y2: dotPix[1]}, style: {stroke: '#5D7571', lineWidth: 1.2}});
+        g.push({type: 'circle', silent: true, shape: {cx: xPix, cy: dotPix[1], r: 4}, style: {fill: '#304B47'}});
       });
       chart.setOption({graphic: g}, {replaceMerge: ['graphic']});
     }

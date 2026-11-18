@@ -6,14 +6,18 @@ format:
     theme:
       - flatly
       - ../theme.scss
+      - ../colors.scss
     include-in-header: ../fonts.html
     code-tools: false
     toc: false
     cr-style:
-      section-background-color: "#ffffff"
-      narrative-background-color-sidebar: "#f2f7fd"
-      narrative-text-color-sidebar: "#1e3a5f"
+      section-background-color: "#F7F8F3"
+      narrative-background-color-sidebar: "#ffffff"
+      narrative-text-color-sidebar: "#304B47"
+      narrative-background-color-overlay: "#173E38ee"
+      narrative-text-color-overlay: "#F7F8F3"
       narrative-font-size: 1.15rem
+      narrative-sidebar-width: 36%
       narrative-border-radius: 10px
 execute:
   echo: false
@@ -36,14 +40,61 @@ ojs_define(world = world, ev = ev, lead = lead, gens = gens)
 
 ```{=html}
 <style>
-  .birth-box { position: sticky; top: 10px; width: fit-content; margin: 0.5rem auto 1.2rem; z-index: 1000; background: #fff; border: 2px solid #2b6cb0; border-radius: 12px;
-               padding: 6px 12px; box-shadow: 0 2px 8px rgba(43, 108, 176, 0.25); font-family: 'Inter', sans-serif; }
-  .birth-box label { font-weight: 700; color: #1e3a5f; margin-right: 8px; }
-  .birth-box input { width: 80px; font-size: 16px; font-weight: 700; color: #1e3a5f; }
-  .chart-frame { width: 100%; height: 78vh; border: 0; background: #fff; }
+  .birth-box { position: sticky; top: 10px; width: fit-content; margin: 0.5rem auto 1.2rem; z-index: 1000; background: #fff; border: 2px solid #117B73; border-radius: 12px;
+               padding: 6px 12px; box-shadow: 0 4px 14px rgba(23, 62, 56, 0.18); font-family: 'Inter', sans-serif; }
+  .birth-box label { font-weight: 700; color: #173E38; margin-right: 8px; }
+  .birth-box input { width: 80px; font-size: 16px; font-weight: 700; color: #173E38; }
+  .chart-frame { width: 100%; height: 78vh; border: 0; background: #fff; border-radius: 14px; box-shadow: 0 4px 18px rgba(23, 62, 56, 0.10); }
   .cr-section .sticky-col .sticky-col-stack .sticky { width: 100%; pointer-events: none; }
   .cr-section .sticky-col .sticky-col-stack .sticky.cr-active { pointer-events: auto; }
   .method { max-width: 780px; margin: 3rem auto; padding: 0 1rem; font-size: 1.05rem; }
+
+  /* ---- scrollytelling polish ---- */
+  :root { --forest:#173E38; --teal:#117B73; --sage:#A9C9B8; --ivory:#F7F8F3; --terra:#CF7453; --sand:#E8B86A; }
+  .cr-section .sticky-col .sticky-col-stack { height: 100dvh; }
+  /* tighter scroll distance: each step is ~ one screen, not two */
+  .cr-section .narrative-col .trigger { padding-block: 14svh; padding-inline: 20px; }
+  .cr-section .narrative-col .trigger .narrative { padding: 0; line-height: 1.6; max-width: 34em; }
+  .cr-section .narrative-col .trigger .narrative > p { margin-bottom: 0.9em; }
+  .cr-section .narrative-col .trigger .narrative > p:last-child { margin-bottom: 0; }
+  /* closeread makes each heading its own trigger; pull heading and its text together as one block */
+  .cr-section .narrative-col section.level2.trigger { padding-block: 16svh 0; padding-bottom: 0; }
+  .cr-section .narrative-col section.level2.trigger + .trigger { padding-top: 0.6rem; }
+  .cr-section .narrative-col section.level2.trigger + .trigger .narrative { padding-top: 0; }
+  .cr-section .narrative-col section.level2.trigger h2.narrative { font-size: clamp(2rem, 3.4vw, 3rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.025em;
+      color: var(--forest); margin: 0 0 0.35em; padding: 0 0 0.45em; border: 0; max-width: 11em; }
+  .cr-section .narrative-col section.level2.trigger h2.narrative::after { width: 72px; height: 5px; bottom: 0; }
+  .cr-section .narrative-col .trigger .narrative p { font-size: 1.12rem; color: #304B47; }
+  .cr-section .narrative-col .trigger .narrative strong { color: var(--forest); }
+  /* one continuous stage: charts cross-fade with a gentle zoom; the outgoing chart recedes, the incoming one settles in */
+  .cr-section .sticky-col .sticky-col-stack .sticky { width: 100%; padding: 2.5vh 2vw; box-sizing: border-box;
+      transform: scale(0.965); transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.9s cubic-bezier(.22,.8,.3,1); will-change: opacity, transform; }
+  .cr-section .sticky-col .sticky-col-stack .sticky.cr-active { transform: scale(1); }
+  .chart-frame { height: 84vh; }
+  /* opening overview: all eight charts as a contact sheet */
+  .overview { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; width: 100%; }
+  .overview figure { margin: 0; background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 18px rgba(23,62,56,0.12); border-bottom: 4px solid var(--teal); }
+  .overview figure:nth-child(3n) { border-bottom-color: var(--terra); }
+  .overview figure:nth-child(4n) { border-bottom-color: var(--sand); }
+  .overview img { display: block; width: 100%; aspect-ratio: 16/10; object-fit: cover; object-position: top; }
+  .overview figcaption { font: 600 0.8rem 'Inter', sans-serif; color: var(--forest); padding: 6px 10px 7px; }
+  .overview-note { text-align: center; font: 600 0.9rem 'Inter', sans-serif; color: var(--teal); margin-top: 12px; }
+  .intro-text { max-width: 44rem; margin: 0 auto 0.6rem; text-align: center; font-size: 1.15rem; }
+  .method { margin-top: 2rem; }
+  .method h2 { font-size: 2rem; font-weight: 800; color: var(--forest); letter-spacing: -0.02em; }
+  @media (max-width: 991px) { .overview { grid-template-columns: repeat(2, 1fr); gap: 8px; } .overview figcaption { font-size: 0.7rem; } }
+  @media (max-width: 575.98px) {
+    .cr-section .narrative-col .trigger { padding-block: 40svh 6svh; }
+    .cr-section .narrative-col section.level2.trigger { padding-block: 40svh 0; }
+    .cr-section .narrative-col section.level2.trigger + .trigger { padding-block: 0.6rem 6svh; }
+    .cr-section .narrative-col .trigger .narrative { background: #173E38ee; color: #F7F8F3; padding: 0.8em 1em; border-radius: 10px; }
+    .cr-section .narrative-col .trigger .narrative p, .cr-section .narrative-col .trigger .narrative strong { color: #F7F8F3; }
+    .cr-section .narrative-col .trigger .narrative h2 { font-size: 1.6rem; border-top-color: #E8B86A; }
+    .chart-frame { height: 62vh; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cr-section .sticky-col .sticky-col-stack .sticky { transition: opacity 0.01s; transform: none !important; }
+  }
 </style>
 <script>
   // Charts 1 and 2 let the visitor click a year on the chart; the chart tells this page, which updates the birth year box.
@@ -51,6 +102,11 @@ ojs_define(world = world, ev = ev, lead = lead, gens = gens)
     if (!ev.data || !ev.data.birth) return;
     var box = document.querySelector('.birth-box input[type=number]');
     if (box) { box.value = ev.data.birth; box.dispatchEvent(new Event('input', {bubbles: true})); }
+  });
+  // Show the overview as soon as the story stage appears, before the first trigger has fired.
+  window.addEventListener('load', function() {
+    var ov = document.getElementById('cr-overview');
+    if (ov && !document.querySelector('.sticky.cr-active')) ov.classList.add('cr-active');
   });
 </script>
 ```
@@ -81,13 +137,20 @@ buildStamp = Date.now()
 frame = name => html`<iframe class="chart-frame" src="../charts/d_scrollytelling/${name}.html?embed=1&birth=${birth}&v=${buildStamp}"></iframe>`
 ```
 
+::: {.intro-text}
 Type the year you were born in the box above. It stays at the top as you scroll, and every chart below redraws for your lifetime.
+:::
 
 ```{ojs}
 md`You were born in **${birth}**, which makes you part of **${generation}**. Scroll down.`
 ```
 
 ::::::: {.cr-section layout="sidebar-left"}
+
+## The whole story at a glance
+
+Eight charts, one story, told for your lifetime. Keep scrolling and each chart takes the stage in turn. @cr-overview
+
 
 ## The whole record
 
@@ -176,6 +239,19 @@ s1 = shareFrom("co2", birth - 30)
 s2 = shareFrom("co2", birth - 60)
 md`Go back one generation, 30 years before you were born: the share of CO2 rises from ${pct(s0)} to **${pct(s1)}**. Two generations back, it is **${pct(s2)}**. Most of the story is recent.`
 ```
+
+::: {#cr-overview}
+<div class="overview">
+<figure><img src="../charts/d_scrollytelling/01_lifetime_share.png" alt="The whole record"><figcaption>1 · The whole record</figcaption></figure>
+<figure><img src="../charts/d_scrollytelling/02_events_impact.png" alt="What the world was going through"><figcaption>2 · What the world was going through</figcaption></figure>
+<figure><img src="../charts/d_scrollytelling/03_countries_lifetime.png" alt="Who emitted it"><figcaption>3 · Who emitted it</figcaption></figure>
+<figure><img src="../charts/d_scrollytelling/04_leaders_lifetime.png" alt="Who led, and by how much"><figcaption>4 · Who led, and by how much</figcaption></figure>
+<figure><img src="../charts/d_scrollytelling/05_counterfactual.png" alt="What if emissions had stopped growing?"><figcaption>5 · What if emissions had stopped growing?</figcaption></figure>
+<figure><img src="../charts/d_scrollytelling/06_year_vs_today.png" alt="Then and now"><figcaption>6 · Then and now</figcaption></figure>
+<figure><img src="../charts/d_scrollytelling/08_per_person_then_now.png" alt="Per person, then and now"><figcaption>7 · Per person, then and now</figcaption></figure>
+<figure><img src="../charts/d_scrollytelling/07_generational_ladder.png" alt="Your family's ladder"><figcaption>8 · Your family's ladder</figcaption></figure>
+</div>
+:::
 
 ::: {#cr-share}
 ```{ojs}
