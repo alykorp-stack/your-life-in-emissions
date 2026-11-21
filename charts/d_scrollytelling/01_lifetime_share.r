@@ -25,7 +25,7 @@ BIRTH <- if (length(args)) as.integer(args[1]) else 1988L
 
 font      <- "sans"
 hat       <- as.vector(ltc("hat"))
-gasColors <- c("CO2" = hat[6], "CH4" = hat[7])   # same colors as the a_generations charts
+gasColors <- c("CO2" = "#117B73", "CH4" = "#CF7453")   # same colors as the a_generations charts
 caption   <- "Data: PRIMAP-hist v2.2, Global Carbon Budget, EDGAR. Excludes land use. CH4 at GWP100 = 27.9."
 
 world <- read_csv("data/emissions_global_year.csv", show_col_types = FALSE) |>
@@ -128,7 +128,7 @@ for (i in 1:2) {
                                   round(shares$share[shares$gas == g & shares$year == halfway$year[halfway$gas == g]], 5)))))
 }
 e$x$opts$graphic <- list(type = "text", left = 0, bottom = 6,
-                         style = list(text = paste0(caption, " Click the chart to change the birth year."), fill = "#888", fontSize = 11))
+                         style = list(text = paste0(caption, " Click the chart to change the birth year."), fill = "#5D7571", fontSize = 11))
 # Both lines end at 100%, so end labels would overlap: use a legend instead
 e$x$opts$legend <- list(top = 62, left = 0, selectedMode = FALSE)
 
@@ -152,11 +152,11 @@ e <- e |> htmlwidgets::onRender("
                       ' of all CH4 emissions came in your lifetime',
                 subtext: 'Halfway point: ' + halfText('CO2', birth) + '; ' + halfText('CH4', birth)},
         series: [{markLine: {silent: true, symbol: 'none', lineStyle: {color: '#fff', type: 'solid', width: 1.5},
-                             label: {formatter: '{b}', position: 'insideStartTop', color: '#666', fontSize: 11},
+                             label: {formatter: '{b}', position: 'insideStartTop', color: '#48625E', fontSize: 11},
                              data: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100].filter(function(a) { return birth + a <= d.last; })
                                .map(function(a) { return {xAxis: birth + a, name: 'age ' + a}; })},
-                  markArea: {silent: true, itemStyle: {color: 'rgba(0,0,0,0.07)'},
-                             label: {show: true, position: 'insideTopLeft', formatter: 'Your lifetime', color: '#666'},
+                  markArea: {silent: true, itemStyle: {color: 'rgba(169,201,184,0.30)'},
+                             label: {show: true, position: 'insideTopLeft', formatter: 'Your lifetime', color: '#48625E'},
                              data: [[{xAxis: birth}, {xAxis: d.last}]]}}, {}]
       });
     }

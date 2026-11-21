@@ -1,41 +1,157 @@
 /*-- scss:defaults --*/
-// Site colors from the ltc package's "seafarer" palette: as.vector(ltc::ltc("seafarer"))
-// #013D5A (dark blue), #FCF3E3, #BDD3CE (light blue), #708C69, #E4A25B
-// Used by every page except the scrolly page (scrolly/index.qmd sets its own theme without this file).
-$seafarer-dark:  #013D5A;
-$seafarer-light: #98C1D9;
-$seafarer-cream: #FCF3E3;
+// "Your Life in Emissions" palette (styling only; charts keep their own colors).
+$forest:     #173E38;  // navbar, headings, footer
+$teal:       #117B73;  // buttons, links, accents
+$sage:       #A9C9B8;  // subtle highlights
+$ivory:      #F7F8F3;  // page background
+$terracotta: #CF7453;  // decorative highlights
+$sand:       #E8B86A;  // small accents
+$slate:      #304B47;  // body text
+$white:      #FFFFFF;  // cards
 
-// The cream is too yellow as a full page background, so the page uses a light tint of it (30% cream, 70% white).
-$body-bg: mix($seafarer-cream, #ffffff, 30%);
-
-$navbar-bg: $seafarer-light;
-$navbar-fg: #000000;
-$navbar-hl: #000000;
-$headings-color: $seafarer-dark;
+$body-bg: $ivory;
+$body-color: $slate;
+$link-color: $teal;
+$link-hover-color: darken($teal, 8%);
+$headings-color: $forest;
+$primary: $teal;
+$border-radius: 0.6rem;
+$navbar-bg: $forest;
+$navbar-fg: #ffffff;
+$navbar-hl: $sand;
+$footer-bg: $forest;
+$footer-fg: $sage;
+$toc-color: $teal;
 
 /*-- scss:rules --*/
-// Section headings in dark blue; page titles ("Your life in emissions", "About", ...) in bold black.
-h2, h3, h4, h5, h6 {
-  color: $seafarer-dark;
+html { scroll-behavior: smooth; }
+body { color: $slate; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+// ---------- Navbar ----------
+.navbar {
+  background-color: $forest !important;
+  border-bottom: 3px solid $terracotta;
+  box-shadow: 0 2px 12px rgba(23, 62, 56, 0.18);
+  padding-top: 0.5rem; padding-bottom: 0.5rem;
 }
-h1, .title {
-  color: #000000;
-  font-weight: 700;
+.navbar .navbar-title {
+  color: #fff; font-weight: 700; letter-spacing: 0.01em; font-size: 1.15rem;
 }
-// Navbar text: black and bold
-.navbar .navbar-title, .navbar .nav-link, .navbar .menu-text {
-  color: #000000;
-  font-weight: 700;
+.navbar .nav-link, .navbar .menu-text {
+  color: rgba(255,255,255,0.88); font-weight: 500; font-size: 0.95rem;
 }
-// Page links: spaced apart, underlined on hover and on the page you are on.
-.navbar .navbar-nav .nav-item + .nav-item {
-  margin-left: 1.5rem;
+.navbar .navbar-nav .nav-item + .nav-item { margin-left: 0.75rem; }
+.navbar .navbar-nav .nav-link {
+  border-bottom: 2px solid transparent; padding-bottom: 0.25rem; transition: color .2s, border-color .2s;
 }
 .navbar .navbar-nav .nav-link:hover,
 .navbar .navbar-nav .nav-link:focus-visible,
 .navbar .navbar-nav .nav-link.active {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-underline-offset: 6px;
+  color: $sand; border-bottom-color: $sand; text-decoration: none;
+}
+// Navbar icons (Font Awesome Free solid, loaded in fonts.html). Added with CSS so titles and links stay untouched.
+.navbar .navbar-nav .nav-link { display: inline-flex; align-items: center; gap: 0.5rem; }
+.navbar .navbar-nav .nav-link::before {
+  font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 0.85em; line-height: 1;
+  width: 1.1em; text-align: center; color: inherit; opacity: 0.9; -webkit-font-smoothing: antialiased;
+}
+.navbar .navbar-nav .nav-link[href*="scrolly"]::before { content: "\f007"; }  // user
+.navbar .navbar-nav .nav-link[href*="explore"]::before       { content: "\f57d"; }  // earth-americas
+.navbar .navbar-nav .nav-link[href*="whats-next"]::before    { content: "\f0eb"; }  // lightbulb
+.navbar .navbar-nav .nav-link[href*="about"]::before         { content: "\f05a"; }  // circle-info
+// hover: soft sage; current page: golden sand underline with brighter text
+.navbar .navbar-nav .nav-link:hover, .navbar .navbar-nav .nav-link:focus-visible { color: $sage; border-bottom-color: rgba(169,201,184,0.7); }
+.navbar .navbar-nav .nav-link.active { color: #fff; border-bottom-color: $sand; }
+.navbar .navbar-nav .nav-link.active::before { color: $sand; opacity: 1; }
+// search: same button and behaviour, only the icon is swapped for Font Awesome
+#quarto-search .aa-DetachedSearchButtonIcon svg, #quarto-search .aa-DetachedSearchButtonIcon .bi { display: none; }
+#quarto-search .aa-DetachedSearchButtonIcon { display: inline-flex; align-items: center; justify-content: center; }
+#quarto-search .aa-DetachedSearchButtonIcon::before {
+  content: "\f002"; font-family: "Font Awesome 6 Free"; font-weight: 900; font-size: 1.05rem; color: rgba(255,255,255,0.9); transition: color .2s;
+}
+#quarto-search .aa-DetachedSearchButton:hover .aa-DetachedSearchButtonIcon::before { color: $sand; }
+.navbar-toggler { border-color: rgba(255,255,255,0.4); }
+.navbar-toggler-icon { filter: invert(1); }
+
+// ---------- Typography ----------
+h1, h2, h3, h4, h5, h6 { color: $forest; letter-spacing: -0.01em; }
+h1, .title { font-weight: 700; color: $forest; letter-spacing: -0.02em; }
+h2 {
+  font-weight: 650; font-size: 1.65rem;
+  margin-top: 3.2rem; margin-bottom: 1rem;
+  padding-bottom: 0.5rem; border-bottom: 1px solid rgba(169,201,184,0.7);
+  position: relative;
+}
+h2::after {
+  content: ""; position: absolute; left: 0; bottom: -2px;
+  width: 56px; height: 3px; border-radius: 2px; background: $terracotta;
+}
+h3 { font-weight: 600; margin-top: 2rem; }
+a { text-decoration-color: rgba(17,123,115,0.35); text-underline-offset: 3px; transition: color .15s; }
+a:hover { text-decoration-color: currentColor; }
+::selection { background: $sage; color: $forest; }
+hr { border-color: $sage; opacity: 1; }
+
+// ---------- Title block / hero ----------
+#title-block-header.quarto-title-block {
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  border-left: 0;
+  padding: 1.5rem 0 1.25rem;
+  margin: 0.5rem 0 1.5rem;
+  border-bottom: 1px solid rgba(169,201,184,0.7);
+  .quarto-title h1.title, h1.title { color: $forest; margin-bottom: 0.4rem; font-size: 2.5rem; }
+  .subtitle, p.subtitle { color: $teal; font-size: 1.2rem; font-weight: 400; margin-bottom: 0; }
+  .quarto-title-meta { margin-top: 1rem; color: $slate; }
+}
+
+// ---------- Content & chart cards ----------
+main.content { padding-bottom: 3rem; }
+iframe {
+  display: block;
+  background: $white;
+  border: 1px solid rgba(169,201,184,0.6) !important;
+  border-radius: 0.9rem;
+  box-shadow: 0 4px 18px rgba(23, 62, 56, 0.08);
+  margin: 1rem 0 0.75rem;
+}
+// Italic captions/placeholders under charts read as quiet notes
+main p > em:only-child, main p > em:first-child:last-child {
+  color: #5d7571; font-size: 0.95rem;
+}
+code { color: $terracotta; background: rgba(169,201,184,0.22); border-radius: 0.3rem; padding: 0.1em 0.35em; }
+pre { border-radius: 0.6rem; border: 1px solid rgba(169,201,184,0.6); }
+table { border-radius: 0.6rem; overflow: hidden; }
+.table > thead { background: $forest; color: #fff; }
+
+// ---------- Buttons ----------
+.btn-primary, button.btn {
+  background-color: $teal; border-color: $teal; border-radius: 0.5rem;
+  &:hover { background-color: darken($teal, 8%); border-color: darken($teal, 8%); }
+}
+
+// ---------- Sidebar TOC (Explore page) ----------
+#TOC, nav#TOC, .sidebar nav[role=doc-toc] { font-size: 0.9rem; }
+#TOC .nav-link, nav[role=doc-toc] a { color: $slate; }
+#TOC .nav-link.active, nav[role=doc-toc] a.active {
+  color: $teal; font-weight: 600; border-left-color: $terracotta !important;
+}
+#quarto-margin-sidebar h2 { border: 0; &::after { display: none; } font-size: 0.8rem; text-transform: uppercase; letter-spacing: .08em; color: $teal; margin-top: 0; }
+
+// ---------- Footer ----------
+.nav-footer {
+  background-color: $forest; color: $sage; border-top: 3px solid $sand;
+  padding: 1.1rem 0; font-size: 0.88rem;
+  a { color: $sand; }
+}
+.nav-footer .nav-footer-center, .nav-footer .nav-footer-left, .nav-footer .nav-footer-right { color: $sage; }
+
+// ---------- Responsive ----------
+@media (max-width: 767.98px) {
+  h2 { font-size: 1.4rem; margin-top: 2.4rem; }
+  #title-block-header.quarto-title-block { padding: 1rem 0;
+    h1.title { font-size: 1.8rem; } .subtitle { font-size: 1rem; } }
+  iframe { border-radius: 0.6rem; }
+  .navbar .navbar-nav .nav-item + .nav-item { margin-left: 0; }
 }

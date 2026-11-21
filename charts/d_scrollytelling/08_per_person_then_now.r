@@ -21,7 +21,7 @@ BIRTH <- if (length(args)) as.integer(args[1]) else 1988L
 
 font      <- "sans"
 hat       <- as.vector(ltc("hat"))
-nowColor  <- hat[6]       # blue, as CO2 elsewhere in the scrolly charts
+nowColor  <- "#117B73"       # blue, as CO2 elsewhere in the scrolly charts
 thenColor <- "grey60"     # the earlier year is context
 N_TOP     <- 15
 caption   <- "Data: PRIMAP-hist v2.2, Global Carbon Budget, OWID, World Bank. Excludes land use. Population before 1950 is incomplete."
@@ -84,7 +84,7 @@ payload <- list(
 )
 
 e <- tibble(x = 0, y = 0) |> e_charts(x) |> e_line(y)   # placeholder, the real chart is built by the script below
-e$x$opts$graphic <- list(type = "text", left = 0, bottom = 6, style = list(text = caption, fill = "#888", fontSize = 11))
+e$x$opts$graphic <- list(type = "text", left = 0, bottom = 6, style = list(text = caption, fill = "#5D7571", fontSize = 11))
 
 e <- e |> htmlwidgets::onRender("
   function(el, x, d) {
@@ -95,9 +95,9 @@ e <- e |> htmlwidgets::onRender("
     var state = {birth: d.birth};
     if (!embed) {
       var css = document.createElement('style');
-      css.textContent = '.c8 { font-family: Inter, system-ui, sans-serif; position: absolute; top: 8px; left: 0; z-index: 5; color: #1e3a5f; } ' +
+      css.textContent = '.c8 { font-family: Inter, system-ui, sans-serif; position: absolute; top: 8px; left: 0; z-index: 5; color: #173E38; } ' +
         '.c8 label { display: block; font-size: 12px; font-weight: 600; margin: 0 0 3px 2px; } ' +
-        '.c8 input { font: 600 14px Inter, system-ui, sans-serif; width: 88px; height: 34px; padding: 0 10px; color: #1e3a5f; background: #f2f7fd; border: 2px solid #2b6cb0; border-radius: 10px; }';
+        '.c8 input { font: 600 14px Inter, system-ui, sans-serif; width: 88px; height: 34px; padding: 0 10px; color: #173E38; background: #F7F8F3; border: 2px solid #117B73; border-radius: 10px; }';
       document.head.appendChild(css);
       var box = document.createElement('div'); box.className = 'c8';
       var lab = document.createElement('label'); lab.textContent = 'Birth year';
@@ -130,14 +130,14 @@ e <- e |> htmlwidgets::onRender("
         grid: {top: top + 100, right: 40, bottom: 70, left: 130},
         // Legend for the two dots, under the title. Not clickable: hiding one dot would leave the lines hanging.
         legend: {show: true, top: top + 52, left: 0, selectedMode: false, itemWidth: 16, itemHeight: 16, itemGap: 24,
-                 textStyle: {fontSize: 14, fontWeight: 'bold', color: '#333'},
+                 textStyle: {fontSize: 14, fontWeight: 'bold', color: '#173E38'},
                  data: [{name: 'Your birth year (' + state.birth + ')', icon: 'circle'}, {name: String(d.last), icon: 'circle'}]},
         tooltip: {trigger: 'item', formatter: function(p) {
           var r = rows[p.value[1]];
           return '<b>' + r.name + '</b><br>' + state.birth + ': ' + r.then.toFixed(1) + ' t per person<br>' + d.last + ': ' + r.now.toFixed(1) +
                  ' t per person<br>Change: ' + (r.now >= r.then ? '+' : '') + (r.now - r.then).toFixed(1) + ' t';
         }},
-        graphic: {type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11, fontFamily: 'Inter, system-ui, sans-serif'}},
+        graphic: {type: 'text', left: 0, bottom: 6, style: {text: d.caption, fill: '#5D7571', fontSize: 11, fontFamily: 'Inter, system-ui, sans-serif'}},
         xAxis: {type: 'value', min: 0, name: 'Tonnes of CO2 per person per year', nameLocation: 'middle', nameGap: 28},
         yAxis: {type: 'category', inverse: true, data: rows.map(function(r) { return r.name; }), axisTick: {show: false},
                 axisLabel: {fontSize: 12, formatter: function(v) { return v === 'World' ? '{b|World}' : v; }, rich: {b: {fontWeight: 'bold', fontSize: 12}}}},
@@ -146,7 +146,7 @@ e <- e |> htmlwidgets::onRender("
           {type: 'custom', silent: true, data: rows.map(function(r, i) { return [r.then, r.now, i]; }),
            renderItem: function(params, api) {
              var a = api.coord([api.value(0), api.value(2)]), b = api.coord([api.value(1), api.value(2)]);
-             return {type: 'line', shape: {x1: a[0], y1: a[1], x2: b[0], y2: b[1]}, style: {stroke: '#cccccc', lineWidth: 4}};
+             return {type: 'line', shape: {x1: a[0], y1: a[1], x2: b[0], y2: b[1]}, style: {stroke: '#C9DACF', lineWidth: 4}};
            }, encode: {x: [0, 1], y: 2}, z: 1},
           {name: 'Your birth year (' + state.birth + ')', type: 'scatter', symbolSize: 13, itemStyle: {color: d.colors.then},
            data: rows.map(function(r, i) { return [r.then, i]; }), z: 2},

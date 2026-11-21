@@ -28,7 +28,7 @@ MIN_POP <- 1e6   # per person ranking: minimum population in the last year
 
 font    <- "sans"
 hat     <- as.vector(ltc("hat"))
-palette <- c(hat[c(6, 3, 9, 1, 4, 7, 2, 5, 8)], "#7a7a7a")   # blue, red, green, yellow, ... one color per line
+palette <- c("#117B73", "#CF7453", "#E8B86A", "#173E38", "#7FB59A", "#8F3F26", "#5CB8AE", "#A8761A", "#6B8A84", "#8A9A96")   # blue, red, green, yellow, ... one color per line
 caption <- "Data: PRIMAP-hist v2.2, Global Carbon Budget, EDGAR. Excludes land use. CH4 at GWP100 = 27.9. Countries missing a value count as zero."
 
 groups <- read_csv("data/country_groups.csv", show_col_types = FALSE)
@@ -113,7 +113,7 @@ country_js <- d |>
   pmap(\(country, CO2, CH4, CO2pc, CH4pc, pop) list(name = country, CO2 = CO2, CH4 = CH4, CO2pc = CO2pc, CH4pc = CH4pc, ok = !is.na(pop) && pop >= MIN_POP))
 
 e <- tibble(x = 0, y = 0) |> e_charts(x) |> e_line(y)   # placeholder, the real chart is built by the script below
-e$x$opts$graphic <- list(type = "text", left = 0, bottom = 6, style = list(text = caption, fill = "#888", fontSize = 11))
+e$x$opts$graphic <- list(type = "text", left = 0, bottom = 6, style = list(text = caption, fill = "#5D7571", fontSize = 11))
 
 e <- e |> htmlwidgets::onRender("
   function(el, x, d) {
@@ -124,30 +124,30 @@ e <- e |> htmlwidgets::onRender("
     var SIDE = 230;   // sidebar width in px
     var css = document.createElement('style');
     css.textContent = `
-      .c3 { font-family: Inter, system-ui, sans-serif; color: #1e3a5f; }
+      .c3 { font-family: Inter, system-ui, sans-serif; color: #173E38; }
       .c3-top { position: absolute; top: 8px; left: 0; right: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
       .c3 label.f { display: block; font-size: 12px; font-weight: 600; margin: 0 0 3px 2px; }
-      .c3 input[type=number], .c3 select, .c3 input[type=search] { font: 600 14px Inter, system-ui, sans-serif; height: 34px; padding: 0 10px; color: #1e3a5f;
-                              background: #f2f7fd; border: 2px solid #2b6cb0; border-radius: 10px; }
+      .c3 input[type=number], .c3 select, .c3 input[type=search] { font: 600 14px Inter, system-ui, sans-serif; height: 34px; padding: 0 10px; color: #173E38;
+                              background: #F7F8F3; border: 2px solid #117B73; border-radius: 10px; }
       .c3 input[type=number] { width: 88px; }
-      .c3 button { font: 700 13px Inter, system-ui, sans-serif; height: 34px; padding: 0 14px; color: #fff; background: #2b6cb0; border: 0; border-radius: 10px; cursor: pointer; }
-      .c3 button:hover { background: #1e4e8c; }
+      .c3 button { font: 700 13px Inter, system-ui, sans-serif; height: 34px; padding: 0 14px; color: #fff; background: #117B73; border: 0; border-radius: 10px; cursor: pointer; }
+      .c3 button:hover { background: #0D5F59; }
       .c3-side { position: absolute; z-index: 5; left: 0; top: 66px; bottom: 28px; width: ${SIDE}px; display: flex; flex-direction: column;
-                 border: 1px solid #cfd8e3; border-radius: 12px; background: #f8fafc; overflow: hidden; }
-      .c3-side .head { padding: 8px; border-bottom: 1px solid #e1e8f0; }
+                 border: 1px solid #C9DACF; border-radius: 12px; background: #F7F8F3; overflow: hidden; }
+      .c3-side .head { padding: 8px; border-bottom: 1px solid #DCE8E0; }
       .c3-side input[type=search] { width: 100%; box-sizing: border-box; height: 30px; font-size: 13px; }
       .c3-side .tools { display: flex; gap: 6px; margin-top: 6px; }
       .c3-side .tools button { height: 26px; padding: 0 10px; font-size: 12px; }
-      .c3-side .count { font-size: 12px; margin-top: 6px; color: #4a6283; }
-      .c3-side .note { font-size: 11px; margin-top: 2px; color: #7b8da6; }
+      .c3-side .count { font-size: 12px; margin-top: 6px; color: #48625E; }
+      .c3-side .note { font-size: 11px; margin-top: 2px; color: #6B837E; }
       .c3-side .list { overflow-y: auto; flex: 1; padding: 2px 0; }
       .c3-side .item { display: flex; align-items: center; gap: 8px; padding: 3px 10px; font-size: 13px; cursor: pointer; user-select: none; }
-      .c3-side .item:hover { background: #e9f0f8; }
-      .c3-side .item.on { font-weight: 700; background: #eaf2fb; }
-      .c3-side .rk { width: 24px; text-align: right; color: #7b8da6; font-size: 11px; flex: none; }
+      .c3-side .item:hover { background: #E4EFE8; }
+      .c3-side .item.on { font-weight: 700; background: #DDEBE3; }
+      .c3-side .rk { width: 24px; text-align: right; color: #6B837E; font-size: 11px; flex: none; }
       .c3-side .nm { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-      .c3-side .vl { color: #7b8da6; font-size: 11px; flex: none; }
-      .c3-side .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; border: 1px solid #9fb2c8; background: #fff; }
+      .c3-side .vl { color: #6B837E; font-size: 11px; flex: none; }
+      .c3-side .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; border: 1px solid #A9C9B8; background: #fff; }
     `;
     document.head.appendChild(css);
 
@@ -281,7 +281,7 @@ e <- e |> htmlwidgets::onRender("
         grid: {top: 140, right: 150, bottom: 60, left: SIDE + 80},
         tooltip: {trigger: 'axis', valueFormatter: function(v) { return v.toLocaleString() + (per ? ' t per person' : ' Gt'); }},
         legend: {show: false},
-        graphic: {type: 'text', left: SIDE + 20, bottom: 6, style: {text: d.caption, fill: '#888', fontSize: 11, fontFamily: 'Inter, system-ui, sans-serif'}},
+        graphic: {type: 'text', left: SIDE + 20, bottom: 6, style: {text: d.caption, fill: '#5D7571', fontSize: 11, fontFamily: 'Inter, system-ui, sans-serif'}},
         xAxis: {type: 'value', min: state.birth, max: yr1, splitLine: {show: false}, axisLabel: {formatter: function(v) { return String(v); }, hideOverlap: true}},
         yAxis: {type: 'value', min: 0, name: (per ? 'Tonnes per person ' : 'Gt ') + (state.gas === 'CO2' ? 'CO2' : 'CO2e') + (state.mode === 'year' ? ' per year' : ' (running total)'), nameLocation: 'middle', nameGap: 52},
         series: state.countries.map(function(n) {
