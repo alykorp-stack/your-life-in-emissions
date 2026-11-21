@@ -16,6 +16,32 @@ library(cowplot)
 library(sf)
 library(plotly)
 library(htmlwidgets)
+library(ltc)
+
+# Map colors: a two-part scale from the ltc "alger" and "dora" palettes.
+#   Below the break (most countries): greens, light to dark. A pale tint of alger's sage, alger's sage, dora's
+#     teal-grey, alger's dark teal, and a deeper shade of that dark teal. The tint and shade stretch the ramp
+#     (lightness 89 to 18 instead of 78 to 35) so differences between countries are easier to see.
+#   Above the break (the biggest emitters): reds, light to dark. Dora's orange, alger's terracotta, dora's crimson,
+#     dora's plum.
+# The break is set per metric in `metrics` below (3,000 Mt for annual emissions); the color jumps from dark green
+# to orange there. Used by the static map, the plotly map and the "Find similar emitters" bar, so all three match.
+dora   <- as.character(ltc("dora"))
+alger  <- as.character(ltc("alger"))
+mix    <- function(col, with, amount) colorRampPalette(c(col, with))(101)[round(amount * 100) + 1]
+greens <- c(mix(alger[3], "white", 0.5), alger[3], dora[1], alger[2], mix(alger[2], "black", 0.45))
+warms  <- c(dora[4], alger[5], dora[3], dora[2])
+# Yellow "Find similar emitters" highlight: stands out against both the greens and the oranges.
+highlight_color <- "#efb306"
+
+# Color stops for a scale from 0 to zmax with the break at brk. Positions are on the sqrt scale the map uses,
+# so they match where values sit on the color bar. The reds start a hair after the greens end, which makes a sharp
+# step at the break (ggplot drops stops at exactly the same position, so they cannot be equal).
+color_stops <- function(brk, zmax) {
+  p <- sqrt(brk / zmax)
+  list(pos = c(seq(0, p, length.out = length(greens)), seq(p + 1e-6, 1, length.out = length(warms))),
+       col = c(greens, warms))
+}
 
 # Paths are relative to the project root, so fail early with a clear message if run from somewhere else.
 if (!file.exists("data/emissions_country_year.csv")) {
@@ -62,16 +88,21 @@ if (nrow(unmatched) > 0) message("  largest: ", unmatched$country[1], ", ", roun
 stopifnot(nrow(map_data) == nrow(world))
 message("Map shapes with no emissions data (drawn grey): ", sum(is.na(map_data$co2_mt)))
 
+# Same color range and break as the interactive map's annual view (see payload$zmax below).
+static_zmax  <- signif(max(countries$co2_mt, na.rm = TRUE), 3)
+static_stops <- color_stops(3000, static_zmax)
+
 p_map <- ggplot(map_data) +
   geom_sf(aes(fill = co2_mt), color = "white", linewidth = 0.1) +
-  # sqrt scale so mid-sized emitters stay visible next to China and the US
-  scale_fill_gradient(
-    low = "#e8f1f4", high = "#0b3c4f", trans = "sqrt", na.value = "#d9d9d9",
-    breaks = c(100, 1000, 5000, 10000), labels = scales::comma,
+  # sqrt scale so mid-sized emitters stay visible next to China and the US; green below 3,000 Mt, orange above
+  scale_fill_gradientn(
+    colors = static_stops$col, values = static_stops$pos, limits = c(0, static_zmax), oob = scales::squish,
+    trans = "sqrt", na.value = "#d9d9d9",
+    breaks = c(100, 1000, 3000, 10000), labels = scales::comma,
     name = "Mt CO\u2082",
     guide = guide_colorbar(barwidth = 10, barheight = 0.5, title.position = "top")
   ) +
-  coord_sf(crs = "+proj=robin", expand = FALSE) +
+  coord_sf(crs = "+proj=eqearth", expand = FALSE) +   # Equal Earth: true country areas
   labs(
     title    = paste0("Annual CO\u2082 emissions by country, ", default_year),
     subtitle = "Million tonnes of CO\u2082 per year. Grey = no data.",
@@ -96,18 +127,20 @@ ggsave("charts/b_countries_now/02_choropleth.png", p_map, width = 8, height = 5,
 # Metrics: column name, label, unit shown on hover.
 # cap_p: the colour scale tops out at this quantile of the values. Per-capita has a few extreme outliers
 # (up to 515 t per person), so it is capped at the 99.5th percentile; those countries get the darkest colour.
+# brk: where the color switches from the green ramp to orange (the biggest emitters are above it).
 metrics <- tribble(
-  ~key,            ~label,                               ~unit,                   ~cap_p,
-  "co2_mt",        "Annual emissions",                   "Mt CO\u2082",           1,
-  "co2_cum",       "Cumulative emissions (1850\u2013)", "Mt CO\u2082",           1,
-  "co2_per_capita","Per-capita emissions",               "t CO\u2082 per person", 0.995
+  ~key,            ~label,                               ~unit,                   ~cap_p, ~brk,
+  "co2_mt",        "Annual emissions",                   "Mt CO\u2082",           1,      3000,
+  "co2_cum",       "Cumulative emissions (1850\u2013)", "Mt CO\u2082",           1,      100000,
+  "co2_per_capita","Per-capita emissions",               "t CO\u2082 per person", 0.995,  8
 )
-# Legend tick values per metric (the colour scale is a sqrt scale, like the static map).
+# Legend tick values per metric (the colour scale is a sqrt scale, like the static map). Each includes the break.
 tick_values <- list(
-  co2_mt         = c(0, 100, 1000, 5000, 10000),
+  co2_mt         = c(0, 100, 1000, 3000, 10000),
   co2_cum        = c(0, 10000, 50000, 100000, 250000),
-  co2_per_capita = c(0, 1, 5, 10, 20)
+  co2_per_capita = c(0, 1, 5, 8, 20)
 )
+stopifnot(map2_lgl(tick_values, metrics$brk, \(v, b) b %in% v))
 
 years     <- sort(unique(countries$year))
 iso_codes <- sort(unique(countries$iso_code))
@@ -124,6 +157,11 @@ make_matrix <- function(col) {
     signif(4) |>
     (\(m) lapply(seq_len(nrow(m)), \(i) m[i, ]))()
 }
+# Colour range per metric is fixed across all years, so the slider is comparable over time.
+zmax  <- map2_dbl(metrics$key, metrics$cap_p, \(k, p) signif(quantile(countries[[k]], p, na.rm = TRUE), 3))
+stops <- map2(metrics$brk, zmax, color_stops)
+plotly_scale <- function(s) map2(s$pos, s$col, \(p, col) list(p, col))
+
 payload <- list(
   years     = years,
   iso       = iso_codes,
@@ -132,12 +170,13 @@ payload <- list(
   labels    = metrics$label,
   units     = metrics$unit,
   defaultYear = default_year,
-  # Colour range per metric is fixed across all years, so the slider is comparable over time.
-  zmax      = map2_dbl(metrics$key, metrics$cap_p, \(k, p) signif(quantile(countries[[k]], p, na.rm = TRUE), 3)),
+  zmax      = zmax,
   capped    = metrics$cap_p < 1,
   tickVals  = unname(tick_values),
   tickText  = map(tick_values, \(v) format(v, big.mark = ",", scientific = FALSE, trim = TRUE)) |> unname(),
-  values    = setNames(map(metrics$key, make_matrix), metrics$key)
+  values    = setNames(map(metrics$key, make_matrix), metrics$key),
+  stops     = stops,   # per metric: color stops for the map and the color bar on the left
+  highlight = highlight_color
 )
 
 i0 <- which(years == default_year)
@@ -146,22 +185,29 @@ p_int <- plot_geo() |>
     type = "choropleth", locations = iso_codes, z = sqrt(unlist(payload$values$co2_mt[[i0]])),
     text = names_by_iso, hoverinfo = "text",
     zmin = 0, zmax = sqrt(payload$zmax[1]), autocolorscale = FALSE,
-    colorscale = list(c(0, "#e8f1f4"), c(0.25, "#8fc1d1"), c(0.6, "#1f6f8b"), c(1, "#0b3c4f")),
+    colorscale = plotly_scale(stops[[1]]),
     marker = list(line = list(color = "white", width = 0.3)),
-    colorbar = list(title = "Mt CO\u2082", len = 0.6, thickness = 12, tickmode = "array",
-                    tickvals = sqrt(tick_values$co2_mt), ticktext = payload$tickText[[1]])
+    showscale = FALSE   # the legend is our own color bar on the left (see "Similar emitters" in onRender)
+  ) |>
+  # Yellow layer on top: the "Similar emitters" bar fills it with the countries near the value under the pointer.
+  # hoverinfo "skip" lets the mouse reach the country tooltips underneath.
+  add_trace(
+    type = "choropleth", locations = list(), z = list(), hoverinfo = "skip", showscale = FALSE,
+    zmin = 0, zmax = 1, colorscale = list(c(0, highlight_color), c(1, highlight_color)),
+    marker = list(line = list(color = "#8a6400", width = 0.6))
   ) |>
   layout(
-    # Title is centred over the map (xref "paper" = the map area). The JavaScript below rewrites its text.
-    # The title sits just above the map (yref "paper"). The big top margin leaves room for the controls in the
-    # top-right corner; the bottom margin leaves room for the year slider under the map.
-    title = list(text = "<b>CO\u2082 emissions by country</b>", x = 0.5, y = 1, xref = "paper", yref = "paper",
-                 xanchor = "center", yanchor = "bottom", font = list(size = 22, color = "#1f2a37")),
-    margin = list(t = 150, b = 110, l = 10, r = 10),
+    # Title is centred on the whole chart (xref "container"), not just the map area. The JavaScript below rewrites its text.
+    # The title sits 16 px from the top of the chart (yref "container"); the download button is level with it on the
+    # right (.ctl-top in onRender). The top margin leaves room for the title only, so the map starts just below it.
+    # The bottom margin is for the year slider, the left margin for the control column.
+    title = list(text = "<b>CO\u2082 emissions by country</b>", x = 0.5, y = 1, xref = "container", yref = "container",
+                 xanchor = "center", yanchor = "top", pad = list(t = 16), font = list(size = 22, color = "#1f2a37")),
+    margin = list(t = 56, b = 95, l = 212, r = 10),
     geo = list(
       lataxis = list(range = c(-58, 85)),   # crop Antarctica, as in the static map
       resolution = 50,   # 50m shapes so small states are drawn (the default 110m has none of them)
-      projection = list(type = "natural earth"), showframe = FALSE, showcoastlines = FALSE,
+      projection = list(type = "equal earth"), showframe = FALSE, showcoastlines = FALSE,
       showland = TRUE, landcolor = "#d9d9d9",      # countries without data stay neutral grey
       showcountries = FALSE, bgcolor = "white"
     ),
@@ -188,28 +234,34 @@ p_int <- plot_geo() |>
       var css = document.createElement('style');
       css.textContent = `
         .ctl { font-family: Inter, system-ui, sans-serif; color: #1e3a5f; }
-        .ctl-top { position: absolute; top: 12px; right: 20px; z-index: 5; display: flex; flex-wrap: wrap;
-                   justify-content: flex-end; align-items: flex-end; gap: 10px; max-width: calc(100% - 40px); }
+        /* Download button: small, on the right, level with the title */
+        .ctl-top { position: absolute; top: 18px; right: 16px; z-index: 5; display: flex; flex-direction: column; align-items: flex-end; }
+        .ctl.ctl-top button { height: 26px; min-width: 0; padding: 0 10px; font-size: 12px; box-shadow: none; }
         .ctl-label { display: block; font-size: 13px; font-weight: 600; margin: 0 0 5px 4px; }
         .sel-wrap { position: relative; }
-        .sel-wrap::after { content: '\u25BE'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+        .sel-wrap::after { content: '\\u25BE'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
                            color: #2b6cb0; font-size: 18px; pointer-events: none; }
-        .ctl select { appearance: none; -webkit-appearance: none; font: 600 16px Inter, system-ui, sans-serif; color: #1e3a5f;
-                      padding: 10px 40px 10px 16px; min-width: 250px; height: 46px; background: #f2f7fd;
-                      border: 2px solid #2b6cb0; border-radius: 14px; box-shadow: 0 2px 6px rgba(43, 108, 176, 0.18);
-                      cursor: pointer; transition: box-shadow .15s, background .15s; }
-        .ctl select:hover { background: #e6f0fb; box-shadow: 0 3px 10px rgba(43, 108, 176, 0.3); }
+        /* White controls with a thin blue border */
+        .ctl select { appearance: none; -webkit-appearance: none; font: 600 15px Inter, system-ui, sans-serif; color: #1e3a5f;
+                      padding: 8px 36px 8px 12px; width: 100%; height: 42px; background: #fff;
+                      border: 1px solid #2b6cb0; border-radius: 4px; cursor: pointer; transition: background .15s; }
+        .ctl select:hover { background: #f2f7fd; }
         .ctl select:focus-visible, .ctl button:focus-visible, .ctl input:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
-        .ctl button { font: 700 15px Inter, system-ui, sans-serif; height: 46px; min-width: 46px; padding: 0 16px; color: #fff;
-                      background: #2b6cb0; border: 0; border-radius: 12px; cursor: pointer;
-                      box-shadow: 0 2px 6px rgba(43, 108, 176, 0.35); transition: background .15s, transform .05s; }
-        .ctl button:hover { background: #1e4e8c; }
+        .ctl button { font: 700 15px Inter, system-ui, sans-serif; height: 46px; min-width: 46px; padding: 0 16px; color: #2b6cb0;
+                      background: #fff; border: 1px solid #2b6cb0; border-radius: 4px; cursor: pointer;
+                      box-shadow: 0 1px 3px rgba(43, 108, 176, 0.15); transition: background .15s, transform .05s; }
+        .ctl button:hover { background: #f2f7fd; }
         .ctl button:active { transform: translateY(1px); }
-        .ctl .zoom { font-size: 24px; line-height: 1; padding: 0; width: 46px; }
-        .ctl-bottom { position: absolute; left: 40px; right: 40px; bottom: 38px; z-index: 5; display: flex;
+        /* Zoom buttons: 32 px, about 30% smaller than the other buttons (46 px) */
+        .ctl .zoom { font-size: 18px; line-height: 1; padding: 0; width: 32px; height: 32px; min-width: 32px; border-radius: 4px; }
+        .zoom-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; justify-content: flex-end; }
+        .zoom-row .ctl-label { margin: 0 4px 0 0; }
+        /* Year slider starts at the map edge (plotly margin l 212), so the left control column can run full height */
+        .ctl-bottom { position: absolute; left: 212px; right: 24px; bottom: 24px; z-index: 5; display: flex;
                       align-items: center; gap: 14px; }
-        .yr { min-width: 112px; text-align: center; font-size: 20px; font-weight: 700; color: #fff; background: #2b6cb0;
-              border-radius: 12px; padding: 7px 12px; box-shadow: 0 2px 6px rgba(43, 108, 176, 0.35); }
+        .ctl .play { min-width: 112px; }   /* same width for Play and Pause, so the slider does not jump */
+        .yr { min-width: 80px; text-align: center; font-size: 20px; font-weight: 700; color: #fff; background: #2b6cb0;
+              border-radius: 4px; padding: 7px 12px; box-shadow: 0 2px 6px rgba(43, 108, 176, 0.35); }
         .ends { font-size: 13px; font-weight: 600; color: #5b7390; }
         .ctl input[type=range] { -webkit-appearance: none; appearance: none; flex: 1; height: 10px; border-radius: 6px;
                                  background: #cbd5e1; cursor: pointer; margin: 0; }
@@ -217,9 +269,25 @@ p_int <- plot_geo() |>
                                  background: #fff; border: 5px solid #2b6cb0; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); }
         .ctl input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border-radius: 50%; background: #fff;
                                  border: 5px solid #2b6cb0; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); }
+        /* Left column: metric dropdown, the Find similar emitters bar, zoom buttons */
+        .sim { position: absolute; left: 16px; top: 16px; width: 185px; z-index: 5; }
+        .sim-title { font-size: 14px; font-weight: 700; margin: 18px 0 4px; }
+        .sim-help { font-size: 12px; line-height: 1.35; color: #44546a; margin: 0 0 10px; }
+        .sim-unit { font-size: 12px; font-weight: 600; margin-bottom: 6px; }
+        .sim-wrap { display: flex; height: 170px; }
+        .sim-bar { position: relative; width: 18px; height: 100%; border-radius: 4px; cursor: ns-resize; touch-action: none; }
+        .sim-bar:focus-visible { outline: 3px solid #93c5fd; outline-offset: 2px; }
+        .sim-handle { display: none; position: absolute; left: -7px; width: 32px; height: 0; border-top: 3px solid var(--hl);
+                      transform: translateY(1.5px); pointer-events: none; }
+        .sim-handle::before { content: ''; position: absolute; left: -9px; top: -9px; border: 7px solid transparent;
+                              border-left: 9px solid var(--hl); }
+        .sim-ticks { position: relative; flex: 1; margin-left: 8px; font-size: 11px; color: #44546a; }
+        .sim-tick { position: absolute; left: 0; transform: translateY(50%); white-space: nowrap; }
+        .sim-out { font-size: 12px; line-height: 1.35; margin-top: 10px; min-height: 3em; }
       `;
       document.head.appendChild(css);
       el.style.position = 'relative';
+      el.style.setProperty('--hl', d.highlight);   // highlight color, used by the marker on the color bar
 
       function make(tag, cls, text) {
         var n = document.createElement(tag);
@@ -228,7 +296,7 @@ p_int <- plot_geo() |>
         return n;
       }
 
-      // ---- Top right: metric dropdown, zoom buttons, download button ----
+      // ---- Controls: the dropdown and zoom buttons go in the left column (built below); download stays top right ----
       var top = make('div', 'ctl ctl-top');
       var selBox = make('div');
       var selLabel = make('label', 'ctl-label', 'Select what you want to view:');
@@ -237,14 +305,16 @@ p_int <- plot_geo() |>
       selLabel.htmlFor = sel.id = 'metric-select';
       d.labels.forEach(function(l, i) { var o = document.createElement('option'); o.value = i; o.text = l; sel.appendChild(o); });
       wrap.appendChild(sel); selBox.appendChild(selLabel); selBox.appendChild(wrap);
-      var zoomOut = make('button', 'zoom', '\u2212'); zoomOut.title = zoomOut.ariaLabel = 'Zoom out';
+      var zoomOut = make('button', 'zoom', '\\u2212'); zoomOut.title = zoomOut.ariaLabel = 'Zoom out';
       var zoomIn  = make('button', 'zoom', '+');        zoomIn.title  = zoomIn.ariaLabel  = 'Zoom in';
-      var dl = make('button', '', '\u2193  Download PNG'); dl.title = 'Download the map as a PNG image';
-      [selBox, zoomOut, zoomIn, dl].forEach(function(n) { top.appendChild(n); });
+      var dl = make('button', '', '\\u2193  Download PNG'); dl.title = 'Download the map as a PNG image';
+      top.appendChild(dl);
       el.appendChild(top);
 
-      // ---- Bottom: year slider under the map ----
+      // ---- Bottom: play button and year slider under the map ----
       var bottom = make('div', 'ctl ctl-bottom');
+      var play = make('button', 'play', '\\u25B6 Play'); play.setAttribute('aria-label', 'Play through the years');
+      bottom.appendChild(play);
       var lab = make('div', 'yr');
       var rng = make('input');
       rng.type = 'range'; rng.min = 0; rng.max = d.years.length - 1; rng.step = 1;
@@ -269,17 +339,122 @@ p_int <- plot_geo() |>
           txt.push('<b>' + d.names[i] + '</b><br>' + year + '<br>' +
                    (ok ? fmt(v, m) + ' ' + d.units[m] : 'No data'));
         }
-        lab.textContent = 'Year: ' + year;
+        lab.textContent = year;
         var pct = yi / (d.years.length - 1) * 100;   // filled part of the slider track
         rng.style.background = 'linear-gradient(to right, #2b6cb0 ' + pct + '%, #cbd5e1 ' + pct + '%)';
         // Per-capita is capped (see cap_p in R): values above zmax get the darkest colour, so say so in the legend title.
         var cbTitle = d.units[m] + (d.capped[m] ? '<br>(scale capped at ' + d.zmax[m] + ')' : '');
-        Plotly.restyle(el, {z: [z], text: [txt], zmax: [Math.sqrt(d.zmax[m])], 'colorbar.title.text': cbTitle,
-                            'colorbar.tickvals': [d.tickVals[m].map(Math.sqrt)], 'colorbar.ticktext': [d.tickText[m]]}, [0]);
+        // Colors for this metric: green ramp below its break, orange above (stops built in R by color_stops()).
+        var cs = d.stops[m].pos.map(function(p, i) { return [p, d.stops[m].col[i]]; });
+        Plotly.restyle(el, {z: [z], text: [txt], zmax: [Math.sqrt(d.zmax[m])], colorscale: [cs]}, [0]);
         Plotly.relayout(el, {'title.text': '<b>' + d.labels[m] + ' by country, ' + year + '</b>'});
+        drawBar(m, cbTitle.replace('<br>', ' '));
+        showSimilar();   // keep the highlight in step when the year or metric changes
       }
+
+      // ---- Left: 'Similar emitters' color bar. Hover or drag along it; countries near that value turn yellow ----
+      var sim = make('div', 'ctl sim');
+      sim.appendChild(selBox);
+      sim.appendChild(make('div', 'sim-title', 'Find similar emitters'));
+      sim.appendChild(make('p', 'sim-help',
+        'This bar is the map legend. Hover over it, drag along it, or use the arrow keys: ' +
+        'countries with about the same emissions as that point light up in yellow.'));
+      var unitLab = make('div', 'sim-unit');
+      var barWrap = make('div', 'sim-wrap'), bar = make('div', 'sim-bar'), ticks = make('div', 'sim-ticks');
+      var handle = make('div', 'sim-handle');
+      bar.appendChild(handle);
+      bar.tabIndex = 0;
+      bar.setAttribute('role', 'slider');
+      bar.setAttribute('aria-label', 'Find countries with similar emissions');
+      barWrap.appendChild(bar); barWrap.appendChild(ticks);
+      var out = make('div', 'sim-out');
+      var zoomRow = make('div', 'zoom-row');
+      [make('span', 'ctl-label', 'Zoom'), zoomOut, zoomIn].forEach(function(n) { zoomRow.appendChild(n); });
+      [unitLab, barWrap, out].forEach(function(n) { sim.appendChild(n); });
+      top.appendChild(zoomRow);   // zoom sits under the download button, top right
+      el.appendChild(sim);
+
+      // Legend ticks for the current metric, placed on the same sqrt scale as the map colors.
+      function drawBar(m, unitText) {
+        unitLab.textContent = unitText;
+        bar.style.background = 'linear-gradient(to top, ' +   // same stops as the map, so the sharp break matches
+          d.stops[m].col.map(function(c, i) { return c + ' ' + (d.stops[m].pos[i] * 100) + '%'; }).join(', ') + ')';
+        ticks.innerHTML = '';
+        var top = Math.sqrt(d.zmax[m]), last = -100;
+        d.tickVals[m].forEach(function(v, i) {
+          var p = Math.sqrt(v) / top * 100;
+          if (p > 100 || p - last < 10) return;   // off the bar, or too close to the label below it
+          last = p;
+          var t = make('div', 'sim-tick', d.tickText[m][i]);
+          t.style.bottom = p + '%';
+          ticks.appendChild(t);
+        });
+      }
+
+      // pos: 0 (bottom of the bar) to 1 (top), or null when nothing is picked.
+      // A country matches when its color is within BAND of the picked point (the same idea as the home-page map).
+      var pos = null, BAND = 0.04;
+      function showSimilar() {
+        if (pos === null) {
+          handle.style.display = 'none';
+          out.textContent = '';
+          Plotly.restyle(el, {locations: [[]], z: [[]]}, [1]);
+          return;
+        }
+        var m = +sel.value, yi = +rng.value, row = d.values[d.metrics[m]][yi], top = Math.sqrt(d.zmax[m]);
+        var picked = Math.pow(pos * top, 2), hits = [];
+        for (var i = 0; i < d.iso.length; i++) {
+          var v = row[i];
+          if (typeof v !== 'number') continue;
+          if (Math.abs(Math.min(Math.sqrt(Math.max(v, 0)) / top, 1) - pos) <= BAND) hits.push(i);
+        }
+        hits.sort(function(a, b) { return row[b] - row[a]; });
+        handle.style.display = 'block';
+        handle.style.bottom = (pos * 100) + '%';
+        bar.setAttribute('aria-valuenow', Math.round(picked));
+        var names = hits.slice(0, 6).map(function(i) { return d.names[i]; }).join(', ');
+        out.innerHTML = '';
+        out.appendChild(make('b', '', 'About ' + fmt(picked, m) + ' ' + d.units[m] + ': '));
+        out.appendChild(document.createTextNode(hits.length === 0 ? 'no countries' :
+          names + (hits.length > 6 ? ' and ' + (hits.length - 6) + ' more' : '')));
+        Plotly.restyle(el, {locations: [hits.map(function(i) { return d.iso[i]; })],
+                            z: [hits.map(function() { return 1; })]}, [1]);
+      }
+      function pick(e) {
+        var r = bar.getBoundingClientRect();
+        pos = Math.min(1, Math.max(0, (r.bottom - e.clientY) / r.height));
+        showSimilar();
+      }
+      var dragging = false;
+      bar.addEventListener('pointerdown', function(e) { dragging = true; bar.setPointerCapture(e.pointerId); pick(e); });
+      bar.addEventListener('pointermove', pick);
+      bar.addEventListener('pointerup', function() { dragging = false; });
+      bar.addEventListener('pointerleave', function() { if (!dragging) { pos = null; showSimilar(); } });
+      bar.addEventListener('keydown', function(e) {
+        var step = {ArrowUp: 0.02, ArrowRight: 0.02, ArrowDown: -0.02, ArrowLeft: -0.02}[e.key];
+        if (step === undefined) return;
+        e.preventDefault();
+        pos = Math.min(1, Math.max(0, (pos === null ? 0.5 : pos) + step));
+        showSimilar();
+      });
+      bar.addEventListener('blur', function() { pos = null; showSimilar(); });
       sel.addEventListener('change', update);
       rng.addEventListener('input', update);
+
+      // ---- Play: steps through the years (same as the home-page map); starts over if already at the end ----
+      var timer = null;
+      function stopPlay() { clearInterval(timer); timer = null; play.textContent = '\\u25B6 Play'; }
+      play.addEventListener('click', function() {
+        if (timer) { stopPlay(); return; }
+        if (+rng.value >= d.years.length - 1) rng.value = 0;
+        play.textContent = '\\u275A\\u275A Pause';
+        timer = setInterval(function() {
+          if (+rng.value >= d.years.length - 1) { stopPlay(); return; }
+          rng.value = +rng.value + 1;
+          update();
+        }, 150);
+      });
+      rng.addEventListener('pointerdown', stopPlay);   // grabbing the slider takes over from Play
 
       // ---- Zoom buttons: change the map scale; update() never touches it, so zoom survives slider and dropdown ----
       var zoom = 1;
