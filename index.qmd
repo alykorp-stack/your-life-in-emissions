@@ -6,6 +6,14 @@ execute:
   warning: false
 ---
 
+## Where emissions come from
+
+*Placeholder: one or two sentences inviting the reader to switch gas, measure and year, or press play.*
+
+::: {.column-screen-right style="padding-right: 2rem;"}
+<iframe src="charts/b_countries_now/02_choropleth.html" title="World map of CO2 emissions by country, 1850-2024" style="width:100%;height:570px;border:0;"></iframe>
+:::
+
 ## Why CO2 and CH4?
 
 *Placeholder: CO2 is most of what we emit by weight, but methane (CH4) punches far above its weight. Switch the chart from "By weight" to "By warming" to see it.*
@@ -22,11 +30,3 @@ execute:
 *Placeholder: short text on warming potential (GWP), how long each gas stays in the air, and the history of each. Note that the site uses the 100-year value (27.9); over 20 years methane is 81.2 times as strong, so the 100-year number understates its short-term effect. Values in `data/gases.csv` (IPCC AR6).*
 
 <iframe src="charts/e_home/02_tonne_for_tonne.html" title="Warming from one tonne of CH4 compared with one tonne of CO2" style="width:100%;height:420px;border:0;"></iframe>
-
-## Where emissions come from
-
-*Placeholder: one or two sentences inviting the reader to switch gas, measure and year, or press play.*
-
-<iframe src="charts/e_home/03_world_map.html" title="World map of CO2 and CH4 emissions by country, 1850-2024" style="width:100%;height:620px;border:0;"></iframe>
-
-

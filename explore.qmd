@@ -17,7 +17,7 @@ emissions <- read_csv("data/emissions_country_year.csv", show_col_types = FALSE)
 
 ## Who emits the most today
 
-::: {.column-screen-right}
+::: {.column-screen-right style="padding-right: 2rem;"}
 <iframe src="charts/b_countries_now/02_choropleth.html" title="World map of CO2 emissions by country, 1850-2024" style="width:100%;height:570px;border:0;"></iframe>
 :::
 
